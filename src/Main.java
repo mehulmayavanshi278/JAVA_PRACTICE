@@ -47,5 +47,11 @@ public class Main {
 //        System.out.println("min is " + min +  "  max is"+ + max);
 
 
+//     ----------------------------------------------------
+//     3 Find the Kth minimum And Kth maximum element in Array
+
+
+
+
     }
 }
