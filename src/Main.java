@@ -47,5 +47,25 @@ public class Main {
 //        System.out.println("min is " + min +  "  max is"+ + max);
 
 
+//     ----------------------------------------------------
+//     3 Find the Kth minimum And Kth maximum element in Array
+
+        int arr[] = new int[6];
+        System.out.println("Enter the array element");
+        for(int i=0;i<6;i++){
+            arr[i] = sc.nextInt();
+        }
+        System.out.println("enter kth max and kth min choice");
+        int max = sc.nextInt();
+        int min = sc.nextInt();
+        Arrays.sort(arr);
+        if(max > 6 || max < 0 || min > 6 || min < 0){
+            System.out.println("Enter Valid Choice");
+        }else{
+         System.out.println("the " + max + "th maximum number is" + arr[6-max]);
+         System.out.println("the " + min + "th minimum number is" + arr[min]);
+        }
+
+
     }
 }
