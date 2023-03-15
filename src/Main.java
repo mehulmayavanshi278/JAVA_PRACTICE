@@ -128,24 +128,40 @@ public class Main {
 
 
 //    6 union and intersect of two sorted arrays
-         System.out.println("Enter the size of arr1");
-         int x = sc.nextInt();
-         System.out.println("Enter the array element:");
-         int[] arr1 = new int[x];
-         for(int i=0;i<x;i++){
-             arr1[i] = sc.nextInt();
-         }
-         System.out.println("Enter the size of arr2");
-         int y = sc.nextInt();
-        System.out.println("Enter the array element:");
-        int[] arr2 = new int[y];
-        for(int i=0;i<y;i++){
-            arr2[i] = sc.nextInt();
-        }
+//         System.out.println("Enter the size of arr1");
+//         int x = sc.nextInt();
+//         System.out.println("Enter the array element:");
+//         int[] arr1 = new int[x];
+//         for(int i=0;i<x;i++){
+//             arr1[i] = sc.nextInt();
+//         }
+//         System.out.println("Enter the size of arr2");
+//         int y = sc.nextInt();
+//        System.out.println("Enter the array element:");
+//        int[] arr2 = new int[y];
+//        for(int i=0;i<y;i++){
+//            arr2[i] = sc.nextInt();
+//        }
 //         for union   1 2 3  5 6
 //                       2 4 5
+//    7 write a programme Cycle rotate an array
+//            int[] arr = new int[5];
+//            System.out.println("Enter the Array element:");
+//            for(int i=0;i<5;i++){
+//                arr[i]=sc.nextInt();
+//            }
+//            int temp = arr[arr.length-1];
+//            for(int i=arr.length-1;i>0;i--){
+//                arr[i] = arr[i-1];
+//            }
+//            arr[0] = temp;
+//            for(int i=0;i<arr.length;i++)
+//            {
+//                System.out.println(arr[i]);
+//            }
 
 
+//      8  write a programme to find duplicate array element:
 
     }
 }
