@@ -162,6 +162,47 @@ public class Main {
 
 
 //      8  write a programme to find duplicate array element:
+//        System.out.println("Enter the size of an array:");
+//        int sizeofArr = sc.nextInt();
+//        int[] a = new int[sizeofArr];
+//        System.out.println("Enter the array element:");
+//        for(int i=0;i<sizeofArr;i++){
+//            a[i] = sc.nextInt();
+//        }
+//        for(int i=0;i<a.length;i++){
+//            for(int j=1;j<a.length;j++){
+//                if(i==j){
+//                    break;
+//                }
+//               else if(a[i] == a[j]){
+//                    System.out.println(a[i] + " is repeated");
+//                }else{
+//
+//                }
+//            }
+//        }
+
+//    16  inversion count
+
+        System.out.println("Enter the array size:");
+        int x = sc.nextInt();
+        System.out.println("Enter the array element:");
+        int[] arr = new int[x];
+        for(int i=0;i<x;i++){
+          arr[i] = sc.nextInt();
+        }
+
+        for(int i=0;i<arr.length;i++){
+            for(int j=i+1;j<arr.length;j++){
+                if(arr[i]>arr[j]){
+                  System.out.println("(" + arr[i] + "," + arr[j] + ")" );
+                }else{
+
+                }
+            }
+        }
+
+
 
     }
 }
