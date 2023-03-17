@@ -182,25 +182,54 @@ public class Main {
 //            }
 //        }
 
+
+//    14 merge interval
+          System.out.println("Enter Any five Interval");
+            int[] a = new int[5];
+            int[] b = new int[5];
+          for(int i=0;i<5;i++){
+             System.out.println("from:");
+             a[i] = sc.nextInt();
+             System.out.println("to:");
+             b[i] = sc.nextInt();
+          }
+          for(int i=0;i<5;i++){
+
+                  System.out.println("[" + a[i] + " " + b[i] + "]");
+
+          }
+          System.out.println("the result is:");
+          for(int i=0;i<a.length;i++){
+              for(int j=0;j<5;j++){
+              if(i==j){
+                  continue;
+              } else if (b[i] > a[j] && b[j] > b[i]) {
+                   System.out.println( "[" + a[i] + " " + b[i] + "] is merged with [" + a[j] + " " + b[j] +  "] => [" + a[i] + " " + b[j] + "]");
+              }else{
+
+              }
+              }
+          }
+
 //    16  inversion count
 
-        System.out.println("Enter the array size:");
-        int x = sc.nextInt();
-        System.out.println("Enter the array element:");
-        int[] arr = new int[x];
-        for(int i=0;i<x;i++){
-          arr[i] = sc.nextInt();
-        }
-
-        for(int i=0;i<arr.length;i++){
-            for(int j=i+1;j<arr.length;j++){
-                if(arr[i]>arr[j]){
-                  System.out.println("(" + arr[i] + "," + arr[j] + ")" );
-                }else{
-
-                }
-            }
-        }
+//        System.out.println("Enter the array size:");
+//        int x = sc.nextInt();
+//        System.out.println("Enter the array element:");
+//        int[] arr = new int[x];
+//        for(int i=0;i<x;i++){
+//          arr[i] = sc.nextInt();
+//        }
+//
+//        for(int i=0;i<arr.length;i++){
+//            for(int j=i+1;j<arr.length;j++){
+//                if(arr[i]>arr[j]){
+//                  System.out.println("(" + arr[i] + "," + arr[j] + ")" );
+//                }else{
+//
+//                }
+//            }
+//        }
 
 
 
