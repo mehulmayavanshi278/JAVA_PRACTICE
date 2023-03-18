@@ -184,32 +184,32 @@ public class Main {
 
 
 //    14 merge interval
-          System.out.println("Enter Any five Interval");
-            int[] a = new int[5];
-            int[] b = new int[5];
-          for(int i=0;i<5;i++){
-             System.out.println("from:");
-             a[i] = sc.nextInt();
-             System.out.println("to:");
-             b[i] = sc.nextInt();
-          }
-          for(int i=0;i<5;i++){
-
-                  System.out.println("[" + a[i] + " " + b[i] + "]");
-
-          }
-          System.out.println("the result is:");
-          for(int i=0;i<a.length;i++){
-              for(int j=0;j<5;j++){
-              if(i==j){
-                  continue;
-              } else if (b[i] > a[j] && b[j] > b[i]) {
-                   System.out.println( "[" + a[i] + " " + b[i] + "] is merged with [" + a[j] + " " + b[j] +  "] => [" + a[i] + " " + b[j] + "]");
-              }else{
-
-              }
-              }
-          }
+//          System.out.println("Enter Any five Interval");
+//            int[] a = new int[5];
+//            int[] b = new int[5];
+//          for(int i=0;i<5;i++){
+//             System.out.println("from:");
+//             a[i] = sc.nextInt();
+//             System.out.println("to:");
+//             b[i] = sc.nextInt();
+//          }
+//          for(int i=0;i<5;i++){
+//
+//                  System.out.println("[" + a[i] + " " + b[i] + "]");
+//
+//          }
+//          System.out.println("the result is:");
+//          for(int i=0;i<a.length;i++){
+//              for(int j=0;j<5;j++){
+//              if(i==j){
+//                  continue;
+//              } else if (b[i] > a[j] && b[j] > b[i]) {
+//                   System.out.println( "[" + a[i] + " " + b[i] + "] is merged with [" + a[j] + " " + b[j] +  "] => [" + a[i] + " " + b[j] + "]");
+//              }else{
+//
+//              }
+//              }
+//          }
 
 //    16  inversion count
 
@@ -230,8 +230,28 @@ public class Main {
 //                }
 //            }
 //        }
-
-
+//   18 find all page on integer array whose sum is equal to the given number:
+        int count = 0;
+          System.out.println("Enter the array size");
+          int x = sc.nextInt();
+          int[] a = new int[x];
+          System.out.println("Enter the Array Element:");
+          for (int i=0;i<x;i++){
+            a[i] = sc.nextInt();
+          }
+          System.out.println("Enter the expected sum you want to find");
+          int eSum = sc.nextInt();
+          for (int i=0;i<a.length;i++){
+              for(int j=i;j<a.length;j++){
+                  if(i==j){
+                      continue;
+                  }else if(a[i] + a[j] == eSum){
+                       count++;
+                       System.out.println(a[i] + "+" + a[j] + " = " + (a[i] + a[j]));
+                  }
+              }
+          }
+          System.out.println("total results " + count);
 
     }
 }
