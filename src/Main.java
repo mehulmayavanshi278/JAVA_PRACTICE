@@ -230,28 +230,56 @@ public class Main {
 //                }
 //            }
 //        }
+
+
+//   17 best time to buy and sell stock
+        System.out.println("Enter the no of days you want to calculate profit on it");
+        int days = sc.nextInt();
+        int[] arr = new int[days];
+        System.out.println("Enter the stock price as day by day");
+        for(int i=0;i<arr.length;i++){
+            arr[i]=sc.nextInt();
+        }
+        int max=0;
+        int buyDay=0,sellDay=0;
+        for(int i=0;i<arr.length;i++){
+            for(int j=0;j<arr.length;j++){
+                if(i==j || i > j){
+                   continue;
+                }else if(arr[i]<arr[j] && (max < (arr[j] - arr[i]))){
+                    max = arr[j] - arr[i];
+                    buyDay=i;
+                    sellDay=j;
+                }else{
+
+                }
+            }
+        }
+        System.out.println("the best day to buy stock is " + (buyDay+1) + " and to sell is " + (sellDay+1) + " profit is " + max);
+
+
 //   18 find all page on integer array whose sum is equal to the given number:
-        int count = 0;
-          System.out.println("Enter the array size");
-          int x = sc.nextInt();
-          int[] a = new int[x];
-          System.out.println("Enter the Array Element:");
-          for (int i=0;i<x;i++){
-            a[i] = sc.nextInt();
-          }
-          System.out.println("Enter the expected sum you want to find");
-          int eSum = sc.nextInt();
-          for (int i=0;i<a.length;i++){
-              for(int j=i;j<a.length;j++){
-                  if(i==j){
-                      continue;
-                  }else if(a[i] + a[j] == eSum){
-                       count++;
-                       System.out.println(a[i] + "+" + a[j] + " = " + (a[i] + a[j]));
-                  }
-              }
-          }
-          System.out.println("total results " + count);
+//        int count = 0;
+//          System.out.println("Enter the array size");
+//          int x = sc.nextInt();
+//          int[] a = new int[x];
+//          System.out.println("Enter the Array Element:");
+//          for (int i=0;i<x;i++){
+//            a[i] = sc.nextInt();
+//          }
+//          System.out.println("Enter the expected sum you want to find");
+//          int eSum = sc.nextInt();
+//          for (int i=0;i<a.length;i++){
+//              for(int j=i;j<a.length;j++){
+//                  if(i==j){
+//                      continue;
+//                  }else if(a[i] + a[j] == eSum){
+//                       count++;
+//                       System.out.println(a[i] + "+" + a[j] + " = " + (a[i] + a[j]));
+//                  }
+//              }
+//          }
+//          System.out.println("total results " + count);
 
     }
 }
