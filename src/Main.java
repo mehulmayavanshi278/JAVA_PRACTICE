@@ -284,32 +284,34 @@ public class Main {
 
 
 //   25 given an array of size n and a number k , find all elements that appear more than n/k times.
-           System.out.println("Enter the size of array");
-           int x = sc.nextInt();
-           System.out.println("Enter the array element:");
-           int[] arr = new int[x];
-           for(int i=0;i<x;i++){
-             arr[i] = sc.nextInt();
-           }
-           System.out.println("Enter the size of k");
-           int k = sc.nextInt();
-           int count=1;
-           for(int i=0;i<arr.length;i++){
-               for(int j=i;j<arr.length;j++){
-                if(i==j){
-                    continue;
-                }else if(arr[i]==arr[j]){
-                    count++;
-                    if(count>(x/k)){
-                        System.out.println(arr[j] + " is repeated  more than " +  count +" times " + (x/k));
-                        count=1;
-                    }
-                }else{
+//           System.out.println("Enter the size of array");
+//           int x = sc.nextInt();
+//           System.out.println("Enter the array element:");
+//           int[] arr = new int[x];
+//           for(int i=0;i<x;i++){
+//             arr[i] = sc.nextInt();
+//           }
+//           System.out.println("Enter the size of k");
+//           int k = sc.nextInt();
+//           int count=1;
+//           for(int i=0;i<arr.length;i++){
+//               for(int j=i;j<arr.length;j++){
+//                if(i==j){
+//                    continue;
+//                }else if(arr[i]==arr[j]){
+//                    count++;
+//                    if(count>(x/k)){
+//                        System.out.println(arr[j] + " is repeated  more than " +  count +" times " + (x/k));
+//                        count=1;
+//                    }
+//                }else{
+//
+//                }
+//               }
+//
+//           }
 
-                }
-               }
-
-           }
+//    26
 
 
     }
