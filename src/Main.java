@@ -311,8 +311,105 @@ public class Main {
 //
 //           }
 
-//    26
+//
+//    exam practice code
+//         *
+//        ***
+//       *****
+//      *******
 
+//        int n=7/2;
+//        int m=7/2;
+//        for(int i=0;i<4;i++){
+//            for(int j=0;j<7;j++){
+//                if(j>=n && j<m+1){
+//                    System.out.print("*");
+//
+//                }else{
+//                    System.out.print(" ");
+//                }
+//
+//            }
+//            System.out.println("");
+//            n--;
+//            m++;
+//        }
+//      *
+//      ***
+//      *****
+//      *******
+//        int x=0;
+//       for(int i=0;i<4;i++){
+//           for(int j=0;j<7;j++){
+//              if(x>=j){
+//                  System.out.print("*");
+//              }else{
+//                  System.out.print(" ");
+//              }
+//           }
+//           x+=2;
+//           System.out.println("");
+//       }
+
+
+
+
+//        multiplication of an metrics array
+        int[][] a1 = new int[3][3];
+        int[][] a2 = new int[3][3];
+        int [][] a3 = new int[3][3];
+        System.out.println("Enter the array 1 element:");
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+            System.out.println("Enter A"+ (i+1) + (j+1) + " ");
+            a1[i][j] = sc.nextInt();
+            }
+        } System.out.println("Enter the array 2 element:");
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+            System.out.println("Enter A"+ (i+1) + (j+1) + " ");
+            a2[i][j] = sc.nextInt();
+            }
+        }
+
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                System.out.print(a1[i][j]+ " ");
+            }
+            System.out.println("");
+        } for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                System.out.print(a2[i][j]+ " ");
+            }
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+        }
+
+//      1 2 3  4 5 6   13 15 11
+//      4 5 6  3 2 1   37 42 35
+//      7 8 9  1 2 1   61 69 59
+
+        int sum = 0;
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                for(int k=0;k<3;k++){
+                    sum = sum + (a1[i][k] * a2[k][j]);
+                }
+                a3[i][j] = sum;
+                sum=0;
+            }
+        }
+
+
+
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                System.out.print(a3[i][j]+ " ");
+            }
+            System.out.println("");
+        }
 
     }
 }
