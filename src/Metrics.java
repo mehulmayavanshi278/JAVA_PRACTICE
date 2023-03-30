@@ -142,7 +142,49 @@ public class Metrics {
 
 //        3   find the median of a metric which in rows wise sorted
 
+                     System.out.println("Enter the rows of metrics");
+             int x = sc.nextInt();
+             System.out.println("Enter the size of column");
+             int y= sc.nextInt();
+             int[][] a = new int[x][y];
+             System.out.println("Enter the row wise sorted element");
+             for(int i=0;i<x;i++){
+                 for(int j=0;j<y;j++){
+                     a[i][j] = sc.nextInt();
+                 }
+             }
 
+
+
+
+
+
+
+//        8   Rotate metrics by 90 degree
+//             System.out.println("Enter the rows of metrics");
+//             int x = sc.nextInt();
+//             System.out.println("Enter the size of column");
+//             int y= sc.nextInt();
+//             int[][] a = new int[x][y];
+//             System.out.println("Enter the array element");
+//             for(int i=0;i<x;i++){
+//                 for(int j=0;j<y;j++){
+//                     a[i][j] = sc.nextInt();
+//                 }
+//             }
+//        for (int i = 0; i < x; i++) {
+//               for (int j = 0; j < y; j++) {
+//                   System.out.print(a[i][j] + " ");
+//               }
+//               System.out.println("");
+//           }
+//        System.out.println("");
+//             for(int i=0;i<y;i++){
+//                 for(int j=x-1;j>=0;j--){
+//                     System.out.print(a[j][i] + " ");
+//                 }
+//                 System.out.println("");
+//             }
 
 
 
