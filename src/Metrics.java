@@ -143,42 +143,42 @@ public class Metrics {
 
 //        3   find the median of a metric which in rows wise sorted
 
-                     System.out.println("Enter the rows of metrics");
-             int x = sc.nextInt();
-             System.out.println("Enter the size of column");
-             int y= sc.nextInt();
-             int[][] a = new int[x][y];
-             System.out.println("Enter the row wise sorted element");
-             for(int i=0;i<x;i++){
-                 for(int j=0;j<y;j++){
-                     a[i][j] = sc.nextInt();
-                 }
-             }
-
-        for (int i = 0; i < x; i++) {
-               for (int j = 0; j < y; j++) {
-                   System.out.print(a[i][j] + " ");
-               }
-               System.out.println("");
-           }
-
-             float b[] = new float[x*y];
-             int i=0 , j=0 , k=0;
-             while(i<=x-1 && j<=y-1){
-               b[k] = a[i][j];
-               j++;
-               k++;
-               if(j==y){
-                   j=0;
-                   i++;
-               }
-             }
-        Arrays.sort(b);
-             if(b.length % 2 == 1){
-                 System.out.println( (int)b[b.length/2]  + "is a median number");
-             }else{
-              System.out.println((b[b.length/2] + b[b.length/2-1] ) /2 + " is a median number");
-             }
+//                     System.out.println("Enter the rows of metrics");
+//             int x = sc.nextInt();
+//             System.out.println("Enter the size of column");
+//             int y= sc.nextInt();
+//             int[][] a = new int[x][y];
+//             System.out.println("Enter the row wise sorted element");
+//             for(int i=0;i<x;i++){
+//                 for(int j=0;j<y;j++){
+//                     a[i][j] = sc.nextInt();
+//                 }
+//             }
+//
+//        for (int i = 0; i < x; i++) {
+//               for (int j = 0; j < y; j++) {
+//                   System.out.print(a[i][j] + " ");
+//               }
+//               System.out.println("");
+//           }
+//
+//             float b[] = new float[x*y];
+//             int i=0 , j=0 , k=0;
+//             while(i<=x-1 && j<=y-1){
+//               b[k] = a[i][j];
+//               j++;
+//               k++;
+//               if(j==y){
+//                   j=0;
+//                   i++;
+//               }
+//             }
+//        Arrays.sort(b);
+//             if(b.length % 2 == 1){
+//                 System.out.println( (int)b[b.length/2]  + "is a median number");
+//             }else{
+//              System.out.println((b[b.length/2] + b[b.length/2-1] ) /2 + " is a median number");
+//             }
 
 
 
@@ -223,6 +223,27 @@ public class Metrics {
 //            }
 //        }
 //
+
+
+//        6 maximum size rectangle
+//        System.out.println("Enter the rows of metrics");
+//             int x = sc.nextInt();
+//             System.out.println("Enter the size of column");
+//             int y= sc.nextInt();
+//             int[][] a = new int[x][y];
+//             System.out.println("Enter the 0s and 1s element");
+//             for(int i=0;i<x;i++){
+//                 for(int j=0;j<y;j++){
+//                     a[i][j] = sc.nextInt();
+//                 }
+//             }
+//        for (int i = 0; i < x; i++) {
+//               for (int j = 0; j < y; j++) {
+//                   System.out.print(a[i][j] + " ");
+//               }
+//               System.out.println("");
+//           }
+
 //    System.out.println("the maximum 1 is in " + indexOfRow + "th row which is " + maxOne);
 
 //        8   Rotate metrics by 90 degree
@@ -250,6 +271,63 @@ public class Metrics {
 //                 }
 //                 System.out.println("");
 //             }
+
+//      9   common element in all rows in given metrics
+           System.out.println("Enter the no of rows");
+           int x = sc.nextInt();
+           System.out.println("Enter the no of column");
+           int y = sc.nextInt();
+           System.out.println("Enter the array element:");
+           int [][] a = new int[x][y];
+           for(int i=0;i<x;i++){
+               for(int j=0;j<y;j++){
+                   a[i][j]=sc.nextInt();
+               }
+           }
+        for (int i = 0; i < x; i++) {
+               for (int j = 0; j < y; j++) {
+                   System.out.print(a[i][j] + " ");
+               }
+               System.out.println("");
+           }
+
+        int[] b = new int[y];
+        int i=0,k=0 , m=0;
+        while(i<=1){
+
+            for(int j=0;j<y;j++){
+                if(a[0][k]==a[i+1][j]){
+                    b[m]=a[0][k];
+                    m++;
+                    break;
+                }
+            }
+
+            k++;
+            if(k==y){
+                break;
+            }
+        }
+        boolean inRow = false;
+      for(int f=2;f<x;f++){
+          for(int d=0;d<b.length;d++){
+              for(int e=0;e<y;e++){
+                 if(b[d]==a[f][e]){
+                     inRow=true;
+                 }
+              }
+              if(inRow){
+                  System.out.println(b[i] + " is in " + d  +" row");
+                  inRow=false;
+              }
+          }
+      }
+
+
+   for(int p=0;p<b.length;p++){
+       System.out.println(b[p]);
+   }
+
 
 
 
