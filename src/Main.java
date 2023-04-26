@@ -1,6 +1,9 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.Arrays;
 public class Main {
+
+
     public static void main(String[] args){
     Scanner sc = new Scanner(System.in);
 
@@ -281,6 +284,65 @@ public class Main {
 //          }
 //          System.out.println("total results " + count);
 
+//   19  find comment element in given three Array
+
+         System.out.println("Enter the size of an array:");
+         int x = sc.nextInt();
+         System.out.println("Enter the array element:");
+         int[] arr1 = new int[x];
+         for(int i=0;i<x;i++){
+             arr1[i] = sc.nextInt();
+         }
+
+         System.out.println("Enter the size of an array:");
+         int y = sc.nextInt();
+         System.out.println("Enter the array element:");
+         int[] arr2 = new int[y];
+         for(int i=0;i<y;i++){
+             arr2[i] = sc.nextInt();
+         }
+
+         System.out.println("Enter the size of an array:");
+         int z = sc.nextInt();
+         System.out.println("Enter the array element:");
+         int[] arr3 = new int[z];
+         for(int i=0;i<z;i++){
+             arr3[i] = sc.nextInt();
+         }
+
+         Arrays.sort(arr1);
+         Arrays.sort(arr2);
+         Arrays.sort(arr3);
+
+//         for(int i=0;i<arr1.length;i++){
+//              for(int j=0;j<arr2.length;j++){
+//                   for(int k=0;k<arr3.length;k++){
+//
+//                   }
+//              }
+//         }
+
+
+
+
+
+
+
+
+//         for(int i=0;i<arr1.length;i++){
+//             System.out.println(arr1[i]);
+//         } for(int i=0;i<arr2.length;i++){
+//             System.out.println(arr2[i]);
+//         } for(int i=0;i<arr3.length;i++){
+//             System.out.println(arr3[i]);
+//         }
+
+
+
+
+
+
+
 
 
 //   25 given an array of size n and a number k , find all elements that appear more than n/k times.
@@ -438,5 +500,16 @@ public class Main {
 //            System.out.println("");
 //        }
 
-    }
+
+
+//    find if there is any subArray with sum equal 0
+//       4 2 -3 1 6
+//      -3 1  2 4 6
+//        1 3 3 -6 10 20
+//        -6 1 3 3 10 20
+
+
+
+}
+
 }
