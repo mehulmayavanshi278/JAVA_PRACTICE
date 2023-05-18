@@ -227,6 +227,52 @@ public class Metrics {
 //
 
 
+//        5  print element in sorted order using row-column wise sorted metrics
+//        System.out.println("Enter the rows of metrics");
+//             int x = sc.nextInt();
+//             System.out.println("Enter the size of column");
+//             int y= sc.nextInt();
+//             int[][] a = new int[x][y];
+//             System.out.println("Enter array element");
+//             for(int i=0;i<x;i++){
+//                 for(int j=0;j<y;j++){
+//                     a[i][j] = sc.nextInt();
+//                 }
+//             }
+//           System.out.println("before sorting");
+//           for(int i=0;i<x;i++){
+//               for(int j=0;j<y;j++){
+//                   System.out.print(a[i][j] + " ");
+//               }
+//               System.out.println("");
+//           }
+//
+//        int[] b =new int[x*y];
+//           int counter=0;
+//           for(int i=0;i<x;i++){
+//               for(int j=0;j<y;j++){
+//                   b[counter] = a[i][j];
+//                   counter++;
+//               }
+//           }
+//           Arrays.sort(b);
+//           counter=0;
+//           for(int i=0;i<x;i++){
+//               for(int j=0;j<y;j++){
+//                   a[i][j] = b[counter];
+//                   counter++;
+//               }
+//           }
+//
+//          System.out.println("after Sorting");
+//        for(int i=0;i<x;i++){
+//            for(int j=0;j<y;j++){
+//                System.out.print(a[i][j] + " ");
+//            }
+//            System.out.println("");
+//        }
+
+
 //        6 maximum size rectangle
 //        System.out.println("Enter the rows of metrics");
 //             int x = sc.nextInt();
