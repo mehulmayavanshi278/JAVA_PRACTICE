@@ -320,7 +320,7 @@ public class Metrics {
 //                 System.out.println("");
 //             }
 
-//      9   common element in all rows in given metrics
+//      10   common element in all rows in given metrics
 //           System.out.println("Enter the no of rows");
 //           int x = sc.nextInt();
 //           System.out.println("Enter the no of column");
@@ -362,6 +362,8 @@ public class Metrics {
 //
 //
 //    System.out.print(STACK);
+
+
 
 
 
