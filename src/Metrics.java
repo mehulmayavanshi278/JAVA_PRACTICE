@@ -1,5 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Stack;
+import java.util.*;
 
 public class Metrics {
     public static void main(String[] args){
@@ -225,6 +227,52 @@ public class Metrics {
 //
 
 
+//        5  print element in sorted order using row-column wise sorted metrics
+//        System.out.println("Enter the rows of metrics");
+//             int x = sc.nextInt();
+//             System.out.println("Enter the size of column");
+//             int y= sc.nextInt();
+//             int[][] a = new int[x][y];
+//             System.out.println("Enter array element");
+//             for(int i=0;i<x;i++){
+//                 for(int j=0;j<y;j++){
+//                     a[i][j] = sc.nextInt();
+//                 }
+//             }
+//           System.out.println("before sorting");
+//           for(int i=0;i<x;i++){
+//               for(int j=0;j<y;j++){
+//                   System.out.print(a[i][j] + " ");
+//               }
+//               System.out.println("");
+//           }
+//
+//        int[] b =new int[x*y];
+//           int counter=0;
+//           for(int i=0;i<x;i++){
+//               for(int j=0;j<y;j++){
+//                   b[counter] = a[i][j];
+//                   counter++;
+//               }
+//           }
+//           Arrays.sort(b);
+//           counter=0;
+//           for(int i=0;i<x;i++){
+//               for(int j=0;j<y;j++){
+//                   a[i][j] = b[counter];
+//                   counter++;
+//               }
+//           }
+//
+//          System.out.println("after Sorting");
+//        for(int i=0;i<x;i++){
+//            for(int j=0;j<y;j++){
+//                System.out.print(a[i][j] + " ");
+//            }
+//            System.out.println("");
+//        }
+
+
 //        6 maximum size rectangle
 //        System.out.println("Enter the rows of metrics");
 //             int x = sc.nextInt();
@@ -272,61 +320,52 @@ public class Metrics {
 //                 System.out.println("");
 //             }
 
-//      9   common element in all rows in given metrics
-           System.out.println("Enter the no of rows");
-           int x = sc.nextInt();
-           System.out.println("Enter the no of column");
-           int y = sc.nextInt();
-           System.out.println("Enter the array element:");
-           int [][] a = new int[x][y];
-           for(int i=0;i<x;i++){
-               for(int j=0;j<y;j++){
-                   a[i][j]=sc.nextInt();
-               }
-           }
-        for (int i = 0; i < x; i++) {
-               for (int j = 0; j < y; j++) {
-                   System.out.print(a[i][j] + " ");
-               }
-               System.out.println("");
-           }
-
-        int[] b = new int[y];
-        int i=0,k=0 , m=0;
-        while(i<=1){
-
-            for(int j=0;j<y;j++){
-                if(a[0][k]==a[i+1][j]){
-                    b[m]=a[0][k];
-                    m++;
-                    break;
-                }
-            }
-
-            k++;
-            if(k==y){
-                break;
-            }
-        }
-        boolean inRow = false;
-      for(int f=2;f<x;f++){
-          for(int d=0;d<b.length;d++){
-              for(int e=0;e<y;e++){
-                 if(b[d]==a[f][e]){
-                     inRow=true;
-                 }
-              }
-              if(inRow){
-                  System.out.println(b[i] + " is in " + d  +" row");
-                  inRow=false;
-              }
-          }
-      }
+//      10   common element in all rows in given metrics
+//           System.out.println("Enter the no of rows");
+//           int x = sc.nextInt();
+//           System.out.println("Enter the no of column");
+//           int y = sc.nextInt();
+//           System.out.println("Enter the array element:");
+//           int [][] a = new int[x][y];
+//           for(int i=0;i<x;i++){
+//               for(int j=0;j<y;j++){
+//                   a[i][j]=sc.nextInt();
+//               }
+//           }
+//        for (int i = 0; i < x; i++) {
+//               for (int j = 0; j < y; j++) {
+//                   System.out.print(a[i][j] + " ");
+//               }
+//               System.out.println("");
+//           }
+//        Stack<Integer> STACK = new Stack<Integer>();
+//
+//        for(int element : a[0]){
+//            boolean findInAll = true;
+//          for(int i=1;i<x;i++){
+//              boolean findInRow = false;
+//              for(int j=0;j<y;j++){
+//                 if(a[i][j]==element){
+//                     findInRow=true;
+//                     break;
+//                 }
+//              }
+//              if(!findInRow){
+//                  findInAll = false;
+//              }
+//
+//          }
+//          if(findInAll){
+//              STACK.add(element);
+//          }
+//        }
+//
+//
+//    System.out.print(STACK);
 
 
-   for(int p=0;p<b.length;p++){
-       System.out.println(b[p]);
-   }
+
+
 
 
 
