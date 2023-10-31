@@ -55,6 +55,10 @@ public class Leetcode {
 
     public boolean isPalindrome(int x) {
         boolean isPalindrm = true;
+        if(x<0){
+           return false;
+        }
+
         for(int i=0;i<(Integer.toString(x).length()/2);i++){
 //            System.out.print(Integer.toString(x).charAt(i));
 //            System.out.print(( x / ((int) (Math.pow(10, (Integer.toString(x).length()- (i+1)))))) % 10 );
@@ -64,6 +68,7 @@ public class Leetcode {
 
             if ( ( x / ((int) (Math.pow(10, (Integer.toString(x).length()- (i+1)))))) % 10 !=  (x / ((int) (Math.pow(10,i)))) % 10){
                 isPalindrm=false;
+                break;
             }
 //            example
 //            how to check first letters x/1000%10 x/100%10 x/10%10
