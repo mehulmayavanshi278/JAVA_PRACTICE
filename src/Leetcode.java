@@ -264,6 +264,58 @@ public class Leetcode {
 
          return result;
      }
+     int[] removeDuplicateFromSortedArray(int[] a){   // int[] a = {1 , 5 , 5 ,5 , 7 ,9 , 9 , 10 , 15 , 17 , 20 , 20}
+
+
+         return a;
+     }
+    public  int[] removeElement(int[] a ,int val){
+         int size=0;
+
+         for(int i=0;i<a.length;i++){
+             Boolean isElement=false;
+             if(a[i]==val){
+             isElement=true;
+             }
+             if(!isElement){
+                 a[size]=a[i];
+                 size++;
+             }
+
+         }
+         for(int i=0;i<a.length;i++){
+             if(i<size){
+                 continue;
+             }
+             a[i]=0;
+         }
+         return a;
+     }
+
+      int indexofFirstOccurence(String s1 , String s2){
+         int result=-1;
+         result = s1.indexOf(s2);
+         return result;
+     }
+     int searchInsert(int[] a ,int val){
+         int result=a.length;
+
+         for(int i=0;i<a.length;i++){
+             if(val>a[i]){
+                 continue;
+             }
+             if(val==a[i] || val<a[i]){
+                 return i;
+             }
+         }
+         return result;
+     }
+
+     int findLenghtOfLastWord(String s1){
+         String[] temp = s1.trim().split(" ");
+         int result = temp[temp.length-1].length();
+         return result;
+     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -322,11 +374,45 @@ public class Leetcode {
 
 
 //        8  merge two sorted array
-             int[] a = {1 , 5 , 7 ,9};
-             int[] b = {1 , 3 , 5 ,14};
-             Leetcode L1 = new Leetcode();
-             int[] result = L1.mergeTwoSortedArray(a ,b);
-             PrintArray(result);
+//             int[] a = {1 , 5 , 7 ,9};
+//             int[] b = {1 , 3 , 5 ,14};
+//             Leetcode L1 = new Leetcode();
+//             int[] result = L1.mergeTwoSortedArray(a ,b);
+//             PrintArray(result);
+
+//        9  remove duplicates from sorted array
+//             int[] a = {1 , 5 , 5 ,5 , 7 ,9 , 9 , 10 , 15 , 17 , 20 , 20};
+//             Leetcode L1 = new Leetcode();
+//             int[] result = L1.removeDuplicateFromSortedArray(a);
+//             PrintArray(result);
+
+//        10  remove the element
+//             int[] a = {1 , 5 , 5 ,5 , 7 ,9 , 10 , 15 , 17 , 20 };
+//             Leetcode L1 = new Leetcode();
+//             int[] result = L1.removeElement(a , 5);
+//             PrintArray(result);
+
+//          11. Find the Index of the First Occurrence in a String
+//            String haystack = "sadbutsad";
+//            String needle = "sad";
+//            Leetcode L1= new Leetcode();
+//            int result = L1.indexofFirstOccurence(haystack , needle);
+//            System.out.println(result);
+
+//          12 searchInsert in sorted array
+//            int[] a = {1 , 4 , 7 ,9 , 10 , 15 , 17 , 20 };
+//            Leetcode L1 = new Leetcode();
+//            int result = L1.searchInsert(a , 16);
+//            System.out.println(result);
+
+//           13  find lenght of last word in a string
+               String s1 = "  my name is mehul i am a software devloper";
+               Leetcode L1 = new Leetcode();
+               int result = L1.findLenghtOfLastWord(s1);
+               System.out.println(result);
+
+
+
 
     }
 }
