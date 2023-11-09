@@ -377,6 +377,7 @@ public class Leetcode {
 //        to find roman to integer we will first store the value of last element and after then we will compare with
 //        right element one by one if current element is bigger and equal to right then we will add to the result else we will subtract from result
 
+
 //        System.out.println("Enter the Roman Number");
 //        String s1 = sc.nextLine();
 //        Leetcode L1 = new Leetcode();
@@ -479,8 +480,6 @@ public class Leetcode {
                     Leetcode L1 = new Leetcode();
                     int result = L1.SQRT(18);
                     System.out.println(result);
-
-
 
 
     }
