@@ -311,12 +311,61 @@ public class Leetcode {
          return result;
      }
 
+     int[] plusOne(int[] a){
+         return a;
+     }
+
      int findLenghtOfLastWord(String s1){
          String[] temp = s1.trim().split(" ");
          int result = temp[temp.length-1].length();
          return result;
      }
 
+     int addBinary(int a , int b){
+         String result="";
+         int k=0;
+         int num1=0;
+         int num2=0;
+         while(a>0){
+//             System.out.println(a%10);
+             if(a%10==1){
+                 num1=num1 + (int) (Math.pow(2,k));
+             }
+             k++;
+             a/=10;
+         }
+         k=0;
+         while (b>0){
+//             System.out.println(b%10);
+             if(b%10==1){
+                 num2=num2 + (int)Math.pow(2,k);
+             }
+             k++;
+             b/=10;
+         }
+
+//         System.out.println(num1);
+//         System.out.println(num2);
+         int temp = num1+num2;
+//         System.out.println(temp);
+
+         while(temp>0){
+             result=result + temp%2;
+             temp=temp/2;
+         }
+
+         System.out.println(result);
+         StringBuilder stringBuilder = new StringBuilder(result);
+         stringBuilder.reverse();
+         int mainResult = Integer.parseInt(stringBuilder.toString());
+
+
+         return mainResult;
+     }
+       int SQRT(int a){
+         int result = (int) Math.sqrt(a);
+         return result;
+       }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -406,10 +455,30 @@ public class Leetcode {
 //            System.out.println(result);
 
 //           13  find lenght of last word in a string
-               String s1 = "  my name is mehul i am a software devloper";
-               Leetcode L1 = new Leetcode();
-               int result = L1.findLenghtOfLastWord(s1);
-               System.out.println(result);
+//               String s1 = "  my name is mehul i am a software devloper";
+//               Leetcode L1 = new Leetcode();
+//               int result = L1.findLenghtOfLastWord(s1);
+//               System.out.println(result);
+
+//           14  plus one
+//                int[] a = {9 , 9 };
+//                Leetcode L1 = new Leetcode();
+//                int[] result = L1.plusOne(a);
+//                PrintArray(result);
+
+//           15  add binary
+//                 int a = 1010;
+//                 int b = 110;
+//                 Leetcode L1 = new Leetcode();
+//                 int result = L1.addBinary(a,b);
+//                 System.out.println(result);
+
+//           16  findSquareRoot
+                    int a = 1010;
+                    int b = 110;
+                    Leetcode L1 = new Leetcode();
+                    int result = L1.SQRT(18);
+                    System.out.println(result);
 
 
 
