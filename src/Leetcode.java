@@ -41,7 +41,7 @@ public class Leetcode {
         String s1 = sc.nextLine();
         Leetcode L1 = new Leetcode();
         int result = L1.romanToInt(s1);
-        System.out.println("The Number is" + result);
+        System.out.println("The Numberr is" + result);
 
 
     }
