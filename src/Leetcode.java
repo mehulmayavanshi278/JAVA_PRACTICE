@@ -4,8 +4,38 @@ import java.util.Scanner;
 import java.util.*;
 import java.lang.String;
 
+
+
+
+
+ class Listnode{
+     int data;
+     Listnode next;
+     Listnode(int data){
+         this.data=data;
+         this.next=null;
+     }
+
+ }
+
+
+
 public class Leetcode {
 
+
+
+     public static Listnode createListnode(int[] a){
+         Listnode head = new Listnode(a[0]);
+         Listnode node = head;
+         for(int i=1;i<a.length;i++){
+             Listnode temp = new Listnode(a[i]);
+             node.next=temp;
+             node=node.next;
+         }
+
+         return head;
+
+     }
 
      public static void PrintArray(int[] a){
          System.out.print("Array Element is");
@@ -13,6 +43,35 @@ public class Leetcode {
            System.out.print( " " + a[i] + " ");
        }
      }
+     public static void PrintDoubleArray(int[][] a){
+          for(int i=0;i<a.length;i++){
+              for(int j=0;j<a[i].length;j++){
+                  System.out.print(a[i][j]);
+              }
+              System.out.println("");
+          }
+     }
+
+     public static void PrintListnode(Listnode node){
+         while (node!=null){
+             System.out.println(node.data);
+             node=node.next;
+         }
+     }
+
+
+
+    public static void PrintDoublyList(List<List<Integer>> result){
+         for(List<Integer> innerList : result){
+             for(Integer val : innerList){
+                System.out.println(val + " ");
+             }
+             System.out.println("");
+         }
+    }
+
+
+
 
     public int romanToInt(String s1) {
 
@@ -264,10 +323,29 @@ public class Leetcode {
 
          return result;
      }
-     int[] removeDuplicateFromSortedArray(int[] a){   // int[] a = {1 , 5 , 5 ,5 , 7 ,9 , 9 , 10 , 15 , 17 , 20 , 20}
-
-
-         return a;
+     int removeDuplicateFromSortedArray(int[] a){   // int[] a = {0,0,1,1,1,2,2,3,3,4}
+           int result=0;
+           int[] temp = new int[a.length];
+           System.out.println(temp.length);
+           int j=0;
+           int k=0;
+           int i=0;
+           for( i=0;i<a.length-1;i++){
+               if(a[i]==a[i+1]){
+                   continue;
+               }else{
+                   temp[k]=a[i];
+                   k++;
+               }
+           }
+           temp[k]=a[i];
+//         PrintArray(temp);
+         result=k+1;
+         int []temp2 = new int[result];
+         for(int p=0;p<result;p++){
+             temp2[p]=temp[p];
+         }
+           return result;
      }
     public  int[] removeElement(int[] a ,int val){
          int size=0;
@@ -311,15 +389,13 @@ public class Leetcode {
          return result;
      }
 
-     int[] plusOne(int[] a){
-         return a;
-     }
 
-     int findLenghtOfLastWord(String s1){
-         String[] temp = s1.trim().split(" ");
-         int result = temp[temp.length-1].length();
-         return result;
-     }
+
+//     int findLenghtOfLastWord(String s1){
+//         String[] temp = s1.trim().split(" ");
+//         int result = temp[temp.length-1].length();
+//         return result;
+//     }
 
      int addBinary(int a , int b){
          String result="";
@@ -366,6 +442,209 @@ public class Leetcode {
          int result = (int) Math.sqrt(a);
          return result;
        }
+    int climbStairs(int a) {
+
+      if(a==2){
+          return 2;
+      }
+      if(a==1){
+          return 1;
+      }
+      return   climbStairs(a-1) + climbStairs(a-2);
+
+    }
+
+     int medianOfTwoSortedArray(int[] a , int[] b){
+
+         int median = -1;
+         int lenA = a.length;
+         int lenB = b.length;
+         int i=0;
+         int j=0;
+         int k=0;
+
+         if(lenA+lenB %2==1){
+             k=(lenB+lenA)/2;
+             while (i+j != k && i<a.length && j<b.length){
+                if(a[i] < b[j]){
+                    i++;
+                    median=a[i];
+                }else{
+                    j++;
+                    median=b[j];
+                }
+             }
+             while (i+j != k && i<a.length ){
+                 i++;
+                 median=a[i];
+             }
+             while (i+j != k && i<b.length ){
+                 j++;
+                 median=a[j];
+             }
+
+         }else if(lenA+lenB % 2 ==0){
+             k=(lenB+lenA)/2;
+
+         }
+         return median;
+
+    }
+    int containerWithMostWater(int [] height){
+        int maxArea = 0;
+        int left = 0;
+        int right = height.length - 1;
+
+        while (left < right) {
+            int h = Math.min(height[left], height[right]);
+            int w = right - left;
+            maxArea = Math.max(maxArea, h * w);
+            System.out.println(maxArea);
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return maxArea;
+
+
+    }
+
+    public int[] plusOne(int[] a){
+      int[] temp = a;
+      int j=temp.length-1;
+      int k=a[a.length-1];
+      if(k<9){
+          temp[temp.length-1] = temp[temp.length-1] + 1;
+      }else{
+          while(j>-1 && temp[j]==9){
+              temp[j]=0;
+              j--;
+          }
+          if(j>-1){
+              temp[j] = temp[j] + 1;
+          }else{
+            int[] newArray  = new int[temp.length+1];
+            System.arraycopy(temp , 0 , newArray , 1 , temp.length-1);
+            newArray[0]=1;
+            PrintArray(newArray);
+            temp=newArray;
+          }
+      }
+      return  temp;
+    }
+    public  Listnode mergeSortedListnode(Listnode node1 , Listnode node2){
+         Listnode dummy = new Listnode(-1);
+         Listnode current = dummy;
+         while (node1!=null && node2!=null){
+             if(node1.data<node2.data){
+                 current.next=node1;
+                 node1=node1.next;
+             }else{
+                 current.next=node2;
+                 node2=node2.next;
+             }
+             current=current.next;
+         }
+
+         while (node1!=null){
+             current.next=node1;
+             current=current.next;
+             node1= node1.next;
+         }
+         while (node2!=null){
+             current.next=node2;
+             current=current.next;
+             node2=node2.next;
+         }
+         return dummy.next;
+    }
+    public Listnode removeDuplicatesFromsortedList(Listnode node){
+
+
+          Listnode dummy = new Listnode(-1);
+          Listnode temp = dummy;
+          while (node.next!=null){
+              if(node.data!=node.next.data){
+                  temp.next=node;
+                  temp=temp.next;
+              }else{
+
+              }
+              node=node.next;
+          }
+          temp.next=node;
+          temp=temp.next;
+          temp.next=null;
+          return dummy.next;
+    }
+
+
+    public List<List<Integer>> MakePasclesTriangle(int rows){
+      List<List<Integer>> result = new ArrayList<>();
+      for(int i=0;i<rows;i++){
+           result.add(new ArrayList<>());
+          for(int j=0;j<i+1;j++){
+
+              if(j==0 || j==i){
+                  result.get(i).add(1);
+                  continue;
+              }
+              result.get(i).add(result.get(i-1).get(j-1) + result.get(i-1).get(j));
+
+
+          }
+      }
+      return result;
+    }
+
+    int findSingleNumber(int[] a){
+         if(a.length==1){
+             return a[0];
+         }
+         Arrays.sort(a);
+         boolean isDouble=false;
+         int number=0;
+         for(int i=1;i<a.length;i++){
+             if(a[i]==a[i-1]){
+                 isDouble=false;
+                 continue;
+             }
+             if(i==a.length-1){
+                 number=a[i];
+                 break;
+             }
+             if(isDouble){
+                 number=a[i-1];
+                 break;
+             }
+             if(a[i]!=a[i-1]){
+                 isDouble=true;
+                 number=a[i];
+             }
+         }
+         return number;
+
+    }
+
+    public boolean CheckHappyNumber(int n  , int origional  , List<Integer> list){
+        int sum=0;
+        while(n>0){
+            sum+= n%10==0 ? 0 : (n%10)*(n%10);
+            n/=10;
+        }
+
+        if(sum==1){
+            return true;
+        }else if(sum==origional || list.contains(sum) ){
+            return false;
+        }
+        list.add(sum);
+        return CheckHappyNumber(sum , origional , list);
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -461,11 +740,8 @@ public class Leetcode {
 //               int result = L1.findLenghtOfLastWord(s1);
 //               System.out.println(result);
 
-//           14  plus one
-//                int[] a = {9 , 9 };
-//                Leetcode L1 = new Leetcode();
-//                int[] result = L1.plusOne(a);
-//                PrintArray(result);
+
+
 
 //           15  add binary
 //                 int a = 1010;
@@ -475,12 +751,84 @@ public class Leetcode {
 //                 System.out.println(result);
 
 //           16  findSquareRoot
-                    int a = 1010;
-                    int b = 110;
-                    Leetcode L1 = new Leetcode();
-                    int result = L1.SQRT(18);
-                    System.out.println(result);
+//                    int a = 1010;
+//                    int b = 110;
+//                    Leetcode L1 = new Leetcode();
+//                    int result = L1.SQRT(18);
+//                    System.out.println(result);
 
+//            4    median of two sorted array
+
+//                     int[] a = { 1 , 6 , 9};
+//                     int[] b = { 2 , 5};
+//                     Leetcode L1 = new Leetcode();
+//                     int result = L1.medianOfTwoSortedArray(a,b);
+//                     System.out.println(result);
+
+//          11     container with most water
+//                   int [] a = {1,8,6,2,5,4,8,3,7};
+////                   int [] a = {1 , 2 , 4 , 3};
+//                   Leetcode L1 = new Leetcode();
+//                   int result = L1.containerWithMostWater(a);
+//                   System.out.println(result);
+
+//           26     remove duplicates from sorted array
+//                    int[] a = {0,0,1,1,1,2,2,3,3,4};
+////                    int[] a = {1 , 1 ,2};
+//                    Leetcode L1 = new Leetcode();
+//                    int result = L1.removeDuplicateFromSortedArray(a);
+//                    System.out.println("the result is : " + result);
+
+//           66   plus one
+
+//                  int[] a  = {9 , 8 , 7 , 6 , 5 , 4 , 3 , 2 , 1 , 0};
+//                  int[] a  = {9};
+//                  Leetcode L1 = new Leetcode();
+//                  int[] result  = L1.plusOne(a);
+//                  PrintArray(result);
+
+
+
+//        21   merge two sorted lists
+//            int[] a = { 1 , 5 , 9};
+//            int[] b = { 1 , 2 , 10};
+//            Leetcode L1 = new Leetcode();
+//
+//            Listnode l1 = createListnode(a);
+//            Listnode l2 = createListnode(b);
+//
+//
+//            Listnode result = L1.mergeSortedListnode(l1 , l2);
+//            PrintListnode(result);
+
+//         22 remove duplicates from sorted lists
+//             int[] a = { 1 , 1 , 2 , 2 , 2, 3 , 3 , 4 , 4 , 4 };
+//           int[] a = { 1 , 1 , 2 };
+//             Leetcode L1 = new Leetcode();
+//             Listnode l1 = createListnode(a);
+//             Listnode result = L1.removeDuplicatesFromsortedList(l1);
+//             PrintListnode(result);
+
+
+//        110 pascles triangle
+//             int NoOfRows = 5;
+//             Leetcode L1 = new Leetcode();
+//             List<List<Integer>> result = L1.MakePasclesTriangle(NoOfRows);
+//             PrintDoublyList(result);
+
+
+//          2000 find single number
+//               int[] a = { 2 , 2 , 4 , 4 , 3  , 1 , 1};
+//               Leetcode L1 = new Leetcode();
+//               int result = L1.findSingleNumber(a);
+//               System.out.println(result);
+
+//         202  happy number;
+             int num=2;
+//             int num=19;
+             Leetcode L1 = new Leetcode();
+             boolean result = L1.CheckHappyNumber(num , num , new ArrayList<>());
+             System.out.println(result);
 
     }
 }
