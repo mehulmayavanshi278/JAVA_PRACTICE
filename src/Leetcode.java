@@ -1,8 +1,12 @@
+import com.sun.source.tree.LambdaExpressionTree;
+
 import java.sql.Array;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.*;
 import java.lang.String;
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 
@@ -35,6 +39,25 @@ public class Leetcode {
 
          return head;
 
+     }
+
+     public  static Listnode reverseListNode(Listnode head){
+         Listnode current = head;
+         List<Listnode> listnodesArr = new ArrayList<>();
+         while (current!=null){
+             listnodesArr.add(current);
+             current=current.next;
+         }
+
+         Collections.reverse(listnodesArr);
+         Listnode head1=listnodesArr.get(0);
+         Listnode temp = head1;
+         for(int i=1;i<listnodesArr.toArray().length;i++){
+             head1.next = listnodesArr.get(i);
+             head1=head1.next;
+         }
+         head1.next=null;
+         return temp;
      }
 
      public static void PrintArray(int[] a){
@@ -645,6 +668,13 @@ public class Leetcode {
         return CheckHappyNumber(sum , origional , list);
     }
 
+    public boolean IsIsomorphic(String s1 , String s2){
+
+
+
+         return true;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -824,11 +854,27 @@ public class Leetcode {
 //               System.out.println(result);
 
 //         202  happy number;
-             int num=2;
-//             int num=19;
-             Leetcode L1 = new Leetcode();
-             boolean result = L1.CheckHappyNumber(num , num , new ArrayList<>());
-             System.out.println(result);
+//             int num=2;
+////             int num=19;
+//             Leetcode L1 = new Leetcode();
+//             boolean result = L1.CheckHappyNumber(num , num , new ArrayList<>());
+//             System.out.println(result);
+
+
+//             205   isomorphic string
+
+//              String s1 = "paper";
+//              String s2 = "title";
+//              Leetcode L1 = new Leetcode();
+//              boolean result = L1.IsIsomorphic(s1  , s2);
+//              System.out.println(result);
+
+//            206  Reverse Linked List
+                   int[] a = {1 , 2 , 3 , 4 , 5};
+                   Listnode l1 =  createListnode(a);
+                   Listnode l2 = reverseListNode(l1);
+                   PrintListnode(l2);
+
 
     }
 }
