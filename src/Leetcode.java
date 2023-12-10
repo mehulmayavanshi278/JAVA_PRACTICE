@@ -1,5 +1,6 @@
 import com.sun.source.tree.LambdaExpressionTree;
 
+import java.beans.PropertyEditorSupport;
 import java.sql.Array;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -694,6 +695,23 @@ public class Leetcode {
        }
        return true;
    }
+
+    public int[][] getTransposeMetric(int[][] metric) {
+      int[][] result = new int[metric.length][metric[0].length];
+      for(int i=0;i<metric.length;i++){
+          for(int j=0;j<metric[0].length;j++){
+              result[j][i] = metric[i][j];
+          }
+      }
+      return result;
+    }
+
+    public boolean isAnagram(String s1 , String s2){
+
+         return false;
+    }
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -899,6 +917,20 @@ public class Leetcode {
 //                   Listnode l1 = createListnode(a);
 //                   boolean result =  checkPalindromeLinkedList(l1);
 //                   System.out.println(result);
+
+
+//              868  Transpose Matrix
+//                    int[][] metric = { { 1 , 2 , 3} , {4,5,6} , {7 , 8 , 9}};
+//                    Leetcode L1  = new Leetcode();
+//                    int[][] result = L1.getTransposeMetric(metric);
+//                    PrintDoubleArray(result);
+
+
+//               242. Valid Anagram
+                     String s = "anagram", t = "nagaram";
+                     Leetcode L1 = new Leetcode();
+                     boolean result = L1.isAnagram(s1 , s2);
+
 
 
     }
