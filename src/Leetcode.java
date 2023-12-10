@@ -674,7 +674,26 @@ public class Leetcode {
 
          return true;
     }
-
+   public static boolean checkPalindromeLinkedList(Listnode head){
+       if(head==null || head.next==null){
+           return true;
+       }
+       List<Integer> list = new ArrayList<>();
+       while(head!=null){
+           list.add(head.data);
+           head=head.next;
+       }
+       for(int i=0;i<list.size()/2;i++){
+           if(list.get(i)==list.get(list.size()-1)){
+               list.remove(list.size()-1);
+               System.out.println("size is"  + list.size());
+               continue;
+           }else{
+               return false;
+           }
+       }
+       return true;
+   }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -870,10 +889,16 @@ public class Leetcode {
 //              System.out.println(result);
 
 //            206  Reverse Linked List
-                   int[] a = {1 , 2 , 3 , 4 , 5};
-                   Listnode l1 =  createListnode(a);
-                   Listnode l2 = reverseListNode(l1);
-                   PrintListnode(l2);
+//                   int[] a = {1 , 2 , 3 , 4 , 5};
+//                   Listnode l1 =  createListnode(a);
+//                   Listnode l2 = reverseListNode(l1);
+//                   PrintListnode(l2);
+
+//            234  palindrome linkedlist
+//                   int[] a = {1 , 1 ,  2 , 1};
+//                   Listnode l1 = createListnode(a);
+//                   boolean result =  checkPalindromeLinkedList(l1);
+//                   System.out.println(result);
 
 
     }
