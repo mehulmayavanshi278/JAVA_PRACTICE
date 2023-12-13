@@ -711,6 +711,68 @@ public class Leetcode {
          return false;
     }
 
+    public boolean canConstruct(String ransomNote, String magazine) {
+
+      String s1 = ransomNote;
+      String s2 = magazine;
+
+      for(int i=0;i<ransomNote.length();i++){
+          if( s2.indexOf(ransomNote.charAt(i)) != -1){
+             s1 = s1.replaceFirst(String.valueOf(ransomNote.charAt(i)), "");
+             System.out.println(s1);
+             s2 = s2.replaceFirst(String.valueOf(ransomNote.charAt(i)), "");
+              System.out.println(s2);
+          }else{
+              return false;
+          }
+      }
+
+      return s1.length()==0;
+
+    }
+
+    public int numSpecial(int[][] a){
+         int sum=0;
+//         int m=0,n=0;
+         int temp=0;
+         for(int i=0;i<a.length;i++){
+             for(int j=0;j<a[i].length;j++){
+//                 System.out.println(a[i][j]);
+
+                 if(a[i][j]==1){
+
+//                     System.out.println(a[i][j]);
+
+                   for(int m=0;m<a[0].length;m++){
+                       if(a[i][m]==1){
+                           temp++;
+                       }else{
+
+                       }
+                   }
+                   for(int m=0;m<a.length;m++){
+                       if(a[m][j]==1){
+                           temp++;
+                       }else{
+
+                       }
+                   }
+//                   System.out.println(temp);
+                   if(temp>2){
+
+                   }else{
+                       sum+=1;
+                   }
+                 }
+
+                 temp=0;
+
+             }
+
+         }
+         return sum;
+    }
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -927,9 +989,36 @@ public class Leetcode {
 
 
 //               242. Valid Anagram
-                     String s = "anagram", t = "nagaram";
-                     Leetcode L1 = new Leetcode();
-                     boolean result = L1.isAnagram(s1 , s2);
+//                     String s = "anagram", t = "nagaram";
+//                     Leetcode L1 = new Leetcode();
+//                     boolean result = L1.isAnagram(s1 , s2);
+
+
+//              383. Ransom Note
+//                 String s1 = "aa";
+//                 String s2 = "aab";
+//        Leetcode L1 = new Leetcode();
+//                 boolean result = L1.canConstruct(s1 , s1);
+//                 System.out.println(result);
+
+
+//          1582. Special Positions in a Binary Matrix
+
+//               int[][] a = { { 1 ,0 , 0} , {0 , 0 , 1} , {1 , 0 , 0}};
+//               int[][] a = {{1,0,0},{0,1,0},{0,0,1}};
+//               int[][] a = {{0,0,0,0,0,1,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0,0,1},{0,0,0,0,0,0,0,0,0,0,0,0,0},{0,0,1,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0,0,1},{0,0,0,0,0,1,0,0,0,0,0,0,0},{0,1,0,0,0,0,0,0,1,0,0,0,0},{0,0,0,0,0,0,0,0,1,0,0,0,0},{0,0,1,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,1,0,0},{0,0,0,0,0,1,0,0,0,0,0,0,0},{1,0,0,0,0,0,0,0,0,0,0,0,0},{0,0,0,1,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0,0,0,0}};
+
+//        Leetcode L1 = new Leetcode();
+//               int result = L1.numSpecial(a);
+//               System.out.println(result);
+
+
+//            374. Guess Number Higher or Lower
+
+
+
+
+
 
 
 
