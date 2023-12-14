@@ -774,6 +774,73 @@ public class Leetcode {
     }
 
 
+    public int firstUniqChar(String s){
+         int index = 0;
+          Map<Character , Integer> hashmap = new HashMap<>();
+          hashmap.put(s.charAt(0) , 1);
+         for(int i=1;i<s.length();i++){
+            if(hashmap.get(s.charAt(i))==null){
+                hashmap.put(s.charAt(i) , 1);
+            }else{
+                hashmap.put(s.charAt(i) , hashmap.get(s.charAt(i))+1);
+            }
+
+         }
+         for(int i=0;i<s.length();i++){
+             if(hashmap.get(s.charAt(i)) ==1){
+                 return i;
+             }
+         }
+        System.out.println(hashmap);
+
+         return index;
+
+
+    }
+
+    public  int[][] onesMinusZeros(int[][] a){
+         int result[][] = new int[a.length][a[0].length];
+         int[] rows=new int[a.length];
+         int[] cols=new int[a[0].length];
+
+
+         for(int i=0;i<a.length;i++){
+             int sum=0;
+             for(int m=0;m<a[i].length;m++){
+                 if(a[i][m]==1){
+                     sum++;
+                 }
+             }
+             System.out.println(sum);
+             rows[i] = (sum - (a[i].length - sum));
+         }
+
+        for(int i=0;i<a[0].length;i++){
+            int sum=0;
+            for(int m=0;m<a.length;m++){
+                if(a[m][i]==1){
+                    sum++;
+                }
+            }
+            cols[i] = (sum - (a.length - sum));
+        }
+        PrintArray(rows);
+        PrintArray(cols);
+
+        for(int i=0;i<a.length;i++){
+            for(int j=0;j<a[i].length;j++){
+                result[i][j] = rows[i] + cols[j];
+            }
+        }
+
+
+
+
+
+         return result;
+    }
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -1014,6 +1081,22 @@ public class Leetcode {
 
 
 //            374. Guess Number Higher or Lower
+
+
+
+//           387. First Unique Character in a String
+//             String s = "leetcode";
+//             String s = "loveleetcode";
+//             Leetcode L1 = new Leetcode();
+//             int result = L1.firstUniqChar(s);
+//             System.out.println(result);
+
+//        2482. Difference Between Ones and Zeros in Row and Column
+
+//        int[][] arr = {{0,1,1},{1,0,1},{0,0,1}};
+//        Leetcode L1 = new Leetcode();
+//        int result[][]  =L1.onesMinusZeros(arr);
+//        PrintDoubleArray(result);
 
 
 
