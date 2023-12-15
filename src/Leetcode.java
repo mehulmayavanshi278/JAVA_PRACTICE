@@ -840,6 +840,24 @@ public class Leetcode {
          return result;
     }
 
+    public  String destCity(String[][] a){
+
+      Map<String , String> hashmap = new HashMap<>();
+      for(int i=0;i<a.length;i++){
+          for(int j=0;j<a[i].length-1;j++){
+              hashmap.put(a[i][j] , a[i][j+1]);
+          }
+      }
+      String temp  =a[0][0];
+      while (hashmap.get(temp)!=null){
+          temp = hashmap.get(temp);
+      }
+
+      return temp;
+
+
+    }
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -1098,6 +1116,14 @@ public class Leetcode {
 //        int result[][]  =L1.onesMinusZeros(arr);
 //        PrintDoubleArray(result);
 
+
+//        1436. Destination City
+
+        String[][] a = {{"London", "New York"}, {"New York", "Lima"}, {"Lima", "Sao Paulo"}};
+
+        Leetcode L1= new Leetcode();
+          String result = L1.destCity(a);
+          System.out.println(result);
 
 
 
