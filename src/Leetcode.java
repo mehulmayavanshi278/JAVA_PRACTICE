@@ -70,7 +70,7 @@ public class Leetcode {
      public static void PrintDoubleArray(int[][] a){
           for(int i=0;i<a.length;i++){
               for(int j=0;j<a[i].length;j++){
-                  System.out.print(a[i][j]);
+                  System.out.print(a[i][j] + " ");
               }
               System.out.println("");
           }
@@ -858,7 +858,59 @@ public class Leetcode {
 
     }
 
+    public  char findTheDifference(String s1  ,  String s2){
+         if(s1.length()==0){
+             return s2.charAt(0);
+         }
+         if(s2.length()==0){
+             return s1.charAt(0);
+         }
+         int i=0;
+         char[] chararr1 = s1.toCharArray();
+         char[] chararr2 = s2.toCharArray();
+         Arrays.sort(chararr1);
+         Arrays.sort(chararr2);
+         while (i  < chararr1.length && i<chararr2.length && chararr1[i]==chararr2[i]){
+             i++;
+         }
+         System.out.println(i);
+         return  chararr1.length > chararr2.length ? chararr1[i]  :chararr2[i];
+    }
 
+//    public boolean isAnagram(String s , String t){
+//         String s1 = s;
+//         String s2 = t;
+//
+//    }
+
+    public int maxProductDifference(int[] a){
+         Arrays.sort(a);
+         int maxDiff = (a[a.length-1]*a[a.length-2]) - (a[0] * a[1]);
+         return maxDiff;
+    }
+
+    public int[][] imageSmoother(int[][] a){
+
+            int[][] result = new int[a.length][a[0].length];
+            for(int i=0;i<a.length;i++){
+                for(int j=0;j<a[i].length;j++){
+                    int sum=0;
+                    int count=0;
+                    for(int m=i-1;m<=i+1;m++){
+                        for(int n=j-1;n<=j+1;n++){
+                            if(m>=0 && m<a.length && n>=0&&n<a[i].length){
+                                sum+=a[m][n];
+                                count++;
+                            }
+                        }
+                    }
+                    result[i][j] = sum/count;
+                }
+            }
+            return result;
+
+
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -1119,14 +1171,40 @@ public class Leetcode {
 
 //        1436. Destination City
 
-        String[][] a = {{"London", "New York"}, {"New York", "Lima"}, {"Lima", "Sao Paulo"}};
+//        String[][] a = {{"London", "New York"}, {"New York", "Lima"}, {"Lima", "Sao Paulo"}};
+//
+//        Leetcode L1= new Leetcode();
+//          String result = L1.destCity(a);
+//          System.out.println(result);
 
-        Leetcode L1= new Leetcode();
-          String result = L1.destCity(a);
-          System.out.println(result);
 
+//        389. Find the Difference
+//          String s = "abcd", t = "abcde";
+//          Leetcode L1 = new Leetcode();
+//          char result = L1.findTheDifference(s ,t);
+//          System.out.println(result);
 
+//        242. Valid Anagram
+//           String s = "anagram", t = "nagaram";
+//           Leetcode L1 = new Leetcode();
+//           boolean result = L1.isAnagram(s , t);
+//           System.out.println(result);
 
+//        1913. Maximum Product Difference Between Two Pairs
+
+//          int[] a = {5,6,2,7,4};
+//          Leetcode L1 = new Leetcode();
+//          int result = L1.maxProductDifference(a);
+//          System.out.println(result);
+
+//        661. Image Smoother
+
+//            int[][] img =  {{1,1,1},{1,0,1},{1,1,1}};
+//              int[][] img = {{ 1,2,3} , { 4 , 5 , 6} , { 7 , 8 , 9}};
+              int[][] img = {{100,200,100},{200,50,200},{100,200,100}};
+            Leetcode L1 = new Leetcode();
+            int[][] result =  L1.imageSmoother(img);
+            PrintDoubleArray(result);
 
 
 
