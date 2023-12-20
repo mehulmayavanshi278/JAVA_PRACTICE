@@ -911,6 +911,44 @@ public class Leetcode {
 
 
     }
+    public List<Integer> findDisappearedNumbers(int[] nums){
+        List<Integer> result =  new ArrayList<>();
+        // Iterate through the array
+        for (int i = 0; i < nums.length; i++) {
+            // Get the index to mark as visited
+            int index = Math.abs(nums[i]) - 1;
+
+            // If the number at the index is positive, mark it as visited by making it negative
+            if (nums[index] > 0) {
+                nums[index] = -nums[index];
+            }
+        }
+
+        // Iterate through the array again to find the indices with positive numbers
+        for (int i = 0; i < nums.length; i++) {
+//            if (nums[i] > 0) {
+//                // The index (i+1) represents the missing number
+//                result.add(i + 1);
+//            }
+            System.out.println(nums[i]);
+        }
+
+        return result;
+    }
+
+    public int buyChoco(int[] a , int money){
+         int result=0;
+         Arrays.sort(a);
+         result = money - (a[0]+a[1]);
+        return  result >= 0 ?  result :  money;
+
+    }
+
+    public boolean repeatedSubstringPattern(String s1){
+
+
+
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -1201,10 +1239,37 @@ public class Leetcode {
 
 //            int[][] img =  {{1,1,1},{1,0,1},{1,1,1}};
 //              int[][] img = {{ 1,2,3} , { 4 , 5 , 6} , { 7 , 8 , 9}};
-              int[][] img = {{100,200,100},{200,50,200},{100,200,100}};
-            Leetcode L1 = new Leetcode();
-            int[][] result =  L1.imageSmoother(img);
-            PrintDoubleArray(result);
+//              int[][] img = {{100,200,100},{200,50,200},{100,200,100}};
+//            Leetcode L1 = new Leetcode();
+//            int[][] result =  L1.imageSmoother(img);
+//            PrintDoubleArray(result);
+
+
+
+//        448  Find All Numbers Disappeared in an Array
+//            int[] a = {4,3,2,7,8,2,3,1};
+//            Leetcode L1 = new Leetcode();
+//            List<Integer> result = L1.findDisappearedNumbers(a);
+//            for(int i=0;i<result.size();i++){
+//                System.out.println(result.get(i));
+//            }
+
+//        2706. Buy Two Chocolates
+//             int[] a = {1 , 2 , 3};
+//             int money =3;
+//             Leetcode L1 = new Leetcode();
+//             int result = L1.buyChoco(a,money);
+//             System.out.println(result);
+
+
+//        459. Repeated Substring Pattern
+//              String s1 = "abab";
+//              String s1 = "aba";
+//              String s1 = "abcabcabcabc";
+//              String s1 = "abaababaab";
+//                Leetcode L1 = new Leetcode();
+//                boolean result = L1.repeatedSubstringPattern(s1);
+//                System.out.println(result);
 
 
 
