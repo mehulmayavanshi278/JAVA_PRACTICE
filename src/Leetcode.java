@@ -945,9 +945,65 @@ public class Leetcode {
     }
 
     public boolean repeatedSubstringPattern(String s1){
+          boolean result =  false;
+          boolean temp=true;
+          int n = s1.length();
 
+          for(int i=n/2;i>=0;i--){
+              System.out.println("i is" + i);
+              temp=true;
+              if(n%(i+1)==0){
+                  String s2 = s1.substring(0,i+1);
+                  System.out.println(s2);
+                  for(int j=1;j<n/(i+1);j++){
+                      System.out.println("j is" + j);
+                      int start=(i+1)*j;
+                      int end=(i+1)*(j+1);
+                      System.out.println(start  + ""  +  end);
+                      System.out.println("s3 is "  + s1.substring(start , end));
+                      if(s2.equals(s1.substring(start , end))){
+                          System.out.println(s1.substring(start , end));
+                          result=true;
+                      }else{
+                          temp=false;
+                          break;
+                      }
+                  }
+                  if(temp && result){
+                      return true;
+                  }
+              }
+          }
 
+          return false;
 
+    }
+
+    public int maxWidthOfVerticalArea(int[][] a){
+         int result=0;
+        Arrays.sort(a, Comparator.comparingInt(arr -> arr[0]));  // to sort 2d aray based on 0th sub index
+        for(int i=0;i<a.length-1;i++){
+            if( a[i+1][0]-a[i][0] > result ){
+//                System.out.println("yes");
+                result = a[i+1][0]-a[i][0];
+            }
+        }
+        System.out.println(result);
+        return result;
+    }
+    public int findComplement(int num){
+        int result = 0;
+        int i = 0;
+
+        while (num != 0) {
+            int bit = num % 2;
+            int complementBit = (bit == 1) ? 0 : 1;
+            result += (complementBit * Math.pow(2, i));
+            num /= 2;
+            i++;
+        }
+
+        return result;
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -1267,9 +1323,32 @@ public class Leetcode {
 //              String s1 = "aba";
 //              String s1 = "abcabcabcabc";
 //              String s1 = "abaababaab";
+//              String s1 = "ababba";
+//              String s1 = "bb";
+//              String s1 = "abcdab";
+//              String s1 = "babbabbabbabbab";
+//              String s1 = "zzz";
 //                Leetcode L1 = new Leetcode();
 //                boolean result = L1.repeatedSubstringPattern(s1);
 //                System.out.println(result);
+
+//        1637. Widest Vertical Area Between Two Points Containing No Points
+//                int[][] a  = {{3,1},{9,0},{1,0},{1,4},{5,3},{8,8}};
+////                int[][] a  = {{8,7},{9,9},{7,4},{9,7}};
+//                 Leetcode L1 = new Leetcode();
+//                 int result = L1.maxWidthOfVerticalArea(a);
+//                 System.out.println(result);
+
+
+
+//        476. Number Complement
+//          int num = 5;
+          int num = 1;
+          Leetcode L1 = new Leetcode();
+          int result=L1.findComplement(num);
+          System.out.println(result);
+
+
 
 
 
