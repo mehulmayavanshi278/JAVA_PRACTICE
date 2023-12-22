@@ -95,6 +95,22 @@ public class Leetcode {
     }
 
 
+    public static boolean isPrime(int num) {
+        if (num <= 1) {
+            return false;
+        }
+
+
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
 
 
     public int romanToInt(String s1) {
@@ -1005,6 +1021,111 @@ public class Leetcode {
 
         return result;
     }
+
+    public  int maxScore(String s){
+         int sum=0;
+         int zeros=0;
+         int ones=0;
+         if(s.charAt(0)=='0'){
+             zeros++;
+         }
+         for(int i=1;i<s.length();i++){
+             if(s.charAt(i)=='1'){
+                 ones++;
+             }
+         }
+         System.out.println(ones);
+         sum=ones+zeros;
+
+         for(int i=1;i<s.length()-1;i++){
+             if(s.charAt(i)=='0'){
+                 ++zeros;
+             }else{
+                 --ones;
+             }
+
+             System.out.println( "i is  " + i  + " zeros is" + zeros);
+             System.out.println( "i is  " + i  + " ones is" + ones);
+
+             if(zeros+ones > sum){
+                 sum=zeros+ones;
+             }
+
+         }
+
+
+         return sum;
+
+    }
+
+    public int islandPerimeter(int[][] a){
+         int result=0;
+         for(int i=0;i<a.length;i++){
+             for(int j=0;j<a[i].length;j++){
+                 if(a[i][j]==1){
+                    int temp=4;
+                    if(j!=0){
+                       if(a[i][j-1]==1){
+                           temp--;
+                       }
+                    }
+                    if(i!=0){
+                        if(a[i-1][j]==1){
+                            temp--;
+                        }
+                    }
+                    if(i!=a.length-1){
+                        if(a[i+1][j]==1){
+                            temp--;
+                        }
+                    }
+                    if(j!=a[i].length-1){
+                        if(a[i][j+1]==1){
+                            temp--;
+                        }
+                    }
+
+                    result+=temp;
+                 }
+             }
+         }
+         return result;
+    }
+
+    public int hammingDistance(int x ,  int y){
+
+         int n=0;
+         while (x!=0 || y!=0){
+            if(x%2 != y%2){
+              n++;
+            }
+            x/=2;
+            y/=2;
+         }
+         return n;
+    }
+
+    public int[] constructRectangle(int area) {
+        int n = (int) Math.sqrt(area);
+        if(n*n==area){
+            return  new int[]{n , n};
+        }
+        if(isPrime(area)){
+            return new int[]{area , 1};
+        }
+        int num1=1;
+        int num2=1;
+        for(int i=n;i>0;i--){
+            if(area%i==0){
+                num1=area/i;
+                num2=i;
+                break;
+            }
+        }
+
+        return new int[]{num1 , num2};
+
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -1343,14 +1464,42 @@ public class Leetcode {
 
 //        476. Number Complement
 //          int num = 5;
-          int num = 1;
-          Leetcode L1 = new Leetcode();
-          int result=L1.findComplement(num);
-          System.out.println(result);
+//          int num = 1;
+//          Leetcode L1 = new Leetcode();
+//          int result=L1.findComplement(num);
+//          System.out.println(result);
 
 
 
+//        1422. Maximum Score After Splitting a String
+//          String s1 = "011101";
+//          String s1 = "00111";
+//          Leetcode L1 = new Leetcode();
+//          int result=L1.maxScore(s1);
+//          System.out.println(result);
 
+
+//        463. Island Perimeter
+//           int[][] a = {{0,1,0,0},{1,1,1,0} , {0,1,0,0},{1,1,0,0}};
+//           Leetcode L1 = new Leetcode();
+//           int result = L1.islandPerimeter(a);
+//           System.out.println(result);
+
+//        461. Hamming Distance
+//              int x = 1, y=4;
+//              Leetcode L1 = new Leetcode();
+//              int result = L1.hammingDistance(x,y);
+//              System.out.println(result);
+
+
+
+//        492. Construct the Rectangle
+//               int area = 4;
+//               int area = 37;
+               int area = 122122;
+               Leetcode L1 = new Leetcode();
+               int[] result = L1.constructRectangle(area);
+               PrintArray(result);
 
 
     }
