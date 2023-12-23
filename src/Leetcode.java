@@ -1163,6 +1163,89 @@ public class Leetcode {
         return new int[]{num1 , num2};
 
     }
+
+    public String licenseKeyFormatting(String s , int k){
+        s = s.replaceAll("-", "").toUpperCase();
+        int lenS = s.length();
+        if (lenS == 0) {
+            return "";
+        }
+        int firstGroupSize = lenS % k;
+        StringBuilder result = new StringBuilder();
+
+        if (firstGroupSize > 0) {
+            result.append(s, 0, firstGroupSize).append("-");
+        }
+
+        for (int i = firstGroupSize; i < lenS; i += k) {
+            result.append(s, i, i + k).append("-");
+        }
+
+
+
+
+
+        return result.substring(0, result.length() - 1);
+    }
+
+    public int findMaxConsecutiveOnes(int[] a){
+         int ones=0;
+         int temp=0;
+         int i=0;
+         int j=0;
+         while (i<a.length){
+             temp=0;
+             while (i<a.length && a[i]==1){
+                 temp++;
+                 i++;
+             }
+             if(temp>ones){
+                ones=temp;
+             }
+             i++;
+         }
+         return ones;
+    }
+
+    public int findPoisonedDuration(int[] a , int dur){
+         int time=dur;
+         int i=1;
+
+         while (i<a.length){
+          if(a[i]<a[i-1]+dur){
+              time+=a[i]-a[i-1];
+          }else{
+              time+=dur;
+          }
+          i++;
+         }
+         return time;
+    }
+
+    public static int findNextGreter(int[] a , int index){
+        int elm = a[index];
+        for(int i=index+1;i<a.length;i++){
+            if(a[i]>elm){
+                return a[i];
+            }
+        }
+        return -1;
+    }
+    public static int findIndex(int[] array , int target){
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == target) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public int[] nextGreaterElement(int[] nums1 , int[] nums2){
+         int[] result = new int[nums1.length];
+         for(int i=0;i<nums1.length;i++){
+             result[i] = findNextGreter(nums2 , findIndex(nums2 , nums1[i]) ) ;
+         }
+         return result;
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -1547,6 +1630,41 @@ public class Leetcode {
 //              Leetcode L1 = new Leetcode();
 //              boolean result = L1.isPathCrossing(s);
 //              System.out.println(result);
+
+//         482. License Key Formatting
+//           String  s = "5F3Z-2e-9-w";
+//           int k = 4;
+//           String  s = "2-5g-3-j";
+//           int k = 2;
+//           Leetcode L1 = new Leetcode();
+//           String result = L1.licenseKeyFormatting(s,k);
+//           System.out.println(result);
+
+//        485. Max Consecutive Ones
+//              int[] nums= {1,1,0,1,1,1};
+//              int[] nums= {1,0 ,1 ,1 ,0 ,1};
+//              Leetcode L1 = new Leetcode();
+//              int result = L1.findMaxConsecutiveOnes(nums);
+//              System.out.println("maximum ones is" + result);
+
+//        495. Teemo Attacking
+//               int[] a = {1,4};
+//               int duration=2;
+////               int[] a = {1,3,5,7,9,11,13,15};
+////               int duration=3;
+//               Leetcode L1 = new Leetcode();
+//               int result = L1.findPoisonedDuration(a,duration);
+//               System.out.println(result);
+
+
+//        496. Next Greater Element I
+              int[] nums1 = {4,1,2};
+              int[] nums2 = {1,3,4,2};
+              Leetcode L1 = new Leetcode();
+              int[] result = L1.nextGreaterElement(nums1 , nums2);
+              PrintArray(result);
+
+
 
 
     }
