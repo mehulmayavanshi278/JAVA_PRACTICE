@@ -1058,6 +1058,43 @@ public class Leetcode {
 
     }
 
+
+    public boolean isPathCrossing(String s){
+         boolean result=false;
+         Map<String  , Boolean> hashmap = new HashMap<String , Boolean>();
+         int x=0 , y=0;
+
+         for(int i=0;i<s.length();i++){
+
+             String temp = ""+x+"_"+y;
+             System.out.println(temp);
+             if(hashmap.get(temp)==null){
+                 hashmap.put(temp , true);
+             }
+
+           if(s.charAt(i)=='N'){
+               x++;
+           }if(s.charAt(i)=='E'){
+               y++;
+           }if(s.charAt(i)=='W'){
+               y--;
+           }if(s.charAt(i)=='S'){
+               x--;
+           }
+             temp = ""+x+"_"+y;
+
+             if(hashmap.get(temp)!=null){
+                 return true;
+             }
+
+
+
+         }
+//         System.out.println(x + " " + y);
+         return result;
+
+    }
+
     public int islandPerimeter(int[][] a){
          int result=0;
          for(int i=0;i<a.length;i++){
@@ -1496,10 +1533,20 @@ public class Leetcode {
 //        492. Construct the Rectangle
 //               int area = 4;
 //               int area = 37;
-               int area = 122122;
-               Leetcode L1 = new Leetcode();
-               int[] result = L1.constructRectangle(area);
-               PrintArray(result);
+//               int area = 122122;
+//               Leetcode L1 = new Leetcode();
+//               int[] result = L1.constructRectangle(area);
+//               PrintArray(result);
+
+
+//        1496. Path Crossing
+//              String s = "NES";
+//              String s = "NESWW";
+//              String s = "S";
+//              String s = "NEEEEEEEEEENNNNNNNNNNWWWWWWWWWW";
+//              Leetcode L1 = new Leetcode();
+//              boolean result = L1.isPathCrossing(s);
+//              System.out.println(result);
 
 
     }
