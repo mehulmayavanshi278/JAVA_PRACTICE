@@ -66,7 +66,13 @@ public class Leetcode {
        for(int i=0;i<a.length;i++){
            System.out.print( " " + a[i] + " ");
        }
+     }public static void PrintStringArray(String[] a){
+         System.out.print("Array Element is");
+       for(int i=0;i<a.length;i++){
+           System.out.print( " " + a[i] + " ");
+       }
      }
+
      public static void PrintDoubleArray(int[][] a){
           for(int i=0;i<a.length;i++){
               for(int j=0;j<a[i].length;j++){
@@ -1246,6 +1252,94 @@ public class Leetcode {
          }
          return result;
     }
+    public int minOperations(String s){
+         int count=0;
+         int i=1;
+         char[] charArr = s.toCharArray();
+         while (i<s.length()){
+             while (i<s.length() && charArr[i-1]==charArr[i]){
+                 System.out.println("i is" + i);
+                 charArr[i] = charArr[i-1]=='1' ? '0' : '1';
+                 i++;
+                 count++;
+             }
+             i++;
+         }
+         System.out.println(count);
+         return count;
+    }
+
+    public static String findrow(char c){
+         String[] arr = {"qwertyuiop" , "asdfghjkl" , "zxcvbnm"};
+//
+//         System.out.println(c);
+         for(int i=0;i<arr.length;i++){
+
+             if(arr[i].indexOf(Character.toLowerCase(c))!=-1){
+                 return arr[i];
+             }
+         }
+         return "";
+    }
+    public String[] findWords(String[] words){
+         int x=0;
+        main: for(int i=0;i<words.length;i++){
+             words[i] = words[i].toLowerCase();
+             String row = findrow(words[i].charAt(0));
+             System.out.println(row);
+             for(int j=0;j<words[i].length();j++){
+              if(row.indexOf(words[i].charAt(j)) ==-1){
+                  continue main;
+              }
+             }
+             words[x]=words[i];
+             x++;
+         }
+
+        System.arraycopy(words , 0 , words , 0 , x);
+        return Arrays.copyOf(words, x);
+    }
+
+    public String convertToBase7(int num){
+         StringBuilder s = new StringBuilder();
+         while (num!=0){
+              if(num%7<0){
+                  s.append(Integer.toString(Math.abs(num%7)) + "-");
+              }else{
+                  s.append(Integer.toString(num%7));
+              }
+
+
+
+             num/=7;
+         }
+         System.out.println(s);
+         return s.reverse().toString();
+    }
+
+
+    public String[] findRelativeRanks(int[] score) {
+      String[] result = new String[score.length];
+      int[] temp = Arrays.copyOf(score , score.length);
+      Arrays.sort(temp);
+//      PrintArray(temp);
+//      PrintArray(score);
+        for(int i=0;i<score.length;i++){
+            int index = findIndex(temp , score[i]);
+            System.out.println("index is" + index);
+            if(index==temp.length-1){
+                result[i]="Gold Medal";
+            } else if (index==temp.length-2) {
+                result[i]="Silver Medal";
+            } else if (index==temp.length-3) {
+               result[i]="Bronze Medal";
+            }else {
+                result[i]=Integer.toString(temp.length-index);
+            }
+        }
+      return result;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -1658,12 +1752,42 @@ public class Leetcode {
 
 
 //        496. Next Greater Element I
-              int[] nums1 = {4,1,2};
-              int[] nums2 = {1,3,4,2};
-              Leetcode L1 = new Leetcode();
-              int[] result = L1.nextGreaterElement(nums1 , nums2);
-              PrintArray(result);
+//              int[] nums1 = {4,1,2};
+//              int[] nums2 = {1,3,4,2};
+//              Leetcode L1 = new Leetcode();
+//              int[] result = L1.nextGreaterElement(nums1 , nums2);
+//              PrintArray(result);
 
+//        1758. Minimum Changes To Make Alternating Binary String
+////              String s = "0100";
+//              String s = "10010100";
+////              String s = "10";
+////              String s = "1111";
+//                Leetcode L1 = new Leetcode();
+//                int result1 = L1.minOperations(s);
+//                System.out.println(result1);
+
+//        500. Keyboard Row
+//           String[] words  = {"Hello","Alaska","Dad","Peace"};
+//           Leetcode L1 = new Leetcode();
+//           String[] result = L1.findWords(words);
+//           for(int i=0;i<result.length;i++){
+//               System.out.println(result[i]);
+//           }
+
+//        504. Base 7
+//          int num =  100;
+//          int num =  -7;
+//          Leetcode L1 = new Leetcode();
+//          String result = L1.convertToBase7(num);
+//          System.out.println(result);
+
+//        506. Relative Ranks
+//          int[] score = {5,4,3,2,1};
+//          int[] score = {10,3,8,9,4};
+//          Leetcode L1 = new Leetcode();
+//          String[] result = L1.findRelativeRanks(score);
+//        PrintStringArray(result);
 
 
 
