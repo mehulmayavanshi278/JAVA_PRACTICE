@@ -1340,6 +1340,34 @@ public class Leetcode {
       return result;
     }
 
+
+
+
+
+    public static int numDecodings(String s) {
+        if (s == null || s.length() == 0 || s.charAt(0) == '0') {
+            return 0;
+        }
+
+        int n = s.length();
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = s.charAt(0) != '0' ? 1 : 0;
+
+        for (int i = 2; i <= n; i++) {
+            if (s.charAt(i - 1) != '0') {
+                dp[i] += dp[i - 1];
+            }
+            int twoDigit = Integer.parseInt(s.substring(i - 2, i));
+
+            if (twoDigit >= 10 && twoDigit <= 26) {
+                dp[i] += dp[i - 2];
+            }
+        }
+
+        return dp[n];
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -1788,6 +1816,18 @@ public class Leetcode {
 //          Leetcode L1 = new Leetcode();
 //          String[] result = L1.findRelativeRanks(score);
 //        PrintStringArray(result);
+
+//        91. Decode Ways
+//            String s = "12";
+//            String s = "226";
+//            String s = "2565";
+//            String s = "06";
+//            String s = "10";
+//            String s = "2101";
+            String s = "1201234";
+              Leetcode L1  = new Leetcode();
+              int result = L1.numDecodings(s);
+              System.out.println("result is " + result);
 
 
 
