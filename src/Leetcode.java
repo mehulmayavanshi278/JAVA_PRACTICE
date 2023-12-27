@@ -1368,6 +1368,45 @@ public class Leetcode {
         return dp[n];
     }
 
+
+    public static void PrintIntList(List<Integer> list){
+        for(int elm : list){
+            System.out.println(elm);
+        }
+    }
+    public static int getLowestSum(List<Integer> list){
+      int sum=0;
+        list.sort((a, b) -> a.compareTo(b));
+        PrintIntList(list);
+        for(int i=0;i<list.size()-1;i++){
+            sum+=list.get(i);
+        }
+      return sum;
+    }
+
+    public int minCost(String s , int[] time){
+         int count=0;
+//         if(s.charAt(0)==s.charAt(1)){
+//             count = time[0] > time[1] ? time[1] : time[0];
+//         }
+         int i=0;
+         while (i<s.length()-1){
+              if(s.charAt(i)==s.charAt(i+1)){
+                  List<Integer> list = new ArrayList<>();
+                  while (i<s.length()-1 && s.charAt(i)==s.charAt(i+1)){
+                      list.add(time[i]);
+                      i++;
+                  }
+                  list.add(time[i]);
+
+                  count+=getLowestSum(list);
+
+              }
+              i++;
+         }
+         return count;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -1824,10 +1863,19 @@ public class Leetcode {
 //            String s = "06";
 //            String s = "10";
 //            String s = "2101";
-            String s = "1201234";
-              Leetcode L1  = new Leetcode();
-              int result = L1.numDecodings(s);
-              System.out.println("result is " + result);
+//            String s = "1201234";
+//              Leetcode L1  = new Leetcode();
+//              int result = L1.numDecodings(s);
+//              System.out.println("result is " + result);
+
+//         1578   Minimum Time to Make Rope Colorful
+//            String color = "abaac";
+//            int[] time  ={1,2,3,4,5};
+            String color = "aabaa";
+            int[] time  ={1,2,3,4,1};
+            Leetcode L1 = new Leetcode();
+            int result = L1.minCost(color , time);
+            System.out.println(result);
 
 
 
