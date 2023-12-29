@@ -1245,6 +1245,18 @@ public class Leetcode {
         }
         return -1;
     }
+
+    public static List<Integer> findAllFacor(int num){
+      List<Integer> list = new ArrayList<>();
+      for(int i=1;i<=(int)Math.sqrt(num);i++){
+          if(num%i==0){
+              System.out.println(i + " " + num/i);
+              list.add(i);
+              list.add(num/i);
+          }
+      }
+      return list;
+    }
     public int[] nextGreaterElement(int[] nums1 , int[] nums2){
          int[] result = new int[nums1.length];
          for(int i=0;i<nums1.length;i++){
@@ -1405,6 +1417,113 @@ public class Leetcode {
               i++;
          }
          return count;
+    }
+
+
+    public static Listnode sumOfTwoListNode(Listnode l1 , Listnode l2){
+//         int sum=0;
+         List<Integer> list1 = new ArrayList<>();
+         List<Integer> list2 = new ArrayList<>();
+         List<Integer> list3 = new ArrayList<>();
+         while (l1.next!=null){
+          list1.add(l1.data);
+         }
+         while (l2.next!=null){
+          list2.add(l2.data);
+         }
+         int carry=0;
+         int indexOfl1=list1.size()-1;
+         int indexOfl2=list2.size()-1;
+         while (indexOfl1>=0 && indexOfl2 >=0){
+
+            int sum=list1.get(indexOfl1) + list2.get(indexOfl2) + carry;
+            list3.add(sum>9 ? sum%10 : sum);
+            carry=sum/10;
+            carry = sum > 9 ? carry = sum/10 : 0;
+            indexOfl1--;
+            indexOfl2--;
+         }
+        while (indexOfl1>=0){
+          list3.add(list1.get(indexOfl1));
+          indexOfl1--;
+        }
+        while (indexOfl2>=0){
+            list3.add(list2.get(indexOfl2));
+            indexOfl2--;
+        }
+
+        PrintIntList(list3);
+        return l1;
+    }
+
+
+    public int getLengthOfOptimalCompression(String s , int k){
+        int n = s.length();
+        int[][] dp = new int[110][110];
+        for (int i = 0; i <= n; i++)
+            for (int j = 0; j <= n; j++)
+                dp[i][j] = 9999;
+        dp[0][0] = 0;
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= k; j++) {
+                int cnt = 0, del = 0;
+                for (int l = i; l >= 1; l--) {
+                    if (s.charAt(l - 1) == s.charAt(i - 1))
+                        cnt++;
+                    else
+                        del++;
+
+                    if (j - del >= 0) {
+                        dp[i][j] = Math.min(dp[i][j], dp[l - 1][j - del] + 1 + (cnt >= 100 ? 3 : cnt >= 10 ? 2 : cnt >= 2 ? 1 : 0));
+                    }
+                }
+                if (j > 0)
+                    dp[i][j] = Math.min(dp[i][j], dp[i - 1][j - 1]);
+            }
+        }
+        return dp[n][k];
+    }
+
+
+
+    public static Listnode addTwoNumbers(Listnode l1 , Listnode l2){
+         List<Integer> listarr1 = new ArrayList<>();
+         List<Integer> listarr2 = new ArrayList<>();
+
+         Listnode l3 = new Listnode(-1);
+         while (l1.next!=null){
+             listarr1.add(l1.data);
+         }
+         while (l2.next!=null){
+             listarr2.add(l2.data);
+         }
+         int lenA = listarr1.size();
+         int lenB = listarr2.size();
+
+         int minLen = listarr1.size() < listarr2.size() ? listarr1.size() : listarr2.size();
+         System.out.print(minLen);
+         int carry=0;
+         while (minLen!=0){
+
+         }
+
+         return l3;
+
+    }
+
+    public boolean checkPerfectNumber(int num){
+         if(num==1){
+             return false;
+         }
+         List<Integer> list = new ArrayList<>();
+         list = findAllFacor(num);
+         int sum=0;
+         for(int i=0;i<list.size();i++){
+             sum+=list.get(i);
+         }
+         System.out.println(sum);
+         return sum-num == num;
     }
 
     public static void main(String[] args) {
@@ -1871,11 +1990,55 @@ public class Leetcode {
 //         1578   Minimum Time to Make Rope Colorful
 //            String color = "abaac";
 //            int[] time  ={1,2,3,4,5};
-            String color = "aabaa";
-            int[] time  ={1,2,3,4,1};
-            Leetcode L1 = new Leetcode();
-            int result = L1.minCost(color , time);
-            System.out.println(result);
+//            String color = "aabaa";
+//            int[] time  ={1,2,3,4,1};
+//            Leetcode L1 = new Leetcode();
+//            int result = L1.minCost(color , time);
+//            System.out.println(result);
+
+//        2. Add Two Numbers
+//              int[] a = {9,9,9,9,9,9,9};
+//              int[] b = {9,9,9,9};
+//              Listnode l1 = createListnode(a);
+//              Listnode l2 = createListnode(b);
+//              Listnode l3 = sumOfTwoListNode(l1, l2);
+//              PrintListnode(l3);
+
+//            1531 String Compression II
+               String s = "aaabcccd";
+               int k=2;
+//               String s = "aabbaa";
+//               int k=2;
+//               String s = "aaaaaaaaaaa";
+//               int k=0;
+//               String s = "abc";
+//               int k=2;
+
+//               Leetcode L1 = new Leetcode();
+//               int result = L1.getLengthOfOptimalCompression(s,k);
+//               System.out.print(result);
+
+
+
+//        2   add to numbers
+//            int[] a ={9,9,9,9,9,9,9};
+//            int[] b ={9,9,9 ,9};
+//            Listnode l1 = createListnode(a);
+//            Listnode l2 = createListnode(b);
+//            Listnode l3 = addTwoNumbers(l1 , l2);
+//            PrintListnode(l3);
+
+
+//        1335. Minimum Difficulty of a Job Schedule
+//                int num=28;
+//                int num=7;
+//                  int num=6;
+//                  int num=1;
+//                Leetcode L1 = new Leetcode();
+//                boolean result = L1.checkPerfectNumber(num);
+//                System.out.print(result);
+
+//        temp  find all posible factors
 
 
 
