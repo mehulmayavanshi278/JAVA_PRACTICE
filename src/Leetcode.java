@@ -1421,38 +1421,42 @@ public class Leetcode {
 
 
     public static Listnode sumOfTwoListNode(Listnode l1 , Listnode l2){
-//         int sum=0;
-         List<Integer> list1 = new ArrayList<>();
-         List<Integer> list2 = new ArrayList<>();
-         List<Integer> list3 = new ArrayList<>();
-         while (l1.next!=null){
-          list1.add(l1.data);
-         }
-         while (l2.next!=null){
-          list2.add(l2.data);
-         }
-         int carry=0;
-         int indexOfl1=list1.size()-1;
-         int indexOfl2=list2.size()-1;
-         while (indexOfl1>=0 && indexOfl2 >=0){
 
-            int sum=list1.get(indexOfl1) + list2.get(indexOfl2) + carry;
+         List<Integer> list3 = new ArrayList<>();
+
+        System.out.println("over");
+         int carry=0;
+
+        while (l1!=null && l2!=null){
+            int sum=l1.data+l2.data+carry;
             list3.add(sum>9 ? sum%10 : sum);
-            carry=sum/10;
             carry = sum > 9 ? carry = sum/10 : 0;
-            indexOfl1--;
-            indexOfl2--;
-         }
-        while (indexOfl1>=0){
-          list3.add(list1.get(indexOfl1));
-          indexOfl1--;
+            l1=l1.next;
+            l2=l2.next;
         }
-        while (indexOfl2>=0){
-            list3.add(list2.get(indexOfl2));
-            indexOfl2--;
+
+        while (l1!=null){
+            int sum=l1.data+carry;
+            list3.add(sum>9 ? sum%10 : sum);
+            carry = sum > 9 ? carry = sum/10 : 0;
+            l1=l1.next;
         }
+        while (l2!=null){
+            int sum=l2.data+carry;
+            list3.add(sum>9 ? sum%10 : sum);
+            carry = sum > 9 ? carry = sum/10 : 0;
+            l2=l2.next;
+        }
+
+
+        if(carry > 0 ){
+            list3.add(carry);
+        }
+
+
 
         PrintIntList(list3);
+        System.out.println("over");
         return l1;
     }
 
@@ -1999,10 +2003,14 @@ public class Leetcode {
 //        2. Add Two Numbers
 //              int[] a = {9,9,9,9,9,9,9};
 //              int[] b = {9,9,9,9};
-//              Listnode l1 = createListnode(a);
-//              Listnode l2 = createListnode(b);
-//              Listnode l3 = sumOfTwoListNode(l1, l2);
-//              PrintListnode(l3);
+//              int[] a = {2,4,3};
+//              int[] b = {5,6,4};
+              int[] a = {2,4,9};
+              int[] b = {5,6 , 4 , 9};
+              Listnode l1 = createListnode(a);
+              Listnode l2 = createListnode(b);
+              Listnode l3 = sumOfTwoListNode(l1, l2);
+              PrintListnode(l3);
 
 //            1531 String Compression II
                String s = "aaabcccd";
