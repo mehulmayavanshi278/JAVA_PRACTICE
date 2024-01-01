@@ -1530,6 +1530,23 @@ public class Leetcode {
          return sum-num == num;
     }
 
+    public int maxLengthBetweenEqualCharacters(String s) {
+      if(s.length()==2 && s.charAt(0)==s.charAt(1)){
+          return 0;
+      }
+      int count=-1;
+      Map<Character , Integer> hashmap = new HashMap<>();
+      for(int i=0;i<s.length();i++){
+       if(hashmap.get(s.charAt(i))==null){
+           hashmap.put(s.charAt(i) , i);
+       }else {
+           count = Math.max(count ,  i-hashmap.get(s.charAt(i)) -1);
+       }
+      }
+      System.out.println(hashmap);
+      return count;
+      
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -2005,16 +2022,16 @@ public class Leetcode {
 //              int[] b = {9,9,9,9};
 //              int[] a = {2,4,3};
 //              int[] b = {5,6,4};
-              int[] a = {2,4,9};
-              int[] b = {5,6 , 4 , 9};
-              Listnode l1 = createListnode(a);
-              Listnode l2 = createListnode(b);
-              Listnode l3 = sumOfTwoListNode(l1, l2);
-              PrintListnode(l3);
+//              int[] a = {2,4,9};
+//              int[] b = {5,6 , 4 , 9};
+//              Listnode l1 = createListnode(a);
+//              Listnode l2 = createListnode(b);
+//              Listnode l3 = sumOfTwoListNode(l1, l2);
+//              PrintListnode(l3);
 
 //            1531 String Compression II
-               String s = "aaabcccd";
-               int k=2;
+//               String s = "aaabcccd";
+//               int k=2;
 //               String s = "aabbaa";
 //               int k=2;
 //               String s = "aaaaaaaaaaa";
@@ -2047,6 +2064,13 @@ public class Leetcode {
 //                System.out.print(result);
 
 //        temp  find all posible factors
+
+
+//       1624 Largest Substring Between Two Equal Characters
+             String s = "abca";
+             Leetcode L1 = new Leetcode();
+             int result = L1.maxLengthBetweenEqualCharacters(s);
+             System.out.println(result);
 
 
 
