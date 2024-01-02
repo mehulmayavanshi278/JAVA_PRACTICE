@@ -1547,6 +1547,152 @@ public class Leetcode {
       return count;
       
     }
+    public int findContentChildren(int[] g , int[] s){
+         if(s.length==0 || s.length==0){
+             return 0;
+         }
+         Arrays.sort(g);
+         Arrays.sort(s);
+         int count=0;
+         int index=0;
+         for(int i=0;i< (Math.min(s.length , g.length));i++){
+             System.out.println(i);
+           if(s[i]>=g[i]){
+               count++;
+               index=i;
+           }else{
+               break;
+           }
+         }
+         count=g[index];
+         return count;
+    }
+    public int lengthOfLongestSubstring(String s){ //abcabcbb
+         int count=0;
+         int temp=0;
+         int k=0;
+         outer :   for(int i=0;i<s.length()-1;i++){
+             for(int j=i+1;j<s.length();j++){
+                 if(s.charAt(i)==s.charAt(j)){
+                     count = Math.max(k,count);
+                     System.out.println("k is " + k);
+
+                     System.out.println("i is " + i);
+                     System.out.println("j is " + j);
+                     k=1;
+                     continue outer;
+                 }
+                 k++;
+             }
+             count = Math.max(k , count);
+             k=0;
+         }
+         System.out.println(count);
+
+         return count;
+    }
+    public  boolean detectCapitalUse(String s){
+         Character c = s.charAt(0)<=122 && s.charAt(0)>=97 ? 'a' : 'A';
+         System.out.println(c);
+         if(c=='A'){
+             if(s.length()!=1 && s.charAt(1)<=90 && s.charAt(1)>=65){
+                 for(int i=1;i<s.length();i++){
+                     if(s.charAt(i)<=122 && s.charAt(i)>=97){
+                         continue;
+                     }
+
+                     return false;
+                 }
+
+             }else{
+                 for(int i=1;i<s.length();i++){
+                     if(s.charAt(i)<=90 && s.charAt(i)>=65){
+                         continue;
+                     }
+
+                     return false;
+                 }
+             }
+
+
+         }else{
+             for(int i=1;i<s.length();i++){
+                 if(s.charAt(i)<=122 && s.charAt(i)>=97){
+                     continue;
+                 }
+
+                 return false;
+             }
+         }
+         return true;
+    }
+
+    public List<List<Integer>> findMatrix(int[] nums) {   //  [8,8,8,8,2,4,4,2,4]  [[8,4,2],[8,4,2],[8,4],[8]]    [[8],[8],[8],[8,2,4],[4,2],[4]]
+      List<List<Integer>> list = new ArrayList<>();
+
+      int j=0;
+      int k=0;
+      list.add(new ArrayList<>());
+      for(int i=0;i<nums.length;i++){
+          if(list.get(j).contains(nums[i])){
+           j++;
+           if(list.size()==j && list.get(j).contains(nums[i])){
+
+           }
+           list.add(new ArrayList<>());
+           list.get(j).add(nums[i]);
+          }else{
+              list.get(j).add(nums[i]);
+          }
+      }
+//      PrintDoublyList(list);
+
+      return list;
+    }
+
+//    P   A   H   N
+//    A P L S I I G
+//    Y   I   R
+    public String convert(String s , int numRows){
+         if(numRows==1){
+             return s;
+         }
+         List<List<Character>> list = new ArrayList<>();
+         for(int i=0;i<numRows;i++){
+             list.add(new ArrayList<>());
+         }
+         int j=-1;
+         boolean down=true;
+         boolean up=false;
+         for(int i=0;i<s.length();i++){
+             if(j==numRows-1){
+                 down=false;
+                 up=true;
+             }
+             if(j==0){
+                 down=true;
+                 up=false;
+             }
+             if(down==true){
+                 j++;
+                list.get(j).add(s.charAt(i));
+             }
+             if(up==true){
+                 j--;
+                 list.get(j).add(s.charAt(i));
+             }
+         }
+        String s1 = "";
+         for(int i=0;i<list.size();i++){
+             for(int k=0;k<list.get(i).size();k++){
+                 s1+=list.get(i).get(k);
+             }
+         }
+
+
+         return s1;
+
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -2067,10 +2213,57 @@ public class Leetcode {
 
 
 //       1624 Largest Substring Between Two Equal Characters
-             String s = "abca";
-             Leetcode L1 = new Leetcode();
-             int result = L1.maxLengthBetweenEqualCharacters(s);
-             System.out.println(result);
+//             String s = "abca";
+//             Leetcode L1 = new Leetcode();
+//             int result = L1.maxLengthBetweenEqualCharacters(s);
+//             System.out.println(result);
+
+//        455. Assign Cookies
+//               int[] g = {1,2,3};
+//               int[] s = {1,1};
+//               int[] g = {1,2};
+//               int[] s = {1,2,3};
+//               int[] g = {1,2 , 3};
+//               int[] s = {3};
+//               Leetcode L1 = new Leetcode();
+//               int result = L1.findContentChildren(g,s);
+//               System.out.println(result);
+
+//        3. Longest Substring Without Repeating Characters
+//             String s = "pwwkew";
+//             String s = "abcabcbb";
+//             String s = "   ";
+//               String s = "au";
+//               String s = "aab";
+//               String s = "cdd";
+//               String s = "abba";
+//             Leetcode L1 = new Leetcode();
+//             int result = L1.lengthOfLongestSubstring(s);
+//             System.out.println(result);
+
+//         520. Detect Capital
+//              String s = "FlaG";
+//              String s = "Leetcode";
+//              Leetcode L1 = new Leetcode();
+//              boolean result = L1.detectCapitalUse(s);
+//              System.out.println(result);
+
+//         2610. Convert an Array Into a 2D Array With Conditions
+//                int[] nums = {1,3,4,1,2,3,1};
+//                Leetcode L1 = new Leetcode();
+//                List<List<Integer>> list = L1.findMatrix(nums);
+//                PrintDoublyList(list);
+
+//         6. Zigzag Conversion
+//              String s = "PAYPALISHIRING";
+//              String s = "AB";
+////              int numRows=3;
+//              int numRows=1;
+////              int numRows=3;
+//              Leetcode L1 = new Leetcode();
+//              String result = L1.convert(s , numRows);
+//              System.out.println(result);
+
 
 
 
