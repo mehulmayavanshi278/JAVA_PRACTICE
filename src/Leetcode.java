@@ -1693,6 +1693,125 @@ public class Leetcode {
          return s1;
 
     }
+
+    public int numberOfBeams(String[] s){
+         int count=0;
+         boolean isFound=false;
+         int a=0;
+         int b=0;
+         List<Integer> list = new ArrayList<>();
+         for(String word : s){
+//            System.out.println(word);
+             if(word.contains("1")){
+                 System.out.println(word);
+                 long temp = word.chars().filter(ch -> ch == '1').count();
+                 System.out.println(temp);
+                 list.add((int)temp);
+             }
+         }
+         for(int i=0;i<list.size()-1;i++){
+             count+=list.get(i) * list.get(i+1);
+         }
+         System.out.println(count);
+         return count;
+    }
+
+    public List<List<Integer>> threeSum(int[] nums){
+        List<List<Integer>> result = new ArrayList<>();
+        int i=0;
+        int j=1;
+        int k=nums.length-1;
+
+        while(i<k && j<nums.length){
+            if(j==k){
+                i=i+1;
+                j=i+1;
+
+            }
+            if(nums[i] + nums[j] + nums[k] == 0){
+                result.add(new ArrayList<>());
+                result.get(result.size()-1).add(nums[i]);
+                result.get(result.size()-1).add(nums[j]);
+                result.get(result.size()-1).add(nums[k]);
+                i=i+1;
+                j=i+1;
+                continue;
+            }
+            if(nums[i] + nums[j] + nums[k] <0){
+
+                j++;
+            }
+            if(nums[i] + nums[j] + nums[k] >0){
+                k--;
+            }
+
+        }
+
+        return result;
+
+    }
+    public int minOperations(int[] nums){
+         int count=0;
+         Map<Integer , Integer> hashmap  = new HashMap<>();
+         for(int i=0;i<nums.length;i++){
+            if(hashmap.get(nums[i])==null){
+              hashmap.put(nums[i] , 1);
+              continue;
+             }
+            hashmap.put(nums[i] , hashmap.get(nums[i]) + 1);
+         }
+//
+         System.out.println(hashmap);
+        List<Integer> list = new ArrayList<>();
+        for(Map.Entry<Integer , Integer> entry : hashmap.entrySet()){
+          list.add(entry.getValue());
+        }
+
+        for(int i=0;i<list.size();i++){
+            if(list.get(i)==1){
+                return -1;
+            }
+//            if(list.get(i)%2!=0 && list.get(i)%3 !=0){
+//              if(isPrime(list.get(i))){
+            if(list.get(i)%2==0){
+//              count+=list.get(i)/2;
+                int num = list.get(i);
+                while (num % 3 !=0 &&  num%2==0){
+                    num-=2;
+                }
+                count+=num/3;
+                if(list.get(i)-num!=0){
+                    count+=(list.get(i)-num )/2;
+                }
+                System.out.println("count is " + count);
+            }else{
+                int num=list.get(i);
+                while (num >=0 && num%3!=0 && (list.get(i)-num) %2 ==0){
+                    num-=2;
+                }
+                if(num<0){
+                    return -1;
+                }
+                count+=num/3;
+                count+=(list.get(i)-num)/2;
+                System.out.println("num is " + num);
+            }
+
+
+                  continue;
+
+
+
+//            if(list.get(i)%3==0){
+//                count+=list.get(i)/3;
+//                continue;
+//            }
+
+//            count+= Math.min(list.get(i)/2 , list.get(i)/3);
+
+        }
+         return count;
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -2263,6 +2382,31 @@ public class Leetcode {
 //              Leetcode L1 = new Leetcode();
 //              String result = L1.convert(s , numRows);
 //              System.out.println(result);
+
+
+//        2125. Number of Laser Beams in a Bank
+//                String[] s = {"011001","000000","010100","001000"};
+//                Leetcode L1 = new Leetcode();
+//                int result = L1.numberOfBeams(s);
+//                System.out.println(result);
+
+
+//        15. 3Sum
+//             int[] nums = {-1,0,1,2,-1,-4};
+//             Leetcode L1 = new Leetcode();
+//             List<List<Integer>>  result = L1.threeSum(nums);
+//             PrintDoublyList(result);
+
+
+//        [2,3,3,2,2,4,2,3,4]
+//          int[] nums = {2,3,3,2,2,4,2,3,4};
+//          int[] nums = {14,12,14,14,12,14,14,12,12,12,12,14,14,12,14,14,14,12,12};
+//          int[] nums = {19,19,19,19,19,19,19,19,19,19,19,19,19};
+//          int[] nums = {3,14,3,14,3,14,14,3,3,14,14,14,3,14,14,3,14,14,14,3};
+          int[] nums = {240,174,240,174,174,174,297,174,297,174,297,240,297,240,240,174,240,174,174,174,297,297,174,174,297,297,174,297,297,297,297,297,297,297,297,297,240,174,174,174,297,297,174,174,174,297,240,174,174,297,174,297,174,174,174,174,174,240,174,174,174,174,174,174,174,174,297,174,297,174,297,240,174,297,240,297,174,174,297,297,297,297,174,174,174,174,174,174,240,240,297,297,174,174,174};
+          Leetcode L1 = new Leetcode();
+          int result = L1.minOperations(nums);
+          System.out.println(result);
 
 
 
