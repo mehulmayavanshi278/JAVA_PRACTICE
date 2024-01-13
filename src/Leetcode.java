@@ -1812,6 +1812,114 @@ public class Leetcode {
         }
          return count;
     }
+    public static List<String> combineLetter(Character digit , List<String> previous){
+//        System.out.println(Integer.parseInt(digit.toString()));
+        List<String> tempList = new ArrayList<>();
+        tempList.add("abc");
+        tempList.add("def");
+        tempList.add("ghi");
+        tempList.add("jkl");
+        tempList.add("mno");
+        tempList.add("pqrs");
+        tempList.add("tuv");
+        tempList.add("wxyz");
+           List<String> list = new ArrayList<>();
+
+           System.out.println(list.size());
+           return list;
+    }
+    public List<String> letterCombinations(String digit){
+         List<String> list = new ArrayList<>();
+
+
+        for(int i=digit.length()-1;i>=0;i--){
+             List<String> temp  = combineLetter(digit.charAt(i) , list);
+             list.addAll(temp);
+        }
+        System.out.println(list.size());
+
+        for(int i=0;i<list.size();i++){
+            System.out.println(list.get(i));
+        }
+
+        return list;
+
+
+
+
+    }
+
+    boolean halvesAreAlike(String s){
+         int first=0;
+         int last=0;
+         String s1="AEIOUaeiou";
+
+         for (int i=0;i<s.length();i++){
+             if(s1.indexOf(s.charAt(i)) != -1){
+                 if(i<s.length()/2){
+                     first++;
+                 }else if(i>=s.length()/2){
+                     last++;
+                 }
+             }
+
+
+         }
+        System.out.println(first);
+        System.out.println(last);
+
+         return first==last;
+    }
+
+    public int minSteps(String s , String t){
+         int result=0;
+         Map<Character , Integer> hashmap1 = new HashMap<>();
+         Map<Character , Integer> hashmap2 = new HashMap<>();
+         for(int i=0;i<s.length();i++){
+             char currentChar = s.charAt(i);
+             char currentChar2 = t.charAt(i);
+             if (hashmap1.containsKey(currentChar)) {
+                 // If yes, increment the count
+                 hashmap1.put(currentChar, hashmap1.get(currentChar) + 1);
+             } else {
+                 // If no, add the character to the HashMap with a count of 1
+                 hashmap1.put(currentChar, 1);
+             }
+             if (hashmap2.containsKey(currentChar2)) {
+                 // If yes, increment the count
+                 hashmap2.put(currentChar2, hashmap2.get(currentChar2) + 1);
+             } else {
+                 // If no, add the character to the HashMap with a count of 1
+                 hashmap2.put(currentChar2, 1);
+             }
+         }
+
+
+         for(Map.Entry<Character , Integer> entry : hashmap1.entrySet()){
+             char key = entry.getKey();
+             if(hashmap2.get(key)==null){
+                 result+=hashmap1.get(key);
+                 System.out.println(key);
+
+                 continue;
+             }
+             if(hashmap2.get(key)>=hashmap1.get(key)){
+//                 System.out.println("hy");
+//                 System.out.println(key);
+                 continue;
+             }else{
+                 System.out.println("hyms");
+                 result+=(hashmap1.get(key) - hashmap2.get(key));
+             }
+
+
+         }
+
+//         System.out.println("hashmap 1 is " + hashmap1);
+//         System.out.println("hashmap 2 is " + hashmap2);
+//         System.out.println("result is "  + result);
+         return result;
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -2403,10 +2511,36 @@ public class Leetcode {
 //          int[] nums = {14,12,14,14,12,14,14,12,12,12,12,14,14,12,14,14,14,12,12};
 //          int[] nums = {19,19,19,19,19,19,19,19,19,19,19,19,19};
 //          int[] nums = {3,14,3,14,3,14,14,3,3,14,14,14,3,14,14,3,14,14,14,3};
-          int[] nums = {240,174,240,174,174,174,297,174,297,174,297,240,297,240,240,174,240,174,174,174,297,297,174,174,297,297,174,297,297,297,297,297,297,297,297,297,240,174,174,174,297,297,174,174,174,297,240,174,174,297,174,297,174,174,174,174,174,240,174,174,174,174,174,174,174,174,297,174,297,174,297,240,174,297,240,297,174,174,297,297,297,297,174,174,174,174,174,174,240,240,297,297,174,174,174};
-          Leetcode L1 = new Leetcode();
-          int result = L1.minOperations(nums);
-          System.out.println(result);
+//          int[] nums = {240,174,240,174,174,174,297,174,297,174,297,240,297,240,240,174,240,174,174,174,297,297,174,174,297,297,174,297,297,297,297,297,297,297,297,297,240,174,174,174,297,297,174,174,174,297,240,174,174,297,174,297,174,174,174,174,174,240,174,174,174,174,174,174,174,174,297,174,297,174,297,240,174,297,240,297,174,174,297,297,297,297,174,174,174,174,174,174,240,240,297,297,174,174,174};
+//          Leetcode L1 = new Leetcode();
+//          int result = L1.minOperations(nums);
+//          System.out.println(result);
+
+//        17. Letter Combinations of a Phone Number
+//               String s = "23";
+//               Leetcode L1 = new Leetcode();
+//               List<String> list = L1.letterCombinations(s);
+
+
+//        1704. Determine if String Halves Are Alike
+//            String s = "book";
+//            String s = "textbook";
+//            Leetcode L1 = new Leetcode();
+//            boolean result = L1.halvesAreAlike(s);
+//            System.out.println(result);
+
+//        1347. Minimum Number of Steps to Make Two Strings Anagram
+//             String s = "leetcode";
+//             String t = "practice";
+////             String s = "anagram";
+////             String t = "mangaar";
+//             Leetcode L1 = new Leetcode();
+//             int result = L1.minSteps(s,t);
+//             System.out.println(result);
+
+
+
+
 
 
 

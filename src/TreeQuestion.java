@@ -203,6 +203,14 @@ public class TreeQuestion {
       return s1;
     }
 
+
+    public static int amountOfTime(TreeNode root, int start) {
+
+     return 0;
+
+
+    }
+
     public static void main(String[] args) {
 
 
@@ -289,6 +297,11 @@ public class TreeQuestion {
 //        list = getBinaryTreePath();
 //        PrintList(list);
 
+//        2385. Amount of Time for Binary Tree to Be Infected
+//          int[] a = {1,5,3,0,4,10,6,9,2};
+//          TreeNode l1 = createBinaryTree(a);
+//          int result = amountOfTime(l1 , 3);
+//          System.out.println(result);
 
 
 
