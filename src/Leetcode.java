@@ -1950,6 +1950,30 @@ public class Leetcode {
         System.out.println(hashmap);
         return list;
     }
+    public static Listnode removeNthFromEnd(Listnode l1 , int n){
+        Listnode dummy = new Listnode(0);
+        dummy.next = l1;
+
+        Listnode fast = dummy;
+        Listnode slow = dummy;
+
+        // Move fast n+1 steps ahead
+        for (int i = 0; i <= n; i++) {
+            fast = fast.next;
+        }
+
+        // Move both fast and slow until fast reaches the end
+        while (fast != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        // Remove the n-th node from the end
+        slow.next = slow.next.next;
+
+        return dummy.next;
+
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -2570,10 +2594,20 @@ public class Leetcode {
 
 
 //        2225. Find Players With Zero or One Losses
-             int[][] matches = {{1,3},{2,3},{3,6},{5,6},{5,7},{4,5},{4,8},{4,9},{10,4},{10,9}};
-             Leetcode L1 = new Leetcode();
-             List<List<Integer>> list = L1.findWinners(matches);
-             PrintDoublyList(list);
+//             int[][] matches = {{1,3},{2,3},{3,6},{5,6},{5,7},{4,5},{4,8},{4,9},{10,4},{10,9}};
+//             Leetcode L1 = new Leetcode();
+//             List<List<Integer>> list = L1.findWinners(matches);
+//             PrintDoublyList(list);
+
+//        19  Remove Nth Node From End of List
+             int[] a = {1,2,3,4,5};
+             int n = 2;
+             Listnode l1 =  createListnode(a);
+
+             Listnode result = removeNthFromEnd(l1 , n);
+             PrintListnode(result);
+
+
 
 
 
