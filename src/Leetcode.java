@@ -1,6 +1,7 @@
 import com.sun.source.tree.LambdaExpressionTree;
 
 import java.beans.PropertyEditorSupport;
+import java.nio.file.LinkOption;
 import java.sql.Array;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -1920,6 +1921,35 @@ public class Leetcode {
 //         System.out.println("result is "  + result);
          return result;
     }
+
+    public List<List<Integer>> findWinners(int[][] matches){
+        List<List<Integer>> list = new ArrayList<>();
+        Map<Integer , Integer> hashmap  = new TreeMap<>();
+        for(int i=0;i<matches.length;i++){
+            hashmap.put(matches[i][0] , 0);
+            hashmap.put(matches[i][1] , 0);
+        }
+        for(int i=0;i<matches.length;i++){
+         hashmap.put(matches[i][1] , hashmap.get(matches[i][1]) + 1);
+        }
+
+
+        list.add(new ArrayList<>());
+        list.add(new ArrayList<>());
+
+
+        for(Map.Entry<Integer , Integer> entry : hashmap.entrySet()){
+         
+          if(entry.getValue()==0){
+              list.get(0).add(entry.getKey());
+          } else if (entry.getValue()==1) {
+              list.get(1).add(entry.getKey());
+          }
+        }
+
+        System.out.println(hashmap);
+        return list;
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -2537,6 +2567,13 @@ public class Leetcode {
 //             Leetcode L1 = new Leetcode();
 //             int result = L1.minSteps(s,t);
 //             System.out.println(result);
+
+
+//        2225. Find Players With Zero or One Losses
+             int[][] matches = {{1,3},{2,3},{3,6},{5,6},{5,7},{4,5},{4,8},{4,9},{10,4},{10,9}};
+             Leetcode L1 = new Leetcode();
+             List<List<Integer>> list = L1.findWinners(matches);
+             PrintDoublyList(list);
 
 
 
