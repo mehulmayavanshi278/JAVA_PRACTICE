@@ -489,6 +489,7 @@ public class Leetcode {
          int result = (int) Math.sqrt(a);
          return result;
        }
+
     int climbStairs(int a) {
 
       if(a==2){
@@ -1717,36 +1718,10 @@ public class Leetcode {
          return count;
     }
 
-    public List<List<Integer>> threeSum(int[] nums){
+    public List<List<Integer>> threeSum(int[] nums){ //-4 -1 -1 0 1 2
         List<List<Integer>> result = new ArrayList<>();
-        int i=0;
-        int j=1;
-        int k=nums.length-1;
+        Arrays.sort(nums);
 
-        while(i<k && j<nums.length){
-            if(j==k){
-                i=i+1;
-                j=i+1;
-
-            }
-            if(nums[i] + nums[j] + nums[k] == 0){
-                result.add(new ArrayList<>());
-                result.get(result.size()-1).add(nums[i]);
-                result.get(result.size()-1).add(nums[j]);
-                result.get(result.size()-1).add(nums[k]);
-                i=i+1;
-                j=i+1;
-                continue;
-            }
-            if(nums[i] + nums[j] + nums[k] <0){
-
-                j++;
-            }
-            if(nums[i] + nums[j] + nums[k] >0){
-                k--;
-            }
-
-        }
 
         return result;
 
@@ -1972,6 +1947,74 @@ public class Leetcode {
         slow.next = slow.next.next;
 
         return dummy.next;
+
+    }
+
+    public int myAtoi(String s){
+         int result=0;
+         int i=0;
+         boolean ismines=false;
+         while (!Character.isDigit(s.charAt(i))){
+             if(s.charAt(i)=='-'){
+                 ismines=true;
+             }
+             i++;
+         }
+         String s1="";
+         while(Character.isDigit(s.charAt(i))){
+             s1+=s.charAt(i);
+             i++;
+         }
+         System.out.println("s1 is : " +  s1);
+         result=Integer.parseInt(s1);
+         return ismines ? -result :  result;
+    }
+    boolean uniqueOccurrences(int[] a){
+         boolean isUnique=false;
+         Map<Integer , Integer> hashmap = new HashMap<>();
+         for(int i=0;i<a.length;i++){
+             if(hashmap.get(a[i])==null){
+                 hashmap.put(a[i] , 1);
+             }else{
+                 hashmap.put(a[i] , hashmap.get(a[i])+1);
+             }
+
+         }
+         Set<Integer> hashset = new HashSet<>();
+         for(Map.Entry<Integer , Integer> entry : hashmap.entrySet()){
+             int val = entry.getValue();
+             if(hashset.add(val)==false){
+                 return false;
+             }
+         }
+         System.out.println(hashmap);
+         return true;
+    }
+//    public int climbStairs(int n){
+//         if(n==2){
+//             return 2;
+//         }
+//         if(n==1){
+//             return 1;
+//         }
+//         if(n==0){
+//             return 0;
+//         }
+//
+//         return climbStairs(n-1) + climbStairs(n-2);
+//
+//    }
+
+    public int findLUSlength(String s1 , String s2){
+         if(s1==s2){
+             return 0;
+         }
+         int indexOfs1=s1.length();
+         int indexOfs2=s2.length();
+
+
+
+         return -1;
 
     }
     public static void main(String[] args) {
@@ -2600,12 +2643,48 @@ public class Leetcode {
 //             PrintDoublyList(list);
 
 //        19  Remove Nth Node From End of List
-             int[] a = {1,2,3,4,5};
-             int n = 2;
-             Listnode l1 =  createListnode(a);
+//             int[] a = {1,2,3,4,5};
+//             int n = 2;
+//             Listnode l1 =  createListnode(a);
+//
+//             Listnode result = removeNthFromEnd(l1 , n);
+//             PrintListnode(result);
 
-             Listnode result = removeNthFromEnd(l1 , n);
-             PrintListnode(result);
+//        8  String to Integer (atoi)
+//              String s="4193 with words";
+//              Leetcode L1 = new Leetcode();
+//              int result = L1.myAtoi(s);
+//              System.out.println(result);
+
+//        1207. Unique Number of Occurrences
+//             int[] a = {1,2,2,1,1,3};
+//             Leetcode L1 = new Leetcode();
+//             boolean result = L1.uniqueOccurrences(a);
+//             System.out.println(result);
+
+//        70. Climbing Stairs
+//              int n=45;
+//              Leetcode L1 = new Leetcode();
+//              int result = L1.climbStairs(n);
+//              System.out.println(result);
+
+//        15. 3Sum
+//             int[] a = {-1,0,1,2,-1,-4};
+//             Leetcode L1 = new Leetcode();
+//             List<List<Integer>> list  = L1.threeSum(a);
+//             PrintDoublyList(list);
+
+//        521. Longest Uncommon Subsequence I
+           String s1="abc";
+           String s2="cdc";
+           Leetcode L1 = new Leetcode();
+           int result = L1.findLUSlength(s1,s2);
+           System.out.println(result);
+
+
+
+
+
 
 
 
