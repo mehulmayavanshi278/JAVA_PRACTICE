@@ -103,6 +103,10 @@ public class TreeQuestion {
         PostOrderTraversal(root.right);
     }
 
+//    public static List<String> getBinaryTreePath(TreeNode root , List<String> list){
+//
+//    }
+
     public Boolean IsSameTree(TreeNode root1, TreeNode root2) {
         if (root1 == null && root2 == null) {
             return true;
@@ -199,6 +203,14 @@ public class TreeQuestion {
       return s1;
     }
 
+
+    public static int amountOfTime(TreeNode root, int start) {
+
+     return 0;
+
+
+    }
+
     public static void main(String[] args) {
 
 
@@ -276,6 +288,21 @@ public class TreeQuestion {
 //            String s1="";
 //            s1 = createStringFromBT(l1 , s1);
 //            System.out.println();
+
+
+//        257. Binary Tree Paths
+//        int[] a = {1,2,3,0,5};
+//        TreeNode l1 = createBinaryTree(a,0);
+//        List<String> list = new ArrayList<>();
+//        list = getBinaryTreePath();
+//        PrintList(list);
+
+//        2385. Amount of Time for Binary Tree to Be Infected
+//          int[] a = {1,5,3,0,4,10,6,9,2};
+//          TreeNode l1 = createBinaryTree(a);
+//          int result = amountOfTime(l1 , 3);
+//          System.out.println(result);
+
 
 
 
