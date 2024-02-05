@@ -24,7 +24,30 @@ import java.util.Collections;
 
  }
 
-
+class Solution {
+    int[] dp;
+    public int maxSumAfterPartitioning(int[] arr, int k) {
+        dp = new int[arr.length];
+        Arrays.fill(dp , -1);
+        return helper(arr , k,0);
+    }
+    private int helper(int[] a , int k , int start){
+        int len=Math.min(a.length , start);
+        if(len>=a.length){
+            return 0;
+        }
+        if(dp[start]!=-1){
+            return dp[start];
+        }
+        int ans=0,curMax=0;
+        int end=Math.min(start+k , a.length);
+        for(int i=start;i<end;i++){
+            curMax=Math.max(curMax , a[i]);
+            ans=Math.max(ans , (i-start+1)*curMax + helper(a,k,i+1));
+        }
+        return dp[start]=ans;
+    }
+}
 
 public class Leetcode {
 
@@ -2017,6 +2040,192 @@ public class Leetcode {
          return -1;
 
     }
+
+    public int minFallingPathSum(int[][] a){
+         int sum=0;
+
+         return sum;
+    }
+
+    public boolean canJump(int[] a){
+        boolean result = false;
+        int target = a.length - 1;
+        int curInd = a.length - 2;
+
+        while (curInd >= 0) {
+            if (target <= curInd + a[curInd]) {
+                target = curInd;
+                curInd--;
+                continue;
+            }
+            curInd--;
+        }
+
+        // Check if the first index is reachable from the last index
+        result = a[0] >= target;
+
+        return result;
+    }
+    private int countMinHelper(int[] a , int start){
+        if (start >= a.length - 1) {
+            return 0;
+        }
+
+//        if (dp[start] != -1) {
+//            return dp[start];
+//        }
+
+        int len = a.length - 1;
+        if (a[start] == 0) {
+            return Integer.MAX_VALUE;
+        }
+
+        int jmp = Math.min(len - start, a[start]);
+        int ans = Integer.MAX_VALUE;
+
+        for (int i = start + 1; i <= start + jmp; i++) {
+            int jumps = countMinHelper(a, i);
+            if (jumps != Integer.MAX_VALUE) {
+                ans = Math.min(ans, jumps + 1);
+            }
+        }
+
+
+        return ans;
+    }
+    public int countMinJump(int[] a){
+
+         int start=0;
+         return countMinHelper(a , start);
+    }
+    public int evalRPN(String[] s){
+         int result=0;
+        ArrayList<String> stack = new ArrayList<>();
+         String s1="+-*/";
+         for(int i=0;i<s.length;i++){
+             if(s1.contains(s[i])){
+               System.out.println(s[i]);
+               int num1=Integer.parseInt(stack.get(stack.size()-1));
+               int num2=Integer.parseInt(stack.get(stack.size()-2));
+               System.out.println("num2 is " + num2);
+               System.out.println("num1 is " + num1);
+               int temp=0;
+
+                switch (s[i]){
+                    case "+" :
+                        System.out.println("y");
+                        temp = num1+num2;
+                        break;
+
+                    case "-" :
+                        temp=num2-num1;
+                        break;
+                    case "*" :
+                        temp=num2*num1;
+                        break;
+                    case "/" :
+                        temp=num2/num1;
+                        break;
+
+                }
+                System.out.println("temp is now" + temp);
+                stack.remove(stack.size()-1);
+                stack.remove(stack.size()-1);
+                stack.add(Integer.toString(temp));
+                continue;
+             }
+             stack.add(s[i]);
+
+         }
+         System.out.println(stack);
+         return result;
+    }
+
+    List<Integer> sequentialDigits(int low , int high){
+        List<Integer> result = new ArrayList<>();
+
+        String s="123456789";
+        int l=String.valueOf(low).length();
+        int h=String.valueOf(high).length();
+
+        for(int i=l;i<=h;i++){
+           for(int j=0;j<10-i;j++){
+                int num = Integer.parseInt(s.substring(j , j+i));
+                System.out.println(num);
+                if(num<high){
+                    result.add(num);
+                }
+           }
+        }
+
+
+
+
+        return result;
+    }
+
+
+    private int hindexHelper(int[] a , int start , int end){
+         int result=0;
+         int mid=(start+end)/2;
+         System.out.println("mid is " + mid);
+        int target = a[mid];
+        System.out.println("target " + target);
+        if(mid==start){
+
+
+
+
+        }
+
+
+
+         if(target<=a.length-mid){
+             System.out.println("yes");
+             result = hindexHelper(a  , mid , end);
+         }else{
+             System.out.println("no");
+             result = hindexHelper(a , start , mid);
+         }
+
+         return result;
+
+    }
+    public int hIndex(int[] a){   //[1 1 3] [0 0 4 4]
+         Arrays.sort(a);
+       return hindexHelper(a ,  0 , a.length-1);
+    }
+
+    public int[] productExceptSelf(int[] a){
+         int[] b = new int[a.length];
+         int[] leftP = new int[a.length];
+         int[] rightP = new int[a.length];
+         int product=1;
+         for(int i=0;i<a.length;i++){
+             if(i==0){
+              leftP[i]=1;
+              continue;
+             }
+             product=product*a[i-1];
+             leftP[i]=product;
+         }
+         product=1;
+         for(int i=a.length-1;i>=0;i--){
+             if(i==a.length-1){
+              rightP[i]=1;
+              continue;
+             }
+             product=product*a[i+1];
+             rightP[i]=product;
+         }
+//         PrintArray(rightP);
+          for(int i=0;i<a.length;i++){
+              b[i]=leftP[i]*rightP[i];
+          }
+         return b;
+    }
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -2675,11 +2884,77 @@ public class Leetcode {
 //             PrintDoublyList(list);
 
 //        521. Longest Uncommon Subsequence I
-           String s1="abc";
-           String s2="cdc";
-           Leetcode L1 = new Leetcode();
-           int result = L1.findLUSlength(s1,s2);
-           System.out.println(result);
+//           String s1="abc";
+//           String s2="cdc";
+//           Leetcode L1 = new Leetcode();
+//           int result = L1.findLUSlength(s1,s2);
+//           System.out.println(result);
+
+//        931 Minimum Falling Path Sum
+//              int[][] a = {{2,1,3},{6,5,4} , {7,8,9}};
+//              Leetcode L1 = new Leetcode();
+//              int result = L1.minFallingPathSum(a);
+//              System.out.println(result);
+
+//        55. Jump Game
+//              int[] a = {2,3,1,1,4};
+////              int[] a = {2,0};
+////              int[] a = {3,2,1,0,4};
+//              Leetcode L1 = new Leetcode();
+//              boolean result = L1.canJump(a);
+//              System.out.println(result);
+
+//        45. Jump Game II
+//              int[] a = {2,3,1,1,4};
+//              int[] a = {2,0,2,4,6,0,0,3};
+////              int[] a = {1,2,3};
+//              Leetcode L1 = new Leetcode();
+//              int result = L1.countMinJump(a);
+//              System.out.println(result);
+
+//        150. Evaluate Reverse Polish Notation
+//               String[] a = {"2","1","+","3","*"};
+//               String[] a = {"10","6","9","3","+","-11","*","/","*","17","+","5","+"};
+//               Leetcode L1 = new Leetcode();
+//               int result = L1.evalRPN(a);
+//               System.out.println(result);
+
+//        1291. Sequential Digits
+//                int low=1000;
+//                int high=13000;
+//                Leetcode L1 = new Leetcode();
+//                List<Integer> result = L1.sequentialDigits(low , high);
+//                PrintIntList(result);
+
+//        1043. Partition Array for Maximum Sum
+//                int[] a={1,4,1,5,7,3,6,1,9,9,3};
+////                int[] a={1,15,7,9,2,5,10};
+//                Solution L1 = new Solution();
+//                int result = L1.maxSumAfterPartitioning(a,4);
+//                System.out.println(result);
+
+
+//        274. H-Index
+//                int[] a ={3,0,6,1,5};
+//                int[] a ={1,3,1};
+//                int[] a ={0 , 0 , 4 , 4};
+////                int[] a ={0};
+//                Leetcode L1 = new Leetcode();
+//                int result = L1.hIndex(a);
+//                System.out.println("result is " + result);
+
+//        238   Product of Array Except Self
+                int[] a = {1,2,3,4};
+                Leetcode L1 = new Leetcode();
+                int[] result = L1.productExceptSelf(a);
+                PrintArray(result);
+
+
+
+
+
+
+
 
 
 
