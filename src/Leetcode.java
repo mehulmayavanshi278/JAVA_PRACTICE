@@ -1749,13 +1749,44 @@ public class Leetcode {
          return count;
     }
 
-    public List<List<Integer>> threeSum(int[] nums){ //-4 -1 -1 0 1 2
+    public List<List<Integer>> threeSum(int[] a) {
         List<List<Integer>> result = new ArrayList<>();
-        Arrays.sort(nums);
+        Arrays.sort(a);
+        PrintArray(a);
+        for (int i = 0; i < a.length - 2; i++) {
+            if (i > 0 && a[i] == a[i - 1]) {
+                continue; // Skip duplicate elements
+            }
 
+            int j = i + 1;
+            int k = a.length - 1;
+
+            while (j < k) {
+                int sum = a[i] + a[j] + a[k];
+
+                if (sum == 0) {
+                    result.add(Arrays.asList(a[i], a[j], a[k]));
+
+                    // Skip duplicate elements for 'j'
+                    while (j < k && a[j] == a[j + 1]) {
+                        j++;
+                    }
+                    // Skip duplicate elements for 'k'
+                    while (j < k && a[k] == a[k - 1]) {
+                        k--;
+                    }
+
+                    j++;
+                    k--;
+                } else if (sum < 0) {
+                    j++;
+                } else {
+                    k--;
+                }
+            }
+        }
 
         return result;
-
     }
     public int minOperations(int[] nums){
          int count=0;
@@ -2411,6 +2442,101 @@ public class Leetcode {
     }
 
 
+    String reverseWords(String s){
+         String result="";
+
+         List<String> list = new ArrayList<>();
+         String[] s1 = s.split(" ");
+        PrintStringArray(s1);
+         for(int i=0;i<s1.length;i++){
+             String temp=s1[i].trim();
+//             System.out.println("trim is" + temp+"k");
+             if(temp.length()==0){
+//                 i++;
+             }else{
+                 list.add(temp);
+
+             }
+
+
+         }
+//         for(String str  : s1){
+//             System.out.println(str + "/");
+//         }
+        Collections.reverse(list);
+//         System.out.println(list);
+         for(int i=0;i<list.size();i++){
+             result+=list.get(i) + (i==list.size()-1 ? "" : " ");
+
+         }
+
+//         PrintStringArray(s1);
+         return result;
+    }
+
+
+    private int numSquareHelper(int num){
+         int result = 0;
+         int index=2;
+        if(num==0){
+            return 0;
+        }
+        if(num<4 && num>0){
+            return num;
+        }
+
+
+
+         while (Math.pow(index , 2)  <= num){
+             index++;
+         }
+
+         System.out.println("index is" + (index-1));
+         System.out.println("num is" + num);
+
+         for(int i=index-1;i>=2;i--){
+             int val = numSquareHelper(num - (int)Math.pow(i , 2));
+             if(val==(num - (int)Math.pow(i , 2))){
+                 if(val==0){
+                     result+=1;
+                 }else{
+                     result+=val;
+                 }
+
+//                 return result;
+             }else{
+                 result = Math.max(result  , val+1);
+             }
+
+         }
+
+         return result;
+    }
+
+    int[] twoSumII(int[] a ,int  target){
+         int[] result = new int[2];
+
+         int i=0;
+         int j=a.length-1;
+         while (i<j){
+             int sum=a[i]+a[j];
+             if(sum>target){
+                 j--;
+             } else if (sum<target) {
+                 i++;
+             }else {
+                 result[0]=i+1;
+                 result[1]=j+1;
+                 break;
+             }
+         }
+
+         return result;
+    }
+
+     int numSquares(int num){
+         return numSquareHelper(num);
+     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -3169,10 +3295,42 @@ public class Leetcode {
 //        451. Sort Characters By Frequency
 //              String s = "tree";
 //              String s = "cccaaa";
-              String s = "Aabb";
-              Leetcode L1 = new Leetcode();
-              String result = L1.frequencySort(s);
-              System.out.println(result);
+//              String s = "Aabb";
+//              Leetcode L1 = new Leetcode();
+//              String result = L1.frequencySort(s);
+//              System.out.println(result);
+
+//        151. Reverse Words in a String
+//             String s = "  hello world  ";
+//             Leetcode L1 = new Leetcode();
+//             String result = L1.reverseWords(s);
+//             System.out.println(result);
+
+//        279. Perfect Squares
+//              int num = 13;
+////              int num = 12;
+////              int num = 4;
+//
+//              Leetcode L1 = new Leetcode();
+//              int result = L1.numSquares(num);
+//              System.out.println(result);
+
+
+//        167. Two Sum II - Input Array Is Sorted
+//               int[] a = {2,7,11,15};
+//               Leetcode L1 = new Leetcode();
+//               int[] result = L1.twoSumII(a , 9);
+//               PrintArray(result);
+
+////        15. 3Sum
+////           int[] a = {-1,0,1,2,-1,-4};
+////           int[] a = {0,1,1};
+////           int[] a = {0,0,0};
+//           int[] a = {0,0,0 , 0};
+           int[] a = {-1,0,1,2,-1,-4,-2,-3,3,0,4};
+           Leetcode L1 = new Leetcode();
+           List<List<Integer>> list = L1.threeSum(a);
+           PrintDoublyList(list);
 
 
 
