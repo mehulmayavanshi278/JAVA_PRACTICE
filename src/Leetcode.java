@@ -51,6 +51,12 @@ class Solution {
 
 public class Leetcode {
 
+     List<List<Integer>> dpDoubleIntList = new ArrayList<>();
+
+
+
+
+
 
 
      public static Listnode createListnode(int[] a){
@@ -90,6 +96,7 @@ public class Leetcode {
        for(int i=0;i<a.length;i++){
            System.out.print( " " + a[i] + " ");
        }
+       System.out.println("");
      }public static void PrintStringArray(String[] a){
          System.out.print("Array Element is");
        for(int i=0;i<a.length;i++){
@@ -99,6 +106,15 @@ public class Leetcode {
 
      public static void PrintDoubleArray(int[][] a){
           for(int i=0;i<a.length;i++){
+              for(int j=0;j<a[i].length;j++){
+                  System.out.print(a[i][j] + " ");
+              }
+              System.out.println("");
+          }
+     }
+     public static void PrintDoubleArrayString(String[][] a){
+          for(int i=0;i<a.length;i++){
+
               for(int j=0;j<a[i].length;j++){
                   System.out.print(a[i][j] + " ");
               }
@@ -1788,6 +1804,27 @@ public class Leetcode {
 
         return result;
     }
+
+    int[] rotate189(int[] a , int k){
+
+        int[] b = new int[a.length];
+        Arrays.fill(b , 0);
+
+        int j=a.length-k;
+        if(j<0){
+            j=k%a.length;
+            j=a.length-j;
+        }
+        for(int i=0;i<a.length;i++){
+            if(j==a.length){
+                j=0;
+            }
+            b[i] = a[j];
+            j++;
+        }
+        System.arraycopy(b , 0 , a , 0 , b.length);
+        return a;
+    }
     public int minOperations(int[] nums){
          int count=0;
          Map<Integer , Integer> hashmap  = new HashMap<>();
@@ -2536,6 +2573,109 @@ public class Leetcode {
 
      int numSquares(int num){
          return numSquareHelper(num);
+     }
+
+
+     List<Integer> largestDivisibleSubsetHelper(int[] a , int index){
+
+        if(index==a.length-1){
+            return new ArrayList<>(Collections.singletonList(a[index]));
+        }
+        if(dpDoubleIntList.get(index).size()!=0){
+            return dpDoubleIntList.get(index);
+        }
+        List<Integer> list  =  new ArrayList<>();
+        List<Integer> templist  =  new ArrayList<>();
+
+//        list.add(a[index]);
+        for(int i=index+1;i<a.length;i++){
+            List<Integer> l1 = largestDivisibleSubsetHelper(a , i);
+
+        }
+        if(templist.get(0)%a[index]==0){
+            list.add(a[index]);
+         }
+        list.addAll(templist);
+
+         dpDoubleIntList.get(index).addAll(list);
+        return list;
+     }
+     List<Integer> largestDivisibleSubset(int[] a){
+         for(int i=0;i<a.length;i++){
+             dpDoubleIntList.add(new ArrayList<>());
+         }
+         Arrays.sort(a);
+         PrintArray(a);
+         return largestDivisibleSubsetHelper(a , 0);
+     }
+
+//     int minSubArrayLenHelper(int[] a , int index , int sum , int target){  //2,3,1,2,4,3
+//
+//     }
+     int minSubArrayLen(int[] a ,int target){
+         int i=0;
+         int j=0;
+         int sum=0;
+
+         int min = Integer.MAX_VALUE;
+          for(i=0;i<a.length;i++){
+
+              if(a[i]>=target){
+                   min=1;
+                   break;
+              }
+
+
+
+              while (j<a.length && sum<target){
+                  sum+=a[j];
+                  j++;
+
+              }
+              if(sum>=target){
+                  System.out.println("found at " + i + " and " + (j-1));
+                  min = Math.min(min , j-i);
+
+              }
+              sum-=a[i];
+
+
+
+
+
+          }
+         return min;
+     }
+
+     boolean isValidSudoku(String[][] a){
+//         PrintDoubleArray(a);
+         PrintDoubleArrayString(a);
+
+         boolean isvalid = true;
+
+         HashSet<String> hashSet = new HashSet<>();
+
+         outer : for(int i=0;i<a.length;i++){
+             for(int j=0;j<a[i].length;j++){
+                 if(a[i][j]!="."){
+                     isvalid = isvalid && hashSet.add("row_"+i+"_"+a[i][j]);
+                     System.out.println("row" + i  + " is "+ isvalid);
+                     isvalid = isvalid && hashSet.add("col_"+j+"_"+a[i][j]);
+                     System.out.println("col" + j + " is "+ isvalid);
+                     isvalid = isvalid && hashSet.add("main_"+i/3+"_"+j/3+"_"+a[i][j]);
+                     System.out.println("index" + i /3+  " " +  j/3 + " is "+ isvalid + " elm is" + a[i][j]);
+
+//                     if(isvalid==false){
+//                         break outer;
+//                     }
+
+                 }
+             }
+         }
+
+         System.out.println(hashSet);
+
+         return isvalid;
      }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -3327,10 +3467,72 @@ public class Leetcode {
 ////           int[] a = {0,1,1};
 ////           int[] a = {0,0,0};
 //           int[] a = {0,0,0 , 0};
-           int[] a = {-1,0,1,2,-1,-4,-2,-3,3,0,4};
-           Leetcode L1 = new Leetcode();
-           List<List<Integer>> list = L1.threeSum(a);
-           PrintDoublyList(list);
+//           int[] a = {-1,0,1,2,-1,-4,-2,-3,3,0,4};
+//           Leetcode L1 = new Leetcode();
+//           List<List<Integer>> list = L1.threeSum(a);
+//           PrintDoublyList(list);
+
+//        189. Rotate Array
+//               int[] a = {1,2,3,4,5,6,7};
+//               int k=3;
+//               int[] a = {1,2};
+//               int k=3;
+//               int[] a = {1,2,3,4,5,6};
+//               int k=11;
+////               int[] a = {-1,-100,3,99};
+////               int k=2;
+//               Leetcode L1 = new Leetcode();
+//               int[] result = L1.rotate189(a ,k);
+//               PrintArray(result);
+
+//        368. Largest Divisible Subset
+////            int[] a = {1,2,3};
+//            int[] a = {3,4,16,8};
+////            int[] a = {1,2,4,8};
+//            Leetcode L1 = new Leetcode();
+//            List<Integer> list =  L1.largestDivisibleSubset(a);
+//            PrintIntList(list);
+
+
+//        209. Minimum Size Subarray Sum
+//              int[] a = {2,3,1,2,4,3};
+////              int[] a = {1,1,1,1,1,1,1,1};
+//              int target=7;
+////              int target=11;
+//              Leetcode L1 = new Leetcode();
+//              int result = L1.minSubArrayLen(a , target);
+//              System.out.println(result);
+
+//         36  valid sudoku
+               String[][] a = {
+ {"5","3",".",".","7",".",".",".","."}
+,{"6",".",".","1","9","5",".",".","."}
+,{".","9","8",".",".",".",".","6","."}
+,{"8",".",".",".","6",".",".",".","3"}
+,{"4",".",".","8",".","3",".",".","1"}
+,{"7",".",".",".","2",".",".",".","6"}
+,{".","6",".",".",".",".","2","8","."}
+,{".",".",".","4","1","9",".",".","5"}
+,{".",".",".",".","8",".",".","7","9"}
+               };
+//               String[][] a = {
+//                       {"8","3",".",".","7",".",".",".","."},
+//                       {"6",".",".","1","9","5",".",".","."},
+//                       {".","9","8",".",".",".",".","6","."},
+//                       {"8",".",".",".","6",".",".",".","3"},
+//                       {"4",".",".","8",".","3",".",".","1"},
+//                       {"7",".",".",".","2",".",".",".","6"},
+//                       {".","6",".",".",".",".","2","8","."},
+//                       {".",".",".","4","1","9",".",".","5"},
+//                       {".",".",".",".","8",".",".","7","9"}
+//               }
+//                       ;
+               Leetcode L1 = new Leetcode();
+               boolean result = L1.isValidSudoku(a);
+               System.out.println(result);
+
+
+
 
 
 
