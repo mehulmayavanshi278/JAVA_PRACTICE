@@ -740,12 +740,7 @@ public class Leetcode {
         return CheckHappyNumber(sum , origional , list);
     }
 
-    public boolean IsIsomorphic(String s1 , String s2){
 
-
-
-         return true;
-    }
    public static boolean checkPalindromeLinkedList(Listnode head){
        if(head==null || head.next==null){
            return true;
@@ -2677,6 +2672,171 @@ public class Leetcode {
 
          return isvalid;
      }
+
+     int[][] rotate48(int[][] a){
+//         PrintDoubleArray(a);
+//         int[][] result = new int[a.length][a[0].length];
+
+//
+//         for(int i=0;i<a.length;i++){
+//             for(int j=0;j<a[i].length;j++){
+//                 result[i][j] = a[j][a.length-1-i];
+//             }
+//         }
+         int rows = a.length;
+         int cols = a[0].length;
+
+         for (int i = 0; i < rows; i++) {
+             for (int j = i + 1; j < cols; j++) {
+                 // Swap elements across the main diagonal
+                 int temp = a[i][j];
+                 a[i][j] = a[j][i];
+                 a[j][i] = temp;
+             }
+         }
+//         int[] temp = new int[a[0].length];
+         for(int i=0;i<a.length;i++){
+             for(int j=0;j<a[i].length/2;j++){
+                int temp = a[i][j];
+                a[i][j] = a[i][a[i].length-1-j];
+                 a[i][a[i].length-1-j] = temp;
+             }
+         }
+
+
+         return a;
+     }
+
+    public List<Integer> spiralOrder(int[][] a) {
+        List<Integer> res = new ArrayList<>();
+        int count=0;
+        boolean down=false , left=false , up = false;
+        boolean right=true;
+        int i=a.length;
+        int j=a[0].length;
+        int m=0;
+        int n=0;
+        int top=0 , rightt=a[0].length-1 , downn=a.length-1 , leftf = a.length;
+        outer :  while (count<a.length*a[0].length*2){
+
+
+            while(right){
+                System.out.println("index" + m +"" +n);
+                count++;
+               System.out.println(a[m][n]);
+               n++;
+               if(n==j){
+                   System.out.println("enter");
+
+                   n-=1;
+                   j-=1;
+                   m++;
+                   right=false;
+                   down=true;
+                   continue outer;
+               }
+            }while(down){
+                System.out.println("index" + m +"" +n);
+
+                count++;
+                System.out.println(a[m][n]);
+               m++;
+               if(m==i){
+                   System.out.println("enter");
+                   m-=1;
+                   i-=1;
+                   n--;
+                   j--;
+                   left=true;
+                   down=false;
+                   continue outer;
+               }
+            }while(left){
+                System.out.println("index" + m +"" +n);
+
+                count++;
+                System.out.println(a[m][n]);
+               n--;
+               if(n==a[0].length-j-2){
+                   System.out.println("enter");
+                   n++;
+                   i-=1;
+                   m--;
+                   up=true;
+                   left=false;
+                   continue outer;
+               }
+            }while(up){
+                count++;
+                System.out.println("index" + m +"" +n);
+
+                System.out.println(a[m][n]);
+               m--;
+               if(m==a.length-i-2){
+                   System.out.println("enter");
+                 m++;
+                 n++;
+                 j-=1;
+                 up=false;
+                 right=true;
+                   continue outer;
+               }
+            }
+
+            count++;
+
+
+        }
+        return res;
+    }
+
+    int[][] setZeroes(int[][] a){
+         int[][] result  = new int[a.length][a[0].length];
+         HashSet<Integer> rows = new HashSet<>();
+         HashSet<Integer> cols = new HashSet<>();
+         for(int i=0;i<a.length;i++){
+             for(int j=0;j<a[i].length;j++){
+               if(a[i][j]==0){
+                   rows.add(i);
+                   cols.add(j);
+               }
+             }
+         }
+         for(int i=0;i<a.length;i++){
+             for(int j=0;j<a[i].length;j++){
+               if(rows.contains(i)){
+                   a[i][j]=0;
+               }if(cols.contains(j)){
+                   a[i][j]=0;
+               }
+             }
+         }
+
+         System.out.println(rows);
+         System.out.println(cols);
+         return a;
+    }
+
+    public boolean isIsomorphic(String s, String t) {
+
+        int map1[]=new int[200];
+        int map2[]=new int[200];
+
+        if(s.length()!=t.length())
+            return false;
+
+
+        for(int i=0;i<s.length();i++)
+        {
+            if(map1[s.charAt(i)]!=map2[t.charAt(i)])
+                return false;
+
+            map1[s.charAt(i)]=i+1;
+            map2[t.charAt(i)]=i+1;
+        }
+
+        return true;
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -2865,11 +3025,11 @@ public class Leetcode {
 
 //             205   isomorphic string
 
-//              String s1 = "paper";
-//              String s2 = "title";
-//              Leetcode L1 = new Leetcode();
-//              boolean result = L1.IsIsomorphic(s1  , s2);
-//              System.out.println(result);
+              String s1 = "paper";
+              String s2 = "title";
+              Leetcode L1 = new Leetcode();
+              boolean result = L1.isIsomorphic(s1  , s2);
+              System.out.println(result);
 
 //            206  Reverse Linked List
 //                   int[] a = {1 , 2 , 3 , 4 , 5};
@@ -3504,17 +3664,17 @@ public class Leetcode {
 //              System.out.println(result);
 
 //         36  valid sudoku
-               String[][] a = {
- {"5","3",".",".","7",".",".",".","."}
-,{"6",".",".","1","9","5",".",".","."}
-,{".","9","8",".",".",".",".","6","."}
-,{"8",".",".",".","6",".",".",".","3"}
-,{"4",".",".","8",".","3",".",".","1"}
-,{"7",".",".",".","2",".",".",".","6"}
-,{".","6",".",".",".",".","2","8","."}
-,{".",".",".","4","1","9",".",".","5"}
-,{".",".",".",".","8",".",".","7","9"}
-               };
+//               String[][] a = {
+// {"5","3",".",".","7",".",".",".","."}
+//,{"6",".",".","1","9","5",".",".","."}
+//,{".","9","8",".",".",".",".","6","."}
+//,{"8",".",".",".","6",".",".",".","3"}
+//,{"4",".",".","8",".","3",".",".","1"}
+//,{"7",".",".",".","2",".",".",".","6"}
+//,{".","6",".",".",".",".","2","8","."}
+//,{".",".",".","4","1","9",".",".","5"}
+//,{".",".",".",".","8",".",".","7","9"}
+//               };
 //               String[][] a = {
 //                       {"8","3",".",".","7",".",".",".","."},
 //                       {"6",".",".","1","9","5",".",".","."},
@@ -3527,9 +3687,35 @@ public class Leetcode {
 //                       {".",".",".",".","8",".",".","7","9"}
 //               }
 //                       ;
-               Leetcode L1 = new Leetcode();
-               boolean result = L1.isValidSudoku(a);
-               System.out.println(result);
+//               Leetcode L1 = new Leetcode();
+//               boolean result = L1.isValidSudoku(a);
+//               System.out.println(result);
+
+//        48. Rotate Image
+//           int[][] a = {{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
+//           Leetcode L1= new Leetcode();
+//           int[][] result = L1.rotate48(a);
+//           PrintDoubleArray(result);
+
+//        54. Spiral Matrix
+//            int[][] a = {{1,2,3},{4,5,6},{7,8,9}};
+//            Leetcode L1 = new Leetcode();
+//            List<Integer> result = L1.spiralOrder(a);
+//            PrintIntList(result);
+
+//        73. Set Matrix Zeroes
+//              int[][] a = {{1,1,1},{1,0,1},{1,1,1}};
+//              Leetcode L1 = new Leetcode();
+//              int[][] result = L1.setZeroes(a);
+//              PrintDoubleArray(result);
+
+//        205. Isomorphic Strings
+
+
+
+
+
+
 
 
 
