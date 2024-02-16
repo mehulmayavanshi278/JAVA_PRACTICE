@@ -2819,24 +2819,48 @@ public class Leetcode {
 
     public boolean isIsomorphic(String s, String t) {
 
-        int map1[]=new int[200];
-        int map2[]=new int[200];
+        int map1[] = new int[200];
+        int map2[] = new int[200];
 
-        if(s.length()!=t.length())
+        if (s.length() != t.length())
             return false;
 
 
-        for(int i=0;i<s.length();i++)
-        {
-            if(map1[s.charAt(i)]!=map2[t.charAt(i)])
+        for (int i = 0; i < s.length(); i++) {
+            if (map1[s.charAt(i)] != map2[t.charAt(i)])
                 return false;
 
-            map1[s.charAt(i)]=i+1;
-            map2[t.charAt(i)]=i+1;
+            map1[s.charAt(i)] = i + 1;
+            map2[t.charAt(i)] = i + 1;
 
 
+
+        }
         return true;
     }
+
+    int longestConsecutive(int[] nums){
+        int st = 0;
+        int res = 0;
+        Arrays.sort(nums);
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] - nums[i - 1] == 0) {
+                res = Math.max(res,1);
+                st++;
+            }
+            else if (nums[i] - nums[i - 1] != 1) {
+                st = i;
+            }else {
+                res = Math.max(res, i - st+1);
+            }
+        }
+        if(nums.length==0) return 0;
+        if(nums.length==1) return 1;
+        return res;
+    }
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -3025,11 +3049,11 @@ public class Leetcode {
 
 //             205   isomorphic string
 
-              String s1 = "paper";
-              String s2 = "title";
-              Leetcode L1 = new Leetcode();
-              boolean result = L1.isIsomorphic(s1  , s2);
-              System.out.println(result);
+//              String s1 = "paper";
+//              String s2 = "title";
+//              Leetcode L1 = new Leetcode();
+//              boolean result = L1.isIsomorphic(s1  , s2);
+//              System.out.println(result);
 
 //            206  Reverse Linked List
 //                   int[] a = {1 , 2 , 3 , 4 , 5};
@@ -3710,6 +3734,16 @@ public class Leetcode {
 //              PrintDoubleArray(result);
 
 //        205. Isomorphic Strings
+
+
+//        128. Longest Consecutive Sequence
+//              int[] a = {100,4,200,1,3,2};
+              int[] a = {0,3,7,2,5,8,4,6,0,1};
+              Leetcode L1 = new Leetcode();
+              int result = L1.longestConsecutive(a);
+              System.out.println(result);
+
+
 
 
 
