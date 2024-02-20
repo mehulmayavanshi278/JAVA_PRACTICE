@@ -1,5 +1,6 @@
 import com.sun.source.tree.LambdaExpressionTree;
 
+import java.awt.desktop.ScreenSleepEvent;
 import java.beans.PropertyEditorSupport;
 import java.nio.file.LinkOption;
 import java.sql.Array;
@@ -70,6 +71,25 @@ public class Leetcode {
 
          return head;
 
+     }
+
+     public static void PrintNeighbour2DMetrics(int[][] a){
+         for(int i=0;i<a.length;i++){
+             for(int j=0;j<a[i].length;j++){
+                System.out.print(a[i][j] + "--->");
+                for(int m=i-1;m<=i+1;m++){
+                    for(int n=j-1;n<=j+1;n++){
+                        if(m>-1 && m<a.length && n>-1 && n<a[i].length){
+                            if(m==i && n==j){
+                                continue;
+                            }
+                            System.out.print(a[m][n] + " ");
+                        }
+                    }
+                }
+                System.out.println("");
+             }
+         }
      }
 
      public  static Listnode reverseListNode(Listnode head){
@@ -1611,29 +1631,60 @@ public class Leetcode {
          count=g[index];
          return count;
     }
+//    public int lengthOfLongestSubstring(String s){ //abcabcbb
+//         int count=0;
+//         int temp=0;
+//         int k=0;
+//         outer :   for(int i=0;i<s.length()-1;i++){
+//             for(int j=i+1;j<s.length();j++){
+//                 if(s.charAt(i)==s.charAt(j)){
+//                     count = Math.max(k,count);
+//                     System.out.println("k is " + k);
+//
+//                     System.out.println("i is " + i);
+//                     System.out.println("j is " + j);
+//                     k=1;
+//                     continue outer;
+//                 }
+//                 k++;
+//             }
+//             count = Math.max(k , count);
+//             k=0;
+//         }
+//         System.out.println(count);
+//
+//         return count;
+//    }
     public int lengthOfLongestSubstring(String s){ //abcabcbb
-         int count=0;
-         int temp=0;
-         int k=0;
-         outer :   for(int i=0;i<s.length()-1;i++){
-             for(int j=i+1;j<s.length();j++){
-                 if(s.charAt(i)==s.charAt(j)){
-                     count = Math.max(k,count);
-                     System.out.println("k is " + k);
+         int start=0;
+         int end=0;
+         int max=0;
+         Set<Character> hashset= new HashSet<>();
 
-                     System.out.println("i is " + i);
-                     System.out.println("j is " + j);
-                     k=1;
-                     continue outer;
-                 }
-                 k++;
+        while (end<s.length()){
+            System.out.println("yes" + hashset);
+           char chr = s.charAt(end);
+           if(hashset.add(chr)){
+
+               max = Math.max(max , end-start+1);
+               end++;
+           }else{
+             while (s.charAt(start)!=chr){
+                 hashset.remove(s.charAt(start));
+                 start++;
              }
-             count = Math.max(k , count);
-             k=0;
-         }
-         System.out.println(count);
+               hashset.remove(s.charAt(start));
+               start++;
 
-         return count;
+//             System.out.println(hashset);
+           }
+
+        }
+
+        System.out.println(hashset);
+
+
+         return max;
     }
     public  boolean detectCapitalUse(String s){
          Character c = s.charAt(0)<=122 && s.charAt(0)>=97 ? 'a' : 'A';
@@ -2860,6 +2911,63 @@ public class Leetcode {
         return res;
     }
 
+    String minWindow(String s , String t){
+         String result="";
+         int start=0;
+         int end=0;
+         if(s==t){
+             return s;
+         }
+         if(s.length()<t.length()){
+             return "";
+         }
+
+
+         return result;
+    }
+
+    int[][] gameOfLife(int[][] a){
+         int[][] res = new int[a.length][a[0].length];
+
+
+
+        for(int i=0;i<a.length;i++){
+            for(int j=0;j<a[i].length;j++){
+//                System.out.print(a[i][j] + "--->");
+                int count=0;
+                for(int m=i-1;m<=i+1;m++){
+                    for(int n=j-1;n<=j+1;n++){
+
+                        if(m>-1 && m<a.length && n>-1 && n<a[i].length){
+                            if(m==i && n==j){
+                                continue;
+                            }
+//                            System.out.print(a[m][n] + " ");
+                            if(a[m][n]==1){
+                                count++;
+                            }
+                        }
+                    }
+                }
+                if(a[i][j]==0){
+                    if(count==3){
+                      res[i][j]=1;
+                    }
+                }else {
+                    if(count==2 || count==3){
+                        res[i][j]=1;
+                    } else if (count>3) {
+                        res[i][j]=0;
+                    }else{
+                        res[i][j]=0;
+                    }
+                }
+//                System.out.println("");
+            }
+        }
+         return res;
+    }
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -3738,10 +3846,41 @@ public class Leetcode {
 
 //        128. Longest Consecutive Sequence
 //              int[] a = {100,4,200,1,3,2};
-              int[] a = {0,3,7,2,5,8,4,6,0,1};
-              Leetcode L1 = new Leetcode();
-              int result = L1.longestConsecutive(a);
-              System.out.println(result);
+//              int[] a = {0,3,7,2,5,8,4,6,0,1};
+//              Leetcode L1 = new Leetcode();
+//              int result = L1.longestConsecutive(a);
+//              System.out.println(result);
+
+//        3. Longest Substring Without Repeating Characters
+//           String s= "abcabcbb";
+//           Leetcode L1 = new Leetcode();
+//           int result = L1.lengthOfLongestSubstring(s);
+//           System.out.println(result);
+
+//        76. Minimum Window Substring
+//             String s = "ADOBECODEBANC";
+//             String t="ABC";
+//             Leetcode L1 = new Leetcode();
+//             String result = L1.minWindow(s , t);
+//             System.out.println(result);
+
+//          traverse neighbour of the element in 2d metrics
+//               int[][] a = {{0,1,0},{0,0,1},{1,1,1},{0,0,0}};
+//               Leetcode L1=  new Leetcode();
+//               PrintNeighbour2DMetrics(a);
+
+//        289. Game of Life
+//             int[][] a = {{0,1,0},{0,0,1},{1,1,1},{0,0,0}};
+             int[][] a = {{1,1},{1,0}};
+              Leetcode L1  =new Leetcode();
+              int[][] res = L1.gameOfLife(a);
+              PrintDoubleArray(res);
+//        PrintNeighbour2DMetrics(a);
+
+
+
+
+
 
 
 
