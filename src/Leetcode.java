@@ -2968,6 +2968,79 @@ public class Leetcode {
          return res;
     }
 
+    int missingNumber(int[] a){
+         int num=0;
+         int max=-1;
+         for(int i=0;i<a.length;i++){
+           max = Math.max(max , a[i]);
+         }
+         for(int i=0;i<max+1;i++){
+             num = num^i;
+         }
+         System.out.println("max is" + max);
+         System.out.println("num is" + num);
+         for(int i=0;i<a.length;i++){
+             num = num^a[i];
+         }
+         return num!=0 ? num : max+1;
+    }
+
+    public int removeDuplicates26(int[] a) {
+        int index=1;
+        int elm=a[0];
+
+
+
+        for(int i=1;i<a.length;i++){
+            if(elm==a[i]){
+                continue;
+            }else{
+                elm=a[i];
+                a[index]=a[i];
+                index++;
+            }
+        }
+
+        PrintArray(a);
+        System.arraycopy(a , 0 , a , 0 , index+1 > a.length ? a.length  : index+1);
+
+
+
+        return index;
+
+    }
+    public int removeDuplicates(int[] a) {
+
+      int index=0;
+      int count=0;
+      int elm = a[index];
+
+      for(int i=0;i<a.length;i++){
+          if(count>=2){
+              if(a[i]==a[i-1]){
+                  continue;
+              }
+
+          }
+          if(a[i]==elm){
+              count++;
+              a[index]=elm;
+              index++;
+          }else{
+            count=0;
+            a[index]=a[i];
+            count++;
+            index++;
+            elm = a[i];
+          }
+      }
+
+      PrintArray(a);
+      System.arraycopy(a , 0 ,  a, 0 , index+1>a.length ? a.length : index+1);
+
+      return index;
+    }
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -3871,11 +3944,35 @@ public class Leetcode {
 
 //        289. Game of Life
 //             int[][] a = {{0,1,0},{0,0,1},{1,1,1},{0,0,0}};
-             int[][] a = {{1,1},{1,0}};
-              Leetcode L1  =new Leetcode();
-              int[][] res = L1.gameOfLife(a);
-              PrintDoubleArray(res);
+//             int[][] a = {{1,1},{1,0}};
+//              Leetcode L1  =new Leetcode();
+//              int[][] res = L1.gameOfLife(a);
+//              PrintDoubleArray(res);
 //        PrintNeighbour2DMetrics(a);
+
+//        268. Missing Number
+//            int[] a = {3,0,1};
+//            Leetcode L1 = new Leetcode();
+//            int num = L1.missingNumber(a);
+//            System.out.println(num);
+
+
+
+//        26. Remove Duplicates from Sorted Array
+//              int[] a = {0,0,1,1,1,2,2,3,3,4};
+              int[] a = {1,1,2};
+              Leetcode L1 = new Leetcode();
+              int res = L1.removeDuplicates26(a);
+              System.out.println(res);
+
+
+//        80. Remove Duplicates from Sorted Array II
+//             int[] a ={1,1,1,2,2,3};
+//             int[] a ={1,1};
+////             int[] a ={0,0,1,1,1,1,2,3,3};
+//             Leetcode L1 = new Leetcode();
+//             int res = L1.removeDuplicates(a);
+//             System.out.println(res);
 
 
 
