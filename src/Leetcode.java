@@ -214,22 +214,31 @@ public class Leetcode {
     public boolean checkIsValid(String s1){
         Stack<Character> STACK = new Stack<>();
         for(int i=0;i<s1.length();i++){
-           if(s1.charAt(i) == '('){
-               STACK.push(s1.charAt(i));
-           } else if (s1.charAt(i) == '[') {
-               STACK.push(s1.charAt(i));
-           } else if (s1.charAt(i) == '{') {
-               STACK.push(s1.charAt(i));
-           } else if (s1.charAt(i) == ')' && s1.charAt(i-1) == '(') {
-               STACK.pop();
-           }else if (s1.charAt(i) == '}' && s1.charAt(i-1) == '{') {
-               STACK.pop();
-           }else if (s1.charAt(i) == ']' && s1.charAt(i-1) == '[') {
-               STACK.pop();
-           }
+            if(s1.charAt(i) == '('){
+                STACK.push(s1.charAt(i));
+            } else if (s1.charAt(i) == '[') {
+                STACK.push(s1.charAt(i));
+            } else if (s1.charAt(i) == '{') {
+                STACK.push(s1.charAt(i));
+            }else{
+                if(STACK.size()!=0){
+                    if (s1.charAt(i) == ')' && STACK.peek() == '(') {
+                        STACK.pop();
+                    }else if (s1.charAt(i) == '}' && STACK.peek() == '{') {
+                        STACK.pop();
+                    }else if (s1.charAt(i) == ']' && STACK.peek() == '[') {
+                        STACK.pop();
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return false;
+                }
+            }
+
         }
-        System.out.println(STACK);
-        return false;
+        // System.out.println(STACK);
+        return STACK.size()==0;
     }
 
 //    4 palindrome
@@ -3042,6 +3051,107 @@ public class Leetcode {
     }
 
 
+
+    boolean isValid(String s){
+         boolean res = true;
+          Stack<Character> stack = new Stack<>();
+          String s1 = "({[";
+          String s2 = ")}]";
+          for(int i=0;i<s.length();i++){
+             if(s1.contains(s.charAt(i)+"")){
+                stack.push(s.charAt(i));
+             }else{
+               Character elm = stack.peek();
+               if(elm=='('){
+                    if(s.charAt(i)==')'){
+                        stack.pop();
+                    }else{
+//                        res = false;
+//                        break;
+                    }
+               } else if (elm=='{') {
+                   if(s.charAt(i)=='}'){
+                       stack.pop();
+                   }else{
+//                       res = false;
+//                       break;
+                   }
+
+               } else if (elm=='[') {
+                   if(s.charAt(i)==']'){
+                       stack.pop();
+                   }else{
+//                       res = false;
+//                       break;
+                   }
+               }else{
+                 res = false;
+//                 break;
+               }
+             }
+          }
+          return stack.size()==0;
+//         return false;
+    }
+
+
+    int findJudge(int[][] a){
+         int num=0;
+
+         Map<Integer , Integer> hashmap = new HashMap<>();
+         for(int i=0;i<a.length;i++){
+             for(int j=0;j<a[i].length;j++){
+                 hashmap.put(a[i][j] , 0);
+             }
+         }
+         for(int i=0;i<a.length;i++){
+            hashmap.remove(a[i][0]);
+         }
+         System.out.println(hashmap);
+
+         if(hashmap.size()==0){
+             return -1;
+         }
+         for(Map.Entry<Integer , Integer> entry : hashmap.entrySet()){
+              num = entry.getKey();
+         }
+
+//         PrintIntList(list);
+
+
+
+//        PrintIntList(list);
+
+         return num;
+    }
+
+
+    List<String> summaryRanges(int[] a){
+         List<String> res = new ArrayList<>();
+         int i=0;
+         while(i<a.length){
+             int j=0;
+             String s1 = Integer.toString(a[i]);
+             while (i<a.length-1){
+                 if(j==0 && i==a.length-1){
+                     break;
+                 }else if(a[i]+1 ==a[i+1]){
+                     i++;
+                     j++;
+                 }else{
+                     break;
+                 }
+             }
+             if(j>0){
+                 s1+="->" + Integer.toString(a[i]);
+             }
+             res.add(s1);
+             i++;
+
+         }
+        return res;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -3067,6 +3177,8 @@ public class Leetcode {
 //        System.out.println("Enter the Roman Number");
 //        String s1 = sc.nextLine();
 //        Leetcode L1 = new Leetcode();
+////        String s1 = "{[]}";
+//        String s1 = "}";
 //        boolean output = L1.checkIsValid(s1);
 //        System.out.println(output);
 
@@ -3960,10 +4072,10 @@ public class Leetcode {
 
 //        26. Remove Duplicates from Sorted Array
 //              int[] a = {0,0,1,1,1,2,2,3,3,4};
-              int[] a = {1,1,2};
-              Leetcode L1 = new Leetcode();
-              int res = L1.removeDuplicates26(a);
-              System.out.println(res);
+//              int[] a = {1,1,2};
+//              Leetcode L1 = new Leetcode();
+//              int res = L1.removeDuplicates26(a);
+//              System.out.println(res);
 
 
 //        80. Remove Duplicates from Sorted Array II
@@ -3973,6 +4085,32 @@ public class Leetcode {
 //             Leetcode L1 = new Leetcode();
 //             int res = L1.removeDuplicates(a);
 //             System.out.println(res);
+
+//        997. Find the Town Judge
+//              int[][] a = {{1,3},{2,3},{3,1}};
+//              int[][] a = {{1,3},{2,3}};
+//              int[][] a = {{1,2}};
+//              Leetcode L1 = new Leetcode();
+//              int res = L1.findJudge(a);
+//              System.out.println(res);
+
+
+//        228. Summary Ranges
+//               int[]   a= {0,2,3,4,6,8,9};
+//               int[]   a= {0,1,2,4,5,7};
+//               int[]   a= {0,1,2,4,5,7};
+//               Leetcode L1 = new Leetcode();
+//               List<String> res = L1.summaryRanges(a);
+//               for(int i=0;i<res.size();i++){
+//                   System.out.println(res.get(i));
+//               }
+
+
+
+
+//        56. Merge Intervals
+
+//
 
 
 
@@ -4012,3 +4150,7 @@ public class Leetcode {
 
     }
 }
+
+
+
+
