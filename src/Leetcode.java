@@ -3152,6 +3152,97 @@ public class Leetcode {
         return res;
     }
 
+    int[][] merge56(int[][] a){
+
+
+         int i=0;
+         int j=0;
+         int k=0;
+         int s=0;
+         while (i<a.length){
+             while (i<a.length && a[i][0]<=a[j][1]){
+                 if(a[i][1]>=a[j][1]){
+                     j=i;
+                 }
+                 i++;
+             }
+             a[k][0]=a[s][0];
+             a[k][1]=a[j][1];
+             k++;
+             j=i;
+             s=i;
+         }
+
+        int[][] res = new int[k][2];
+         for(int m=0;m<k;m++){
+             for(int n=0;n<2;n++){
+                 res[m][n]=a[m][n];
+             }
+         }
+         return res;
+
+    }
+
+
+    int[][] helperinsert(int[][] a){
+         System.out.println("start");
+         PrintDoubleArray(a);
+        System.out.println("end");
+        Arrays.sort(a, Comparator.comparingInt(arr -> arr[0]));
+        //  int[][] res = new int[a.length][2];
+        int i=0;
+        int j=0;
+        int k=0;
+        int s=0;
+        while (i<a.length){
+            while (i<a.length && a[i][0]<=a[j][1]){
+                if(a[i][1]>=a[j][1]){
+                    j=i;
+                }
+                i++;
+            }
+            a[k][0]=a[s][0];
+            a[k][1]=a[j][1];
+            k++;
+            j=i;
+            s=i;
+        }
+        int[][] res = new int[k][2];
+        for(int m=0;m<k;m++){
+            for(int n=0;n<2;n++){
+                res[m][n]=a[m][n];
+            }
+        }
+        return res;
+    }
+    int[][] insert57(int[][] a , int[] newInt){    //{{1,2},{3,5},{6,7},{8,10},{12,16}}
+
+         int[][] tmp = new int[a.length+1][2];
+         int k=0;
+         int min=newInt[0];
+         int max=newInt[1];
+         boolean isinserted=false;
+         for(int i=0;i<a.length;i++) {
+
+             if (min <= a[i][0]) {
+                 tmp[k][0] = min;
+                 tmp[k][1] = max;
+                 k++;
+                 min = Integer.MAX_VALUE;
+                 isinserted = true;
+             }
+             tmp[k][0] = a[i][0];
+             tmp[k][1] = a[i][1];
+             k++;
+         }
+        if(!isinserted){
+            tmp[k][0]=min;
+            tmp[k][1]=max;
+        }
+
+         return helperinsert(tmp);
+
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -4109,6 +4200,28 @@ public class Leetcode {
 
 
 //        56. Merge Intervals
+//            Leetcode L1 = new Leetcode();
+////            int[][] a= {{1,3},{2,6},{8,10},{15,18}};
+////            int[][] a= {{1,4},{4,5}};
+//            int[][] a= {{1,4},{4,5}};
+////            int[][] a= {{1,5},{2,7}};
+//            int[][] res=L1.merge56(a);
+//            PrintDoubleArray(res);
+
+
+//        57. Insert Interval
+
+              int[][] a = {{1,2},{3,5},{6,7},{8,10},{12,16}};
+              int[] newInterval = {4,8};
+//              int[][] a = {{1,3},{6,9}};
+//              int[] newInterval = {2,5};
+//              int[][] a = {{}};
+//                int[][] a = {{1,5}};
+//                int[] newInterval = {2,7};
+        Leetcode L1 = new Leetcode();
+
+              int[][] res  = L1.insert57(a, newInterval);
+              PrintDoubleArray(res);
 
 //
 
