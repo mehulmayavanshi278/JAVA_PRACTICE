@@ -3184,65 +3184,139 @@ public class Leetcode {
     }
 
 
-    int[][] helperinsert(int[][] a){
-         System.out.println("start");
+//    int[][] helperinsert(int[][] a , int index){
+//
+//    }
+//    int[][] insert57(int[][] a , int[] newInt){    //{{1,2},{3,5},{6,7},{8,10},{12,16}}
+//
+//         int[][] tmp = new int[a.length+1][2];
+//         int k=0;
+//         int min=newInt[0];
+//         int max=newInt[1];
+//         boolean isinserted=false;
+//         int index=0;
+//         for(int i=0;i<a.length;i++) {
+//
+//             if (min <= a[i][0]) {
+//                 tmp[k][0] = min;
+//                 tmp[k][1] = max;
+//                 k++;
+//                 min = Integer.MAX_VALUE;
+//                 isinserted = true;
+//                 index=i-1;
+//             }
+//             tmp[k][0] = a[i][0];
+//             tmp[k][1] = a[i][1];
+//             k++;
+//         }
+//        if(!isinserted){
+//            tmp[k][0]=min;
+//            tmp[k][1]=max;
+//            index=k;
+//        }
+//
+//         return helperinsert(tmp , index);
+//
+//    }
+
+       int findMinArrowShots(int[][] a){    //  {1 6} {2 8} {7 12} {10 16}
+           int count=0;
+         Arrays.sort(a, Comparator.comparingInt(arr->arr[0]));
          PrintDoubleArray(a);
-        System.out.println("end");
-        Arrays.sort(a, Comparator.comparingInt(arr -> arr[0]));
-        //  int[][] res = new int[a.length][2];
-        int i=0;
-        int j=0;
-        int k=0;
-        int s=0;
-        while (i<a.length){
-            while (i<a.length && a[i][0]<=a[j][1]){
-                if(a[i][1]>=a[j][1]){
-                    j=i;
-                }
+         int prevend=a[0][1];
+         int prevstart=a[0][0];
+         int i=0;
+         while (i<a.length){
+             while (i<a.length && a[i][0]<=prevend){
+                prevend = Math.min(prevend , a[i][1]);
                 i++;
-            }
-            a[k][0]=a[s][0];
-            a[k][1]=a[j][1];
-            k++;
-            j=i;
-            s=i;
-        }
-        int[][] res = new int[k][2];
-        for(int m=0;m<k;m++){
-            for(int n=0;n<2;n++){
-                res[m][n]=a[m][n];
-            }
-        }
-        return res;
-    }
-    int[][] insert57(int[][] a , int[] newInt){    //{{1,2},{3,5},{6,7},{8,10},{12,16}}
-
-         int[][] tmp = new int[a.length+1][2];
-         int k=0;
-         int min=newInt[0];
-         int max=newInt[1];
-         boolean isinserted=false;
-         for(int i=0;i<a.length;i++) {
-
-             if (min <= a[i][0]) {
-                 tmp[k][0] = min;
-                 tmp[k][1] = max;
-                 k++;
-                 min = Integer.MAX_VALUE;
-                 isinserted = true;
              }
-             tmp[k][0] = a[i][0];
-             tmp[k][1] = a[i][1];
-             k++;
+             count++;
+             if(i<a.length){
+                 prevend=a[i][1];
+//                 i++;
+             }
+
+
          }
-        if(!isinserted){
-            tmp[k][0]=min;
-            tmp[k][1]=max;
-        }
 
-         return helperinsert(tmp);
 
-    }
+         return count;
+       }
+
+       String longestPalindrome(String s){
+         if(s.length()==1){
+             return s;
+         }
+         int count=1;
+         int max=Integer.MIN_VALUE;
+          String ans = "";
+          String res = "";
+          int left=0 ,  right=0 ,  mid=s.length()/2;
+          for(int i=mid;i>=0&&left>=0;i--){
+              count=1;
+              left=i-1;
+              right=i+1;
+              res=s.charAt(i)+"";
+              while (right<s.length()&&s.charAt(right)==s.charAt(i)){
+                  count++;
+                  res+=s.charAt(right);
+                  right++;
+              }
+              System.out.println(count);
+              while (left>=0 && s.charAt(left)==s.charAt(i)){
+                  count++;
+                  res=s.charAt(left) + res;
+                  left--;
+              }
+              while (left>=0 && right<s.length()){
+                  if(s.charAt(left)==s.charAt(right)){
+                      count+=2;
+                      res = s.charAt(left) + res + s.charAt(right);
+                      left--;
+                      right++;
+                  }else{
+                      break;
+                  }
+              }
+              if(count>=max){
+                  max = Math.max(max, count);
+                  ans = res;
+              }
+          }
+          for(int i=mid+1;i<s.length()-1&&right<s.length();i++){
+              count=1;
+              left=i-1;
+              right=i+1;
+              res=s.charAt(i)+"";
+              while (right<s.length()&&s.charAt(right)==s.charAt(i)){
+                  count++;
+                  res+=s.charAt(right);
+                  right++;
+              }
+              while (left>=0 && s.charAt(left)==s.charAt(i)){
+                  count++;
+                  res=s.charAt(left) + res;
+                  left--;
+              }
+              while (left>=0 && right<s.length()){
+                  if(s.charAt(left)==s.charAt(right)){
+                      count+=2;
+                      res = s.charAt(left) +res + s.charAt(right);
+                      left--;
+                      right++;
+                  }else{
+                      break;
+                  }
+              }
+              if(count>=max){
+                  max = Math.max(max, count);
+                  ans = res;
+              }
+          }
+          System.out.println(max);
+          return ans;
+       }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -4211,17 +4285,35 @@ public class Leetcode {
 
 //        57. Insert Interval
 
-              int[][] a = {{1,2},{3,5},{6,7},{8,10},{12,16}};
-              int[] newInterval = {4,8};
-//              int[][] a = {{1,3},{6,9}};
-//              int[] newInterval = {2,5};
-//              int[][] a = {{}};
-//                int[][] a = {{1,5}};
-//                int[] newInterval = {2,7};
-        Leetcode L1 = new Leetcode();
+//              int[][] a = {{1,2},{3,5},{6,7},{8,10},{12,16}};
+//              int[] newInterval = {4,8};
+////              int[][] a = {{1,3},{6,9}};
+////              int[] newInterval = {2,5};
+////              int[][] a = {{}};
+////                int[][] a = {{1,5}};
+////                int[] newInterval = {2,7};
+//        Leetcode L1 = new Leetcode();
+//
+//              int[][] res  = L1.insert57(a, newInterval);
+//              PrintDoubleArray(res);
 
-              int[][] res  = L1.insert57(a, newInterval);
-              PrintDoubleArray(res);
+
+//        452. Minimum Number of Arrows to Burst Balloons
+////              int[][] a = {{10,16},{2,8},{1,6},{7,12}};
+//              int[][] a = {{1,2},{2,3},{3,4},{4,5}};
+////              int[][] a = {{1,2},{3,4},{5,6},{7,8}};
+//              Leetcode L1  = new Leetcode();
+//              int res = L1.findMinArrowShots(a);
+//              System.out.println(res);
+
+//        5. Longest Palindromic Substring
+//             String s = "babad";
+//             String s = "cbbd";
+//             String s = "babadabcaacbab";
+             Leetcode L1 = new Leetcode();
+             String result = L1.longestPalindrome(s);
+             System.out.println(result);
+
 
 //
 
