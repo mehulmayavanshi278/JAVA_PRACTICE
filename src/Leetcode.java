@@ -1,5 +1,6 @@
 import com.sun.source.tree.LambdaExpressionTree;
 
+import java.awt.desktop.ScreenSleepEvent;
 import java.beans.PropertyEditorSupport;
 import java.nio.file.LinkOption;
 import java.sql.Array;
@@ -51,6 +52,12 @@ class Solution {
 
 public class Leetcode {
 
+     List<List<Integer>> dpDoubleIntList = new ArrayList<>();
+
+
+
+
+
 
 
      public static Listnode createListnode(int[] a){
@@ -64,6 +71,25 @@ public class Leetcode {
 
          return head;
 
+     }
+
+     public static void PrintNeighbour2DMetrics(int[][] a){
+         for(int i=0;i<a.length;i++){
+             for(int j=0;j<a[i].length;j++){
+                System.out.print(a[i][j] + "--->");
+                for(int m=i-1;m<=i+1;m++){
+                    for(int n=j-1;n<=j+1;n++){
+                        if(m>-1 && m<a.length && n>-1 && n<a[i].length){
+                            if(m==i && n==j){
+                                continue;
+                            }
+                            System.out.print(a[m][n] + " ");
+                        }
+                    }
+                }
+                System.out.println("");
+             }
+         }
      }
 
      public  static Listnode reverseListNode(Listnode head){
@@ -90,6 +116,7 @@ public class Leetcode {
        for(int i=0;i<a.length;i++){
            System.out.print( " " + a[i] + " ");
        }
+       System.out.println("");
      }public static void PrintStringArray(String[] a){
          System.out.print("Array Element is");
        for(int i=0;i<a.length;i++){
@@ -99,6 +126,15 @@ public class Leetcode {
 
      public static void PrintDoubleArray(int[][] a){
           for(int i=0;i<a.length;i++){
+              for(int j=0;j<a[i].length;j++){
+                  System.out.print(a[i][j] + " ");
+              }
+              System.out.println("");
+          }
+     }
+     public static void PrintDoubleArrayString(String[][] a){
+          for(int i=0;i<a.length;i++){
+
               for(int j=0;j<a[i].length;j++){
                   System.out.print(a[i][j] + " ");
               }
@@ -119,6 +155,14 @@ public class Leetcode {
          for(List<Integer> innerList : result){
              for(Integer val : innerList){
                 System.out.println(val + " ");
+             }
+             System.out.println("");
+         }
+    }
+    public static void PrintDoublyListString(List<List<String>> result){
+         for(List<String> innerList : result){
+             for(String val : innerList){
+                System.out.print(val + " ");
              }
              System.out.println("");
          }
@@ -170,22 +214,31 @@ public class Leetcode {
     public boolean checkIsValid(String s1){
         Stack<Character> STACK = new Stack<>();
         for(int i=0;i<s1.length();i++){
-           if(s1.charAt(i) == '('){
-               STACK.push(s1.charAt(i));
-           } else if (s1.charAt(i) == '[') {
-               STACK.push(s1.charAt(i));
-           } else if (s1.charAt(i) == '{') {
-               STACK.push(s1.charAt(i));
-           } else if (s1.charAt(i) == ')' && s1.charAt(i-1) == '(') {
-               STACK.pop();
-           }else if (s1.charAt(i) == '}' && s1.charAt(i-1) == '{') {
-               STACK.pop();
-           }else if (s1.charAt(i) == ']' && s1.charAt(i-1) == '[') {
-               STACK.pop();
-           }
+            if(s1.charAt(i) == '('){
+                STACK.push(s1.charAt(i));
+            } else if (s1.charAt(i) == '[') {
+                STACK.push(s1.charAt(i));
+            } else if (s1.charAt(i) == '{') {
+                STACK.push(s1.charAt(i));
+            }else{
+                if(STACK.size()!=0){
+                    if (s1.charAt(i) == ')' && STACK.peek() == '(') {
+                        STACK.pop();
+                    }else if (s1.charAt(i) == '}' && STACK.peek() == '{') {
+                        STACK.pop();
+                    }else if (s1.charAt(i) == ']' && STACK.peek() == '[') {
+                        STACK.pop();
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return false;
+                }
+            }
+
         }
-        System.out.println(STACK);
-        return false;
+        // System.out.println(STACK);
+        return STACK.size()==0;
     }
 
 //    4 palindrome
@@ -716,12 +769,7 @@ public class Leetcode {
         return CheckHappyNumber(sum , origional , list);
     }
 
-    public boolean IsIsomorphic(String s1 , String s2){
 
-
-
-         return true;
-    }
    public static boolean checkPalindromeLinkedList(Listnode head){
        if(head==null || head.next==null){
            return true;
@@ -1592,29 +1640,60 @@ public class Leetcode {
          count=g[index];
          return count;
     }
+//    public int lengthOfLongestSubstring(String s){ //abcabcbb
+//         int count=0;
+//         int temp=0;
+//         int k=0;
+//         outer :   for(int i=0;i<s.length()-1;i++){
+//             for(int j=i+1;j<s.length();j++){
+//                 if(s.charAt(i)==s.charAt(j)){
+//                     count = Math.max(k,count);
+//                     System.out.println("k is " + k);
+//
+//                     System.out.println("i is " + i);
+//                     System.out.println("j is " + j);
+//                     k=1;
+//                     continue outer;
+//                 }
+//                 k++;
+//             }
+//             count = Math.max(k , count);
+//             k=0;
+//         }
+//         System.out.println(count);
+//
+//         return count;
+//    }
     public int lengthOfLongestSubstring(String s){ //abcabcbb
-         int count=0;
-         int temp=0;
-         int k=0;
-         outer :   for(int i=0;i<s.length()-1;i++){
-             for(int j=i+1;j<s.length();j++){
-                 if(s.charAt(i)==s.charAt(j)){
-                     count = Math.max(k,count);
-                     System.out.println("k is " + k);
+         int start=0;
+         int end=0;
+         int max=0;
+         Set<Character> hashset= new HashSet<>();
 
-                     System.out.println("i is " + i);
-                     System.out.println("j is " + j);
-                     k=1;
-                     continue outer;
-                 }
-                 k++;
+        while (end<s.length()){
+            System.out.println("yes" + hashset);
+           char chr = s.charAt(end);
+           if(hashset.add(chr)){
+
+               max = Math.max(max , end-start+1);
+               end++;
+           }else{
+             while (s.charAt(start)!=chr){
+                 hashset.remove(s.charAt(start));
+                 start++;
              }
-             count = Math.max(k , count);
-             k=0;
-         }
-         System.out.println(count);
+               hashset.remove(s.charAt(start));
+               start++;
 
-         return count;
+//             System.out.println(hashset);
+           }
+
+        }
+
+        System.out.println(hashset);
+
+
+         return max;
     }
     public  boolean detectCapitalUse(String s){
          Character c = s.charAt(0)<=122 && s.charAt(0)>=97 ? 'a' : 'A';
@@ -1741,13 +1820,65 @@ public class Leetcode {
          return count;
     }
 
-    public List<List<Integer>> threeSum(int[] nums){ //-4 -1 -1 0 1 2
+    public List<List<Integer>> threeSum(int[] a) {
         List<List<Integer>> result = new ArrayList<>();
-        Arrays.sort(nums);
+        Arrays.sort(a);
+        PrintArray(a);
+        for (int i = 0; i < a.length - 2; i++) {
+            if (i > 0 && a[i] == a[i - 1]) {
+                continue; // Skip duplicate elements
+            }
 
+            int j = i + 1;
+            int k = a.length - 1;
+
+            while (j < k) {
+                int sum = a[i] + a[j] + a[k];
+
+                if (sum == 0) {
+                    result.add(Arrays.asList(a[i], a[j], a[k]));
+
+                    // Skip duplicate elements for 'j'
+                    while (j < k && a[j] == a[j + 1]) {
+                        j++;
+                    }
+                    // Skip duplicate elements for 'k'
+                    while (j < k && a[k] == a[k - 1]) {
+                        k--;
+                    }
+
+                    j++;
+                    k--;
+                } else if (sum < 0) {
+                    j++;
+                } else {
+                    k--;
+                }
+            }
+        }
 
         return result;
+    }
 
+    int[] rotate189(int[] a , int k){
+
+        int[] b = new int[a.length];
+        Arrays.fill(b , 0);
+
+        int j=a.length-k;
+        if(j<0){
+            j=k%a.length;
+            j=a.length-j;
+        }
+        for(int i=0;i<a.length;i++){
+            if(j==a.length){
+                j=0;
+            }
+            b[i] = a[j];
+            j++;
+        }
+        System.arraycopy(b , 0 , a , 0 , b.length);
+        return a;
     }
     public int minOperations(int[] nums){
          int count=0;
@@ -2225,7 +2356,967 @@ public class Leetcode {
          return b;
     }
 
+    List<List<String>> groupAnagrams(String[] s){
+         List<List<String>> result = new ArrayList<>();
+         Map<String , List<String>> hashmap = new HashMap<>();
+         for(int i=0;i<s.length;i++){
+             char[] charArr = s[i].toCharArray();
+             Arrays.sort(charArr);
+             String sortedStr = new String(charArr);
+             if(hashmap.get(sortedStr)==null){
+                List<String> temp = new ArrayList<>();
+                temp.add(s[i]);
+                 hashmap.put(sortedStr , temp);
+             }else{
+                 hashmap.get(sortedStr).add(s[i]);
+             }
+         }
+         for(Map.Entry<String , List<String>>  entry : hashmap.entrySet()){
+             System.out.println(entry.getValue());
+             result.add(entry.getValue());
+         }
 
+         return result;
+    }
+
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+
+//        int[] gas = {5,1,2,3,4};
+//        int[] cost = {4,4,1,5,1};
+
+        int result = -1;
+        int totalGas = 0;  // Track total gas
+        int currentGas = 0;  // Track gas at the current station
+        int startStation = 0;  // Potential starting station
+
+        for (int i = 0; i < gas.length; i++) {
+            totalGas += gas[i] - cost[i];
+            currentGas += gas[i] - cost[i];
+
+            System.out.println("current gas is" + currentGas);
+
+            // If gas at the current station is negative, update the potential starting station
+            if (currentGas < 0) {
+                System.out.println("index is " + i);
+//                System.out.println(totalGas + "  totalgas");
+//                System.out.println(currentGas + "  currentGas");
+                currentGas = 0;
+                startStation = i + 1;
+            }
+        }
+        System.out.println("total gas is " + totalGas);
+
+        // If totalGas is non-negative, a valid circuit exists, return the potential starting station
+        return totalGas >= 0 ? startStation : -1;
+    }
+
+    String intToRoman(int num){
+         String s = "";
+         Character[] charArr =  {'I'  , 'V' , 'X' , 'L' , 'C' , 'D' , 'M'};
+         List<Integer> val = new ArrayList<>(Arrays.asList(1,5,10,50,100,500,1000));
+         Map<Character , Integer> hashmap = new HashMap<>();
+         for(int i=0;i<charArr.length;i++){
+             hashmap.put(charArr[i] , val.get(i));
+         }
+
+         int count = num;
+         int x=0;
+         while (x<20){
+             System.out.println("count is " + count);
+             System.out.println("s is " + s);
+
+             System.out.println("running " + x + " times");
+             x++;
+            if(count >=0 && count<=5){
+              if(count==5){
+                  s+='V';
+              } else if (count==4) {
+                  s+="IV";
+                  break;
+              }else  if(count==3){
+                  s+="III";
+                  break;
+              }else  if(count==2){
+                  s+="II";
+                  break;
+              }else  if(count==1){
+                  s+="I";
+                  break;
+              }else {
+                  break;
+              }
+            }else{
+                int i=1;
+                while (i<charArr.length && count>=val.get(i)){
+                   i++;
+                }
+                System.out.println("founded at " + i);
+                if(i==7){
+                    s+=charArr[6];
+                    count=count-val.get(6);
+                    continue;
+                }
+                if(hashmap.get(charArr[i])==count){
+                    s+=charArr[i];
+                    break;
+                }else{
+                    int num1 = count -  (val.get(i)-val.get(i-2));
+                    int num2= count - (val.get(i)-val.get(i-1));
+                    System.out.println("num 1 is " + num1 + " and num 2 is " + num2);
+                    if(num1<num2){
+                         System.out.println(" is is " + i + " i-2 is " + charArr[i-2] + "");
+                        s+= charArr[i-2].toString() +   charArr[i].toString() ;
+                        count=count-(val.get(i) - val.get(i-2));
+
+                    }else{
+                        System.out.println("entered");
+                        s+=charArr[i-1];
+                        count=count-val.get(i-1);
+                    }
+
+                }
+            }
+         }
+         return s;
+    }
+
+
+    String frequencySort(String s){
+         String result = "";
+         TreeMap<Character , Integer> hashmap = new TreeMap<>();
+         for(int i=0;i<s.length();i++){
+             if(hashmap.get(s.charAt(i))==null){
+                 hashmap.put(s.charAt(i) , 1);
+             }else{
+                 hashmap.put(s.charAt(i) , hashmap.get(s.charAt(i)) + 1);
+             }
+         }
+
+         TreeMap<Integer , List<Character>> temphashmap = new TreeMap<>(Collections.reverseOrder());
+
+         for(Map.Entry<Character , Integer> entry : hashmap.entrySet()){
+             System.out.println(entry.getKey() +":" + entry.getValue() );
+             List<Character> list = new ArrayList<>();
+             list.add(entry.getKey());
+             if(temphashmap.get(entry.getValue())==null){
+
+                 temphashmap.put(entry.getValue() , list);
+             }else{
+                  list = temphashmap.get(entry.getValue());
+                  list.add(entry.getKey());
+                    temphashmap.put(entry.getValue() , list);
+             }
+         }
+
+         for(Map.Entry<Integer , List<Character>> entry : temphashmap.entrySet()){
+             System.out.println(entry.getKey() +":" + entry.getValue() );
+             if(entry.getKey()>1){
+               for(int i=0;i<entry.getValue().size();i++){
+                   for(int j=0;j<entry.getKey();j++){
+                       result+=entry.getValue().get(i);
+                   }
+               }
+             }else{
+                 for(int i=0;i<entry.getValue().size();i++){
+                     result+=entry.getValue().get(i);
+                 }
+             }
+         }
+
+
+
+
+
+
+
+
+         return result;
+    }
+
+
+    String reverseWords(String s){
+         String result="";
+
+         List<String> list = new ArrayList<>();
+         String[] s1 = s.split(" ");
+        PrintStringArray(s1);
+         for(int i=0;i<s1.length;i++){
+             String temp=s1[i].trim();
+//             System.out.println("trim is" + temp+"k");
+             if(temp.length()==0){
+//                 i++;
+             }else{
+                 list.add(temp);
+
+             }
+
+
+         }
+//         for(String str  : s1){
+//             System.out.println(str + "/");
+//         }
+        Collections.reverse(list);
+//         System.out.println(list);
+         for(int i=0;i<list.size();i++){
+             result+=list.get(i) + (i==list.size()-1 ? "" : " ");
+
+         }
+
+//         PrintStringArray(s1);
+         return result;
+    }
+
+
+    private int numSquareHelper(int num){
+         int result = 0;
+         int index=2;
+        if(num==0){
+            return 0;
+        }
+        if(num<4 && num>0){
+            return num;
+        }
+
+
+
+         while (Math.pow(index , 2)  <= num){
+             index++;
+         }
+
+         System.out.println("index is" + (index-1));
+         System.out.println("num is" + num);
+
+         for(int i=index-1;i>=2;i--){
+             int val = numSquareHelper(num - (int)Math.pow(i , 2));
+             if(val==(num - (int)Math.pow(i , 2))){
+                 if(val==0){
+                     result+=1;
+                 }else{
+                     result+=val;
+                 }
+
+//                 return result;
+             }else{
+                 result = Math.max(result  , val+1);
+             }
+
+         }
+
+         return result;
+    }
+
+    int[] twoSumII(int[] a ,int  target){
+         int[] result = new int[2];
+
+         int i=0;
+         int j=a.length-1;
+         while (i<j){
+             int sum=a[i]+a[j];
+             if(sum>target){
+                 j--;
+             } else if (sum<target) {
+                 i++;
+             }else {
+                 result[0]=i+1;
+                 result[1]=j+1;
+                 break;
+             }
+         }
+
+         return result;
+    }
+
+     int numSquares(int num){
+         return numSquareHelper(num);
+     }
+
+
+     List<Integer> largestDivisibleSubsetHelper(int[] a , int index){
+
+        if(index==a.length-1){
+            return new ArrayList<>(Collections.singletonList(a[index]));
+        }
+        if(dpDoubleIntList.get(index).size()!=0){
+            return dpDoubleIntList.get(index);
+        }
+        List<Integer> list  =  new ArrayList<>();
+        List<Integer> templist  =  new ArrayList<>();
+
+//        list.add(a[index]);
+        for(int i=index+1;i<a.length;i++){
+            List<Integer> l1 = largestDivisibleSubsetHelper(a , i);
+
+        }
+        if(templist.get(0)%a[index]==0){
+            list.add(a[index]);
+         }
+        list.addAll(templist);
+
+         dpDoubleIntList.get(index).addAll(list);
+        return list;
+     }
+     List<Integer> largestDivisibleSubset(int[] a){
+         for(int i=0;i<a.length;i++){
+             dpDoubleIntList.add(new ArrayList<>());
+         }
+         Arrays.sort(a);
+         PrintArray(a);
+         return largestDivisibleSubsetHelper(a , 0);
+     }
+
+//     int minSubArrayLenHelper(int[] a , int index , int sum , int target){  //2,3,1,2,4,3
+//
+//     }
+     int minSubArrayLen(int[] a ,int target){
+         int i=0;
+         int j=0;
+         int sum=0;
+
+         int min = Integer.MAX_VALUE;
+          for(i=0;i<a.length;i++){
+
+              if(a[i]>=target){
+                   min=1;
+                   break;
+              }
+
+
+
+              while (j<a.length && sum<target){
+                  sum+=a[j];
+                  j++;
+
+              }
+              if(sum>=target){
+                  System.out.println("found at " + i + " and " + (j-1));
+                  min = Math.min(min , j-i);
+
+              }
+              sum-=a[i];
+
+
+
+
+
+          }
+         return min;
+     }
+
+     boolean isValidSudoku(String[][] a){
+//         PrintDoubleArray(a);
+         PrintDoubleArrayString(a);
+
+         boolean isvalid = true;
+
+         HashSet<String> hashSet = new HashSet<>();
+
+         outer : for(int i=0;i<a.length;i++){
+             for(int j=0;j<a[i].length;j++){
+                 if(a[i][j]!="."){
+                     isvalid = isvalid && hashSet.add("row_"+i+"_"+a[i][j]);
+                     System.out.println("row" + i  + " is "+ isvalid);
+                     isvalid = isvalid && hashSet.add("col_"+j+"_"+a[i][j]);
+                     System.out.println("col" + j + " is "+ isvalid);
+                     isvalid = isvalid && hashSet.add("main_"+i/3+"_"+j/3+"_"+a[i][j]);
+                     System.out.println("index" + i /3+  " " +  j/3 + " is "+ isvalid + " elm is" + a[i][j]);
+
+//                     if(isvalid==false){
+//                         break outer;
+//                     }
+
+                 }
+             }
+         }
+
+         System.out.println(hashSet);
+
+         return isvalid;
+     }
+
+     int[][] rotate48(int[][] a){
+//         PrintDoubleArray(a);
+//         int[][] result = new int[a.length][a[0].length];
+
+//
+//         for(int i=0;i<a.length;i++){
+//             for(int j=0;j<a[i].length;j++){
+//                 result[i][j] = a[j][a.length-1-i];
+//             }
+//         }
+         int rows = a.length;
+         int cols = a[0].length;
+
+         for (int i = 0; i < rows; i++) {
+             for (int j = i + 1; j < cols; j++) {
+                 // Swap elements across the main diagonal
+                 int temp = a[i][j];
+                 a[i][j] = a[j][i];
+                 a[j][i] = temp;
+             }
+         }
+//         int[] temp = new int[a[0].length];
+         for(int i=0;i<a.length;i++){
+             for(int j=0;j<a[i].length/2;j++){
+                int temp = a[i][j];
+                a[i][j] = a[i][a[i].length-1-j];
+                 a[i][a[i].length-1-j] = temp;
+             }
+         }
+
+
+         return a;
+     }
+
+    public List<Integer> spiralOrder(int[][] a) {
+        List<Integer> res = new ArrayList<>();
+        int count=0;
+        boolean down=false , left=false , up = false;
+        boolean right=true;
+        int i=a.length;
+        int j=a[0].length;
+        int m=0;
+        int n=0;
+        int top=0 , rightt=a[0].length-1 , downn=a.length-1 , leftf = a.length;
+        outer :  while (count<a.length*a[0].length*2){
+
+
+            while(right){
+                System.out.println("index" + m +"" +n);
+                count++;
+               System.out.println(a[m][n]);
+               n++;
+               if(n==j){
+                   System.out.println("enter");
+
+                   n-=1;
+                   j-=1;
+                   m++;
+                   right=false;
+                   down=true;
+                   continue outer;
+               }
+            }while(down){
+                System.out.println("index" + m +"" +n);
+
+                count++;
+                System.out.println(a[m][n]);
+               m++;
+               if(m==i){
+                   System.out.println("enter");
+                   m-=1;
+                   i-=1;
+                   n--;
+                   j--;
+                   left=true;
+                   down=false;
+                   continue outer;
+               }
+            }while(left){
+                System.out.println("index" + m +"" +n);
+
+                count++;
+                System.out.println(a[m][n]);
+               n--;
+               if(n==a[0].length-j-2){
+                   System.out.println("enter");
+                   n++;
+                   i-=1;
+                   m--;
+                   up=true;
+                   left=false;
+                   continue outer;
+               }
+            }while(up){
+                count++;
+                System.out.println("index" + m +"" +n);
+
+                System.out.println(a[m][n]);
+               m--;
+               if(m==a.length-i-2){
+                   System.out.println("enter");
+                 m++;
+                 n++;
+                 j-=1;
+                 up=false;
+                 right=true;
+                   continue outer;
+               }
+            }
+
+            count++;
+
+
+        }
+        return res;
+    }
+
+    int[][] setZeroes(int[][] a){
+         int[][] result  = new int[a.length][a[0].length];
+         HashSet<Integer> rows = new HashSet<>();
+         HashSet<Integer> cols = new HashSet<>();
+         for(int i=0;i<a.length;i++){
+             for(int j=0;j<a[i].length;j++){
+               if(a[i][j]==0){
+                   rows.add(i);
+                   cols.add(j);
+               }
+             }
+         }
+         for(int i=0;i<a.length;i++){
+             for(int j=0;j<a[i].length;j++){
+               if(rows.contains(i)){
+                   a[i][j]=0;
+               }if(cols.contains(j)){
+                   a[i][j]=0;
+               }
+             }
+         }
+
+         System.out.println(rows);
+         System.out.println(cols);
+         return a;
+    }
+
+    public boolean isIsomorphic(String s, String t) {
+
+        int map1[] = new int[200];
+        int map2[] = new int[200];
+
+        if (s.length() != t.length())
+            return false;
+
+
+        for (int i = 0; i < s.length(); i++) {
+            if (map1[s.charAt(i)] != map2[t.charAt(i)])
+                return false;
+
+            map1[s.charAt(i)] = i + 1;
+            map2[t.charAt(i)] = i + 1;
+
+
+
+        }
+        return true;
+    }
+
+    int longestConsecutive(int[] nums){
+        int st = 0;
+        int res = 0;
+        Arrays.sort(nums);
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] - nums[i - 1] == 0) {
+                res = Math.max(res,1);
+                st++;
+            }
+            else if (nums[i] - nums[i - 1] != 1) {
+                st = i;
+            }else {
+                res = Math.max(res, i - st+1);
+            }
+        }
+        if(nums.length==0) return 0;
+        if(nums.length==1) return 1;
+        return res;
+    }
+
+    String minWindow(String s , String t){
+         String result="";
+         int start=0;
+         int end=0;
+         if(s==t){
+             return s;
+         }
+         if(s.length()<t.length()){
+             return "";
+         }
+
+
+         return result;
+    }
+
+    int[][] gameOfLife(int[][] a){
+         int[][] res = new int[a.length][a[0].length];
+
+
+
+        for(int i=0;i<a.length;i++){
+            for(int j=0;j<a[i].length;j++){
+//                System.out.print(a[i][j] + "--->");
+                int count=0;
+                for(int m=i-1;m<=i+1;m++){
+                    for(int n=j-1;n<=j+1;n++){
+
+                        if(m>-1 && m<a.length && n>-1 && n<a[i].length){
+                            if(m==i && n==j){
+                                continue;
+                            }
+//                            System.out.print(a[m][n] + " ");
+                            if(a[m][n]==1){
+                                count++;
+                            }
+                        }
+                    }
+                }
+                if(a[i][j]==0){
+                    if(count==3){
+                      res[i][j]=1;
+                    }
+                }else {
+                    if(count==2 || count==3){
+                        res[i][j]=1;
+                    } else if (count>3) {
+                        res[i][j]=0;
+                    }else{
+                        res[i][j]=0;
+                    }
+                }
+//                System.out.println("");
+            }
+        }
+         return res;
+    }
+
+    int missingNumber(int[] a){
+         int num=0;
+         int max=-1;
+         for(int i=0;i<a.length;i++){
+           max = Math.max(max , a[i]);
+         }
+         for(int i=0;i<max+1;i++){
+             num = num^i;
+         }
+         System.out.println("max is" + max);
+         System.out.println("num is" + num);
+         for(int i=0;i<a.length;i++){
+             num = num^a[i];
+         }
+         return num!=0 ? num : max+1;
+    }
+
+    public int removeDuplicates26(int[] a) {
+        int index=1;
+        int elm=a[0];
+
+
+
+        for(int i=1;i<a.length;i++){
+            if(elm==a[i]){
+                continue;
+            }else{
+                elm=a[i];
+                a[index]=a[i];
+                index++;
+            }
+        }
+
+        PrintArray(a);
+        System.arraycopy(a , 0 , a , 0 , index+1 > a.length ? a.length  : index+1);
+
+
+
+        return index;
+
+    }
+    public int removeDuplicates(int[] a) {
+
+      int index=0;
+      int count=0;
+      int elm = a[index];
+
+      for(int i=0;i<a.length;i++){
+          if(count>=2){
+              if(a[i]==a[i-1]){
+                  continue;
+              }
+
+          }
+          if(a[i]==elm){
+              count++;
+              a[index]=elm;
+              index++;
+          }else{
+            count=0;
+            a[index]=a[i];
+            count++;
+            index++;
+            elm = a[i];
+          }
+      }
+
+      PrintArray(a);
+      System.arraycopy(a , 0 ,  a, 0 , index+1>a.length ? a.length : index+1);
+
+      return index;
+    }
+
+
+
+    boolean isValid(String s){
+         boolean res = true;
+          Stack<Character> stack = new Stack<>();
+          String s1 = "({[";
+          String s2 = ")}]";
+          for(int i=0;i<s.length();i++){
+             if(s1.contains(s.charAt(i)+"")){
+                stack.push(s.charAt(i));
+             }else{
+               Character elm = stack.peek();
+               if(elm=='('){
+                    if(s.charAt(i)==')'){
+                        stack.pop();
+                    }else{
+//                        res = false;
+//                        break;
+                    }
+               } else if (elm=='{') {
+                   if(s.charAt(i)=='}'){
+                       stack.pop();
+                   }else{
+//                       res = false;
+//                       break;
+                   }
+
+               } else if (elm=='[') {
+                   if(s.charAt(i)==']'){
+                       stack.pop();
+                   }else{
+//                       res = false;
+//                       break;
+                   }
+               }else{
+                 res = false;
+//                 break;
+               }
+             }
+          }
+          return stack.size()==0;
+//         return false;
+    }
+
+
+    int findJudge(int[][] a){
+         int num=0;
+
+         Map<Integer , Integer> hashmap = new HashMap<>();
+         for(int i=0;i<a.length;i++){
+             for(int j=0;j<a[i].length;j++){
+                 hashmap.put(a[i][j] , 0);
+             }
+         }
+         for(int i=0;i<a.length;i++){
+            hashmap.remove(a[i][0]);
+         }
+         System.out.println(hashmap);
+
+         if(hashmap.size()==0){
+             return -1;
+         }
+         for(Map.Entry<Integer , Integer> entry : hashmap.entrySet()){
+              num = entry.getKey();
+         }
+
+//         PrintIntList(list);
+
+
+
+//        PrintIntList(list);
+
+         return num;
+    }
+
+
+    List<String> summaryRanges(int[] a){
+         List<String> res = new ArrayList<>();
+         int i=0;
+         while(i<a.length){
+             int j=0;
+             String s1 = Integer.toString(a[i]);
+             while (i<a.length-1){
+                 if(j==0 && i==a.length-1){
+                     break;
+                 }else if(a[i]+1 ==a[i+1]){
+                     i++;
+                     j++;
+                 }else{
+                     break;
+                 }
+             }
+             if(j>0){
+                 s1+="->" + Integer.toString(a[i]);
+             }
+             res.add(s1);
+             i++;
+
+         }
+        return res;
+    }
+
+    int[][] merge56(int[][] a){
+
+
+         int i=0;
+         int j=0;
+         int k=0;
+         int s=0;
+         while (i<a.length){
+             while (i<a.length && a[i][0]<=a[j][1]){
+                 if(a[i][1]>=a[j][1]){
+                     j=i;
+                 }
+                 i++;
+             }
+             a[k][0]=a[s][0];
+             a[k][1]=a[j][1];
+             k++;
+             j=i;
+             s=i;
+         }
+
+        int[][] res = new int[k][2];
+         for(int m=0;m<k;m++){
+             for(int n=0;n<2;n++){
+                 res[m][n]=a[m][n];
+             }
+         }
+         return res;
+
+    }
+
+
+//    int[][] helperinsert(int[][] a , int index){
+//
+//    }
+//    int[][] insert57(int[][] a , int[] newInt){    //{{1,2},{3,5},{6,7},{8,10},{12,16}}
+//
+//         int[][] tmp = new int[a.length+1][2];
+//         int k=0;
+//         int min=newInt[0];
+//         int max=newInt[1];
+//         boolean isinserted=false;
+//         int index=0;
+//         for(int i=0;i<a.length;i++) {
+//
+//             if (min <= a[i][0]) {
+//                 tmp[k][0] = min;
+//                 tmp[k][1] = max;
+//                 k++;
+//                 min = Integer.MAX_VALUE;
+//                 isinserted = true;
+//                 index=i-1;
+//             }
+//             tmp[k][0] = a[i][0];
+//             tmp[k][1] = a[i][1];
+//             k++;
+//         }
+//        if(!isinserted){
+//            tmp[k][0]=min;
+//            tmp[k][1]=max;
+//            index=k;
+//        }
+//
+//         return helperinsert(tmp , index);
+//
+//    }
+
+       int findMinArrowShots(int[][] a){    //  {1 6} {2 8} {7 12} {10 16}
+           int count=0;
+         Arrays.sort(a, Comparator.comparingInt(arr->arr[0]));
+         PrintDoubleArray(a);
+         int prevend=a[0][1];
+         int prevstart=a[0][0];
+         int i=0;
+         while (i<a.length){
+             while (i<a.length && a[i][0]<=prevend){
+                prevend = Math.min(prevend , a[i][1]);
+                i++;
+             }
+             count++;
+             if(i<a.length){
+                 prevend=a[i][1];
+//                 i++;
+             }
+
+
+         }
+
+
+         return count;
+       }
+
+       String longestPalindrome(String s){
+         if(s.length()==1){
+             return s;
+         }
+         int count=1;
+         int max=Integer.MIN_VALUE;
+          String ans = "";
+          String res = "";
+          int left=0 ,  right=0 ,  mid=s.length()/2;
+          for(int i=mid;i>=0&&left>=0;i--){
+              count=1;
+              left=i-1;
+              right=i+1;
+              res=s.charAt(i)+"";
+              while (right<s.length()&&s.charAt(right)==s.charAt(i)){
+                  count++;
+                  res+=s.charAt(right);
+                  right++;
+              }
+              System.out.println(count);
+              while (left>=0 && s.charAt(left)==s.charAt(i)){
+                  count++;
+                  res=s.charAt(left) + res;
+                  left--;
+              }
+              while (left>=0 && right<s.length()){
+                  if(s.charAt(left)==s.charAt(right)){
+                      count+=2;
+                      res = s.charAt(left) + res + s.charAt(right);
+                      left--;
+                      right++;
+                  }else{
+                      break;
+                  }
+              }
+              if(count>=max){
+                  max = Math.max(max, count);
+                  ans = res;
+              }
+          }
+          for(int i=mid+1;i<s.length()-1&&right<s.length();i++){
+              count=1;
+              left=i-1;
+              right=i+1;
+              res=s.charAt(i)+"";
+              while (right<s.length()&&s.charAt(right)==s.charAt(i)){
+                  count++;
+                  res+=s.charAt(right);
+                  right++;
+              }
+              while (left>=0 && s.charAt(left)==s.charAt(i)){
+                  count++;
+                  res=s.charAt(left) + res;
+                  left--;
+              }
+              while (left>=0 && right<s.length()){
+                  if(s.charAt(left)==s.charAt(right)){
+                      count+=2;
+                      res = s.charAt(left) +res + s.charAt(right);
+                      left--;
+                      right++;
+                  }else{
+                      break;
+                  }
+              }
+              if(count>=max){
+                  max = Math.max(max, count);
+                  ans = res;
+              }
+          }
+          System.out.println(max);
+          return ans;
+       }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -2251,6 +3342,8 @@ public class Leetcode {
 //        System.out.println("Enter the Roman Number");
 //        String s1 = sc.nextLine();
 //        Leetcode L1 = new Leetcode();
+////        String s1 = "{[]}";
+//        String s1 = "}";
 //        boolean output = L1.checkIsValid(s1);
 //        System.out.println(output);
 
@@ -2417,7 +3510,7 @@ public class Leetcode {
 //              String s1 = "paper";
 //              String s2 = "title";
 //              Leetcode L1 = new Leetcode();
-//              boolean result = L1.IsIsomorphic(s1  , s2);
+//              boolean result = L1.isIsomorphic(s1  , s2);
 //              System.out.println(result);
 
 //            206  Reverse Linked List
@@ -2944,10 +4037,300 @@ public class Leetcode {
 //                System.out.println("result is " + result);
 
 //        238   Product of Array Except Self
-                int[] a = {1,2,3,4};
-                Leetcode L1 = new Leetcode();
-                int[] result = L1.productExceptSelf(a);
-                PrintArray(result);
+//                int[] a = {1,2,3,4};
+//                Leetcode L1 = new Leetcode();
+//                int[] result = L1.productExceptSelf(a);
+//                PrintArray(result);
+
+//        49. Group Anagrams
+//               String[] s = {"eat","tea","tan","ate","nat","bat"};
+////               String[] s = {"a"};
+////               String[] s = {""};
+////               String[] s = {"bluffed","excellently","neurology","nonrefillable","edmund","boyhoods","survivors","sexually","outnumbering","bolero","werewolf","debasing","dragnet","addams","monochromes","flippancy","hoots","digestion","profanity","cellist","enrols","crumble","elderberry","jayson","recopying","threats","exploded","cinnamon","hospitalized","ducat","memorialize","powerlessly","suaver","deservings","genuinely","calliope","oxidize","gamekeeper","slimming","daises","resisted","shanty","receivable","careering","transmigration","dooms","revisiting","financed","severs","hominy","pantomiming","bestride","seam","alibi","churchman","ovule","jaxartes","retirement","translated","pancaking","achiever","navigates","hazes","tubman","versatility","fergus","adjust","narcosis","hightail","mormon","hattie","chinning","teenager","tho","misbehaves","trustfulness","electioneers","emending","disenchanting","barometer","styluses","uruguay","houseboat","rungs","endwise","reinterpretation","gashes","koshers","nostalgic","hateful","bray","sutures","saudis","sentimentalizes","ayers","avoided","spiky","circumnavigated","tonic","dialects","disbursing","manitoba","potbellies","cauldron","whitened","fitter","attorney","doorbell","scrolled","noncontagious","overnight","rubbishes","stove","amortizing","periling","doublet","celina","whitfield","tonsures","overturns","missions","casuals","juxtaposing","sings","hesperus","panhandle","armando","bernays","trimmers","transom","grafts","columns","abelson","archway","infantries","orly","pock","selectors","lecterns","humps","kinked","bridles","essentials","instead","eliminating","mabel","zing","impersonation","cudgels","chang","artifacts","creon","clucking","skedaddled","spryer","footballs","honeys","wafer","knelt","flagstone","americanize","bohr","plottered","simone","conventional","definable","blackbirds","woodsier","carriage","residents","mezzanines","tenement","plymouth","wresting","islanders","malleable","attentively","irrelevancy","paulette","hillbillies","leech","cloaks","individualist","uncannier","patel","effusions","dungs","plugs","discompose","dacrons","teletypes","dismay","germany","travailing","loathes","devouter","chandelier","rinsed","denial","mil","outmanoeuvre","tugged","icings","reefer","dominicans","franz","destruct","bog","pinhole","jackknife","polytheists","chatted","tomfoolery","breeziness","beaked","tasman","possession","partying","shift","anodynes","pontificate","typefaces","mullions","reconnaissance","stanching","bedstead","belligerent","breakwaters","messerschmidt","instincts","sickle","quondam","limos","fosters","mentalities","minestrone","harrowed","folsom","travesty","compendiums","maladies","narrates","interlocks","humbleness","uplifted","slipknot","motorcyclists","restarted","iconoclast","forts","trumpery","cute","harpsichord","klutzier","ashtray","garlicking","sprayer","duodenal","parboiled","ultras","arkansan","metaphor","patterning","lorries","donetsk","coerced","constricted","murkiness","curtailing","bookish","tenacious","araucanian","unmask","forlorner","ills","bert","closures","cahoots","rotundity","sullying","pare","pretences","beggar","childproofs","educable","duct","posits","bushed","southward","echelon","approximates","spoonerism","waitresses","unman","isolation","suleiman","delight","skimping","rambles","redistrict","alderwomen","o","rejoiced","blot","backpedals","clearings","brontosauruses","laughingly","huckleberries","steinbeck","friskier","commander","skivvies","reality","intermingles","cumbersome","bribery","disagreeable","jersey","lamont","profiteered","shooters","transience","scraper","resignedly","grabbing","christies","piaget","executors","reproachfully","spasming","overproduction","incises","priesthoods","straightforwards","poesied","welled","bickered","drolleries","manures","daffy","segregate","waddles","cheerfully","overprinted","molester","lief","summarizes","vaccination","seminole","unlisted","rumping","ed","weir","manufacture","secretariat","fulminated","molybdenum","bakersfield","unpinning","heroism","violence","mistimed","alcoa","perter","manuscripts","separate","retractions","safes","atoll","grottos","boogieing","olga","frisking","grows","redeployment","helmholtz","durant","rankest","thespian","cheese","pilaf","thinness","contrast","parqueted","milkmaids","blackhead","breathlessly","bothering","decoration","arrogant","setups","contraptions","swirly","transgression","misses","handyman","snows","clinic","vatican","forecaster","haughtiness","bovine","strobe","ingram","maratha","descartes","billeting","treetop","aloud","globed","monument","argumentative","squeegee","especial","retrofits","artistes","propose","piraeus","horsetails","tailpipes","throughout","tarted","synods","unconcerned","weighting","duding","roe","undervalued","reachable","thicker","egging","dentistry","byte","distinguished","envisioning","filibusters","housewarming","matzot","dill","remarries","anatomical","kremlinologists","truancy","bostonians","limited","poorer","corniest","contradictory","three","temporaries","convivial","shirting","schisms","balconies","reinterpret","suturing","kumquats","oncology","unbidden","correlates","kowtows","flashest","neighborhood","rumbas","swathed","webb","birches","engages","promoters","outside","cheeriest","suffusion","propounding","bagels","amish","contrarily","xylophonists","familiarize","makes","testimony","crusaded","wildcatted","slackest","bovines","artier","plops","robbie","slosh","dinkier","airworthiest","carbohydrates","teammates","locoweed","stratagems","sarcoma","gougers","yuletide","rosemarie","upholster","sizzle","reminiscing","bluffers","shellac","heckled","hypothalami","showery","supposes","humbug","burnished","lopsided","imprisons","opine","leeches","generic","stimulated","soggily","aftershave","marvell","pekoe","microorganism","burlap","topples","misfire","scuttlebutt","tantrums","exits","eclecticism","alden","ilk","deltas","slack","effortlessly","operationally","offspring","staggers","alkalis","logger","spines","oscilloscope","tiniest","fluxed","collectively","leagues","procter","protruding","flukiest","underemployed","wetter","ignite","puddings","magnetosphere","solids","oceangoing","barrooms","refurnished","operational","mastering","white","organist","blackest","licentiates","marsupial","machinists","borderlands","dingies","kegging","dualism","cohen","existing","wheeler","uncleanly","umlauts","expiate","misspends","ebert","camber","adventured","weave","bounded","religiously","potluck","scions","millionths","goblet","witchery","dodge","sarasota","pier","membranous","stomaching","tallyhos","cohort","leveraged","makeshift","hexagon","thumped","zedong","versions","ultraconservatives","obeyed","pace","wicks","luncheoning","minerals","medications","moralizes","unites","rant","portents","apparelling","hums","farrowed","verve","boggiest","weal","josephus","perfects","beef","stairwell","comment","arrant","stature","kc","quoits","galls","adoption","reformulate","physicals","schroeder","scoundrels","delivered","crushed","rue","thrives","cerf","hijacker","inkier","vulvae","deterring","burgles","catechism","unhorse","reclined","dapple","angioplasties","sluggards","emceed","snobbery","accessory","cardiologist","browning","crosses","boasted","summonsing","gamble","overdue","scourge","dirges","cascades","precious","peacefuller","oysters","hoods","pirates","sauerkraut","whiskers","defames","repute","foolish","lactate","tharp","electrocutions","fating","freezers","invocation","dissenter","should","hells","homesickness","archdukes","preconceiving","scroungers","embellishment","massacre","upon","aerated","protuberant","sternly","meticulously","virulent","loch","enchant","raindrop","atrophies","magyar","interring","coachmen","exorcism","faintness","pointlessness","kawabata","installment","maliciously","vindicating","monkeying","uncanny","tangibles","blessed","forensic","arty","toppled","dilapidation","klutzes","moots","cottage","seismograph","diarists","aperitif","facing","filial","soundings","salsa","clear","cayenne","stilling","thighs","contrasting","cloistered","custodial","woodland","frillier","unrolls","landsat","chartres","toughly","saluted","verbose","transfiguring","zapped","iconoclasts","parkman","charlestons","spadework","okaying","numismatics","chestnuts","ghostwriters","nobelists","insouciant","vivisection","moods","edifices","relocated","wisdom","ignobly","namesakes","tapestry","schismatics","agra","blundering","sailboards","fruited","anticlimax","viewed","locus","barricading","rehearsed","irater","sibyl","steps","airsickness","blasphemous","swelling","salinger","veal","normalizes","gullet","inhabitant","slut","zinced","homing","headphone","chatters","winged","wingspread","kneecaps","tam","withdraws","repatriating","peter","isobars","dix","rekindled","snider","depends","mute","knowledgeably","mends","tides","stoutness","hempen","victoria","slaloming","buttons","grammars","astounding","memorandum","kenmore","solid","bandoliers","flowered","equivocation","assuredly","festers","helios","lebanese","impugned","shiftlessness","statement","announcer","vagueness","punctures","colonnade","exist","displeasing","diocletian","untold","unprintable","hereford","sidereal","joke","automatically","rendezvousing","surfed","surreptitious","depopulating","arching","massive","excise","beatles","rigorous","turnovers","impromptus","jezebels","glinted","leveraging","capsizing","voices","hitchhiking","ramon","wyeth","larva","unblushing","inanest","vacillate","contrives","kw","carboniferous","disinterred","predicated","song","andean","youths","previous","yours","supplicates","gompers","apprenticed","half","lactic","authenticating","charlatan","mendacious","flanks","hieronymus","dressy","owns","vestry","strobes","clapping","informers","sermoning","rifer","headstone","bobbing","forgiven","hypocritical","legation","adjusted","glibness","peeled","actuators","composition","payloads","abdication","delete","unnecessary","misprint","wooziest","cannibalistic","voiced","marooned","einstein","erratically","obsessions","impracticality","hoffa","rheumatics","handsets","tricked","afield","abdul","sounding","tray","massacring","iowan","grits","billy","purchases","profitably","resilience","eyed","vocabularies","golden","barking","riviera","helmsmen","cavorting","shrinks","hangmen","heliports","salve","assorting","neuroses","contribute","triathlon","adherents","gismo","sering","pulsate","hoarders","vacating","pulverization","destabilize","wore","eureka","gobs","raiding","valhalla","aureole","illustration","null","ageing","umbrellaing","characterize","ethel","bagging","lucas","nakedly","rinded","wainscottings","through","falter","clearness","smart","overspecializes","older","entourage","dawn"};
+//               Leetcode L1 = new Leetcode();
+//               List< List <String>> list = L1.groupAnagrams(s);
+//               PrintDoublyListString(list);
+
+
+
+//        134. Gas Station
+////              int[] gas = {1,2,3,4,5};
+////              int[] cost = {3,4,5,1,2};
+//              int[] gas = {5,1,2,3,4};
+//              int[] cost = {4,4,1,5,1};
+////              int[] gas = {1,2,3,4,5,5,70};
+////              int[] cost = {2,3,4,3,9,6,2};
+//              Leetcode L1 = new Leetcode();
+//              int result  =  L1.canCompleteCircuit(gas , cost);
+//              System.out.println(result);
+
+
+//        12. Integer to Roman
+//              int num = 1994;
+//              int num = 3;
+//              int num = 58;
+//              int num = 40;
+//              Leetcode L1 = new Leetcode();
+//              String s = L1.intToRoman(num);
+//              System.out.println(s);
+
+//        451. Sort Characters By Frequency
+//              String s = "tree";
+//              String s = "cccaaa";
+//              String s = "Aabb";
+//              Leetcode L1 = new Leetcode();
+//              String result = L1.frequencySort(s);
+//              System.out.println(result);
+
+//        151. Reverse Words in a String
+//             String s = "  hello world  ";
+//             Leetcode L1 = new Leetcode();
+//             String result = L1.reverseWords(s);
+//             System.out.println(result);
+
+//        279. Perfect Squares
+//              int num = 13;
+////              int num = 12;
+////              int num = 4;
+//
+//              Leetcode L1 = new Leetcode();
+//              int result = L1.numSquares(num);
+//              System.out.println(result);
+
+
+//        167. Two Sum II - Input Array Is Sorted
+//               int[] a = {2,7,11,15};
+//               Leetcode L1 = new Leetcode();
+//               int[] result = L1.twoSumII(a , 9);
+//               PrintArray(result);
+
+////        15. 3Sum
+////           int[] a = {-1,0,1,2,-1,-4};
+////           int[] a = {0,1,1};
+////           int[] a = {0,0,0};
+//           int[] a = {0,0,0 , 0};
+//           int[] a = {-1,0,1,2,-1,-4,-2,-3,3,0,4};
+//           Leetcode L1 = new Leetcode();
+//           List<List<Integer>> list = L1.threeSum(a);
+//           PrintDoublyList(list);
+
+//        189. Rotate Array
+//               int[] a = {1,2,3,4,5,6,7};
+//               int k=3;
+//               int[] a = {1,2};
+//               int k=3;
+//               int[] a = {1,2,3,4,5,6};
+//               int k=11;
+////               int[] a = {-1,-100,3,99};
+////               int k=2;
+//               Leetcode L1 = new Leetcode();
+//               int[] result = L1.rotate189(a ,k);
+//               PrintArray(result);
+
+//        368. Largest Divisible Subset
+////            int[] a = {1,2,3};
+//            int[] a = {3,4,16,8};
+////            int[] a = {1,2,4,8};
+//            Leetcode L1 = new Leetcode();
+//            List<Integer> list =  L1.largestDivisibleSubset(a);
+//            PrintIntList(list);
+
+
+//        209. Minimum Size Subarray Sum
+//              int[] a = {2,3,1,2,4,3};
+////              int[] a = {1,1,1,1,1,1,1,1};
+//              int target=7;
+////              int target=11;
+//              Leetcode L1 = new Leetcode();
+//              int result = L1.minSubArrayLen(a , target);
+//              System.out.println(result);
+
+//         36  valid sudoku
+//               String[][] a = {
+// {"5","3",".",".","7",".",".",".","."}
+//,{"6",".",".","1","9","5",".",".","."}
+//,{".","9","8",".",".",".",".","6","."}
+//,{"8",".",".",".","6",".",".",".","3"}
+//,{"4",".",".","8",".","3",".",".","1"}
+//,{"7",".",".",".","2",".",".",".","6"}
+//,{".","6",".",".",".",".","2","8","."}
+//,{".",".",".","4","1","9",".",".","5"}
+//,{".",".",".",".","8",".",".","7","9"}
+//               };
+//               String[][] a = {
+//                       {"8","3",".",".","7",".",".",".","."},
+//                       {"6",".",".","1","9","5",".",".","."},
+//                       {".","9","8",".",".",".",".","6","."},
+//                       {"8",".",".",".","6",".",".",".","3"},
+//                       {"4",".",".","8",".","3",".",".","1"},
+//                       {"7",".",".",".","2",".",".",".","6"},
+//                       {".","6",".",".",".",".","2","8","."},
+//                       {".",".",".","4","1","9",".",".","5"},
+//                       {".",".",".",".","8",".",".","7","9"}
+//               }
+//                       ;
+//               Leetcode L1 = new Leetcode();
+//               boolean result = L1.isValidSudoku(a);
+//               System.out.println(result);
+
+//        48. Rotate Image
+//           int[][] a = {{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
+//           Leetcode L1= new Leetcode();
+//           int[][] result = L1.rotate48(a);
+//           PrintDoubleArray(result);
+
+//        54. Spiral Matrix
+//            int[][] a = {{1,2,3},{4,5,6},{7,8,9}};
+//            Leetcode L1 = new Leetcode();
+//            List<Integer> result = L1.spiralOrder(a);
+//            PrintIntList(result);
+
+//        73. Set Matrix Zeroes
+//              int[][] a = {{1,1,1},{1,0,1},{1,1,1}};
+//              Leetcode L1 = new Leetcode();
+//              int[][] result = L1.setZeroes(a);
+//              PrintDoubleArray(result);
+
+//        205. Isomorphic Strings
+
+
+//        128. Longest Consecutive Sequence
+//              int[] a = {100,4,200,1,3,2};
+//              int[] a = {0,3,7,2,5,8,4,6,0,1};
+//              Leetcode L1 = new Leetcode();
+//              int result = L1.longestConsecutive(a);
+//              System.out.println(result);
+
+//        3. Longest Substring Without Repeating Characters
+//           String s= "abcabcbb";
+//           Leetcode L1 = new Leetcode();
+//           int result = L1.lengthOfLongestSubstring(s);
+//           System.out.println(result);
+
+//        76. Minimum Window Substring
+//             String s = "ADOBECODEBANC";
+//             String t="ABC";
+//             Leetcode L1 = new Leetcode();
+//             String result = L1.minWindow(s , t);
+//             System.out.println(result);
+
+//          traverse neighbour of the element in 2d metrics
+//               int[][] a = {{0,1,0},{0,0,1},{1,1,1},{0,0,0}};
+//               Leetcode L1=  new Leetcode();
+//               PrintNeighbour2DMetrics(a);
+
+//        289. Game of Life
+//             int[][] a = {{0,1,0},{0,0,1},{1,1,1},{0,0,0}};
+//             int[][] a = {{1,1},{1,0}};
+//              Leetcode L1  =new Leetcode();
+//              int[][] res = L1.gameOfLife(a);
+//              PrintDoubleArray(res);
+//        PrintNeighbour2DMetrics(a);
+
+//        268. Missing Number
+//            int[] a = {3,0,1};
+//            Leetcode L1 = new Leetcode();
+//            int num = L1.missingNumber(a);
+//            System.out.println(num);
+
+
+
+//        26. Remove Duplicates from Sorted Array
+//              int[] a = {0,0,1,1,1,2,2,3,3,4};
+//              int[] a = {1,1,2};
+//              Leetcode L1 = new Leetcode();
+//              int res = L1.removeDuplicates26(a);
+//              System.out.println(res);
+
+
+//        80. Remove Duplicates from Sorted Array II
+//             int[] a ={1,1,1,2,2,3};
+//             int[] a ={1,1};
+////             int[] a ={0,0,1,1,1,1,2,3,3};
+//             Leetcode L1 = new Leetcode();
+//             int res = L1.removeDuplicates(a);
+//             System.out.println(res);
+
+//        997. Find the Town Judge
+//              int[][] a = {{1,3},{2,3},{3,1}};
+//              int[][] a = {{1,3},{2,3}};
+//              int[][] a = {{1,2}};
+//              Leetcode L1 = new Leetcode();
+//              int res = L1.findJudge(a);
+//              System.out.println(res);
+
+
+//        228. Summary Ranges
+//               int[]   a= {0,2,3,4,6,8,9};
+//               int[]   a= {0,1,2,4,5,7};
+//               int[]   a= {0,1,2,4,5,7};
+//               Leetcode L1 = new Leetcode();
+//               List<String> res = L1.summaryRanges(a);
+//               for(int i=0;i<res.size();i++){
+//                   System.out.println(res.get(i));
+//               }
+
+
+
+
+//        56. Merge Intervals
+//            Leetcode L1 = new Leetcode();
+////            int[][] a= {{1,3},{2,6},{8,10},{15,18}};
+////            int[][] a= {{1,4},{4,5}};
+//            int[][] a= {{1,4},{4,5}};
+////            int[][] a= {{1,5},{2,7}};
+//            int[][] res=L1.merge56(a);
+//            PrintDoubleArray(res);
+
+
+//        57. Insert Interval
+
+//              int[][] a = {{1,2},{3,5},{6,7},{8,10},{12,16}};
+//              int[] newInterval = {4,8};
+////              int[][] a = {{1,3},{6,9}};
+////              int[] newInterval = {2,5};
+////              int[][] a = {{}};
+////                int[][] a = {{1,5}};
+////                int[] newInterval = {2,7};
+//        Leetcode L1 = new Leetcode();
+//
+//              int[][] res  = L1.insert57(a, newInterval);
+//              PrintDoubleArray(res);
+
+
+//        452. Minimum Number of Arrows to Burst Balloons
+////              int[][] a = {{10,16},{2,8},{1,6},{7,12}};
+//              int[][] a = {{1,2},{2,3},{3,4},{4,5}};
+////              int[][] a = {{1,2},{3,4},{5,6},{7,8}};
+//              Leetcode L1  = new Leetcode();
+//              int res = L1.findMinArrowShots(a);
+//              System.out.println(res);
+
+//        5. Longest Palindromic Substring
+//             String s = "babad";
+//             String s = "cbbd";
+//             String s = "babadabcaacbab";
+             Leetcode L1 = new Leetcode();
+             String result = L1.longestPalindrome(s);
+             System.out.println(result);
+
+
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2972,3 +4355,7 @@ public class Leetcode {
 
     }
 }
+
+
+
+
