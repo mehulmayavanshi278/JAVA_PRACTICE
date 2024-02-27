@@ -4,6 +4,7 @@ import java.awt.desktop.ScreenSleepEvent;
 import java.beans.PropertyEditorSupport;
 import java.nio.file.LinkOption;
 import java.sql.Array;
+import java.sql.SQLRecoverableException;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.*;
@@ -1958,26 +1959,26 @@ public class Leetcode {
            System.out.println(list.size());
            return list;
     }
-    public List<String> letterCombinations(String digit){
-         List<String> list = new ArrayList<>();
-
-
-        for(int i=digit.length()-1;i>=0;i--){
-             List<String> temp  = combineLetter(digit.charAt(i) , list);
-             list.addAll(temp);
-        }
-        System.out.println(list.size());
-
-        for(int i=0;i<list.size();i++){
-            System.out.println(list.get(i));
-        }
-
-        return list;
-
-
-
-
-    }
+//    public List<String> letterCombinations(String digit){
+//         List<String> list = new ArrayList<>();
+//
+//
+//        for(int i=digit.length()-1;i>=0;i--){
+//             List<String> temp  = combineLetter(digit.charAt(i) , list);
+//             list.addAll(temp);
+//        }
+//        System.out.println(list.size());
+//
+//        for(int i=0;i<list.size();i++){
+//            System.out.println(list.get(i));
+//        }
+//
+//        return list;
+//
+//
+//
+//
+//    }
 
     boolean halvesAreAlike(String s){
          int first=0;
@@ -3317,6 +3318,43 @@ public class Leetcode {
           System.out.println(max);
           return ans;
        }
+
+       List<String> helpeLletterCombinations(String s , int index , Map<Character , String > hashmap){
+           List<String> list = new ArrayList<>();
+           if(index==s.length()){
+               list.add("x");
+               return list;
+           }
+           List<String> tmp =  helpeLletterCombinations(s , index+1 , hashmap);
+           if(index==s.length()-1){
+             for(int i=0;i<hashmap.get(s.charAt(index)).length();i++){
+                 list.add(hashmap.get(s.charAt(index)).charAt(i)+"");
+             }
+           }else{
+               for(int i=0;i<hashmap.get(s.charAt(index)).length();i++){
+                   for(int j=0;j<tmp.size();j++){
+                       list.add(hashmap.get(s.charAt(index)).charAt(i) + tmp.get(j));
+                   }
+               }
+           }
+           return list;
+       }
+       List<String> letterCombinations(String s){
+           if(s.length()==0){
+               return new ArrayList<>();
+           }
+         Map<Character  , String> hashmap = new HashMap<>();
+         hashmap.put('2' , "abc");
+         hashmap.put('3' , "def");
+         hashmap.put('4' , "ghi");
+         hashmap.put('5' , "jkl");
+         hashmap.put('6' , "mno");
+         hashmap.put('7' , "pqrs");
+         hashmap.put('8' , "tuv");
+         hashmap.put('9' , "wxyz");
+
+         return helpeLletterCombinations(s,0 , hashmap);
+       }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -4310,9 +4348,16 @@ public class Leetcode {
 //             String s = "babad";
 //             String s = "cbbd";
 //             String s = "babadabcaacbab";
-             Leetcode L1 = new Leetcode();
-             String result = L1.longestPalindrome(s);
-             System.out.println(result);
+//             Leetcode L1 = new Leetcode();
+//             String result = L1.longestPalindrome(s);
+//             System.out.println(result);
+
+//        17. Letter Combinations of a Phone Number
+
+              String s = "23";
+              Leetcode L1  = new Leetcode()
+;              List<String> res = L1.letterCombinations(s);
+                System.out.println(res);
 
 
 //
