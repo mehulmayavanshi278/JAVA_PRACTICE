@@ -1,4 +1,5 @@
 import com.sun.source.tree.LambdaExpressionTree;
+import com.sun.source.tree.WildcardTree;
 
 import java.awt.desktop.ScreenSleepEvent;
 import java.beans.PropertyEditorSupport;
@@ -1457,6 +1458,11 @@ public class Leetcode {
 
     public static void PrintIntList(List<Integer> list){
         for(int elm : list){
+            System.out.println(elm);
+        }
+    }
+    public static void PrintStringList(List<String> list){
+        for(String elm : list){
             System.out.println(elm);
         }
     }
@@ -3355,6 +3361,153 @@ public class Leetcode {
 
          return helpeLletterCombinations(s,0 , hashmap);
        }
+
+
+       List<List<String>> dpgen = new ArrayList<>();
+
+     public static void helpergenerateParenthesis(List<String> res,String curr,int open, int close,int n){
+          if(curr.length()==2*n)
+          {
+              res.add(curr);
+              return;
+          }
+          if(open<n)
+          {
+              helpergenerateParenthesis(res,curr+"(",open+1,close,n);
+          }
+          if(close<open)
+          {
+              helpergenerateParenthesis(res,curr+")",open,close+1,n);
+          }
+      }
+       List<String> generateParenthesis(int n){
+           ArrayList<String> res= new ArrayList<>();
+           helpergenerateParenthesis(res,"",0,0,n);
+           return res;
+       }
+
+
+        public static int search33Helper(int[] a , int start , int end , int elm){
+            int index=-1;
+
+
+            if(start<=end) {
+                int mid=(start+end)/2;
+                if(a[mid]==elm){
+                    return mid;
+                }
+                if(a[mid]>=a[start]){
+                    if(elm>=a[start] && elm<a[mid]){
+                        index =  search33Helper(a , start , mid-1 , elm);
+                    }else{
+                        index =  search33Helper(a , mid+1 , end , elm);
+                    }
+                }else{
+                    if(elm<a[mid] || elm>=a[start]){
+                        index =  search33Helper(a , start , mid-1 , elm);
+                    }else{
+                        index = search33Helper(a , mid+1 , end , elm);
+                    }
+                }}
+            return index;
+       }
+       int search33(int[] a , int elm){
+         int res= search33Helper(a , 0 , a.length , elm);
+         return res;
+       }
+       int[] searchRange(int[] a, int target){
+         if(a.length==0){
+           return new int[]{-1,-1};
+         }
+          int[] res = new int[2];
+          int left=0 , right=a.length-1;
+          int tempIndex=-1;
+
+          while (left<=right){
+             int mid = (left+right)/2;
+             if(a[mid]==target){
+               tempIndex=mid;
+               break;
+             }
+             if(target<=a[mid]){
+                 right=mid-1;
+             }else{
+                 left=mid+1;
+             }
+          }
+         System.out.println(tempIndex);
+         System.out.println(left);
+         System.out.println(right);
+
+         int index=tempIndex;
+         int min=-1;
+         int l=left;
+         int r=tempIndex;
+         while (l<=r){
+//             if(a[l]==a[r]){
+//                 min = l;
+//             }
+             int mid=(l+r)/2;
+             if(a[mid]==target && a[mid-1]!=target){
+                 min=l;
+                 break;
+             }
+
+
+             if(target<=a[mid]){
+                 r=mid-1;
+             }else{
+                 l=mid+1;
+             }
+
+         }
+         l=tempIndex;
+         r=right;
+         int max=-1;
+           while (l<=r){
+//             if(a[l]==a[r]){
+//                 min = l;
+//             }
+               int mid=(l+r)/2;
+               if(a[mid]==target && a[mid+1]!=target){
+                   max=mid;
+                   break;
+               }
+
+
+               if(target<a[mid]){
+                   r=mid-1;
+               }else{
+                   l=mid+1;
+               }
+
+           }
+         System.out.println("min" + min);
+         System.out.println("max" + max);
+
+         res[0]=min;
+         res[1]=max;
+          return res;
+       }
+
+       int findMin(int[] a){
+         int min = Integer.MAX_VALUE;
+         int left=0;
+         int right=a.length-1;
+
+         while (left<=right){
+             int mid = (left+right)/2;
+             if(a[mid]>=a[left]){
+                 min = Math.min(min , a[left]);
+                 left=mid+1;
+             }else{
+                 min = Math.min(min , a[mid]);
+                 right=mid-1;
+             }
+         }
+         return min;
+       }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -4354,11 +4507,39 @@ public class Leetcode {
 
 //        17. Letter Combinations of a Phone Number
 
-              String s = "23";
-              Leetcode L1  = new Leetcode()
-;              List<String> res = L1.letterCombinations(s);
-                System.out.println(res);
+//              String s = "23";
+//              Leetcode L1  = new Leetcode()
+//;              List<String> res = L1.letterCombinations(s);
+//                System.out.println(res);
 
+
+//        22. Generate Parentheses
+//              int num=3;
+//              Leetcode L1 = new Leetcode();
+//              List<String> res =  L1.generateParenthesis(num);
+//              PrintStringList(res);
+
+
+//        33. Search in Rotated Sorted Array
+//              int[] a = {4,5,6,7,0,1,2};
+//              Leetcode L1 = new Leetcode();
+//              int res = L1.search33(a , 5);
+//              System.out.println(res);
+
+
+//        34. Find First and Last Position of Element in Sorted Array
+//            int[] a = {5,7,7,8,8,10};
+//            int[] a = {5,7,7,8,8,10};
+////            int[] a = {1,2,3,4, 4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5   ,5,5,8,8,8,8,8,8,8,8,8,8,8,8,9,10,11,12};
+//            Leetcode L1 = new Leetcode();
+//            int[] res = L1.searchRange(a,8);
+//            PrintArray(res);
+
+//        153. Find Minimum in Rotated Sorted Array
+              int[] a = {3,4,5,1,2};
+              Leetcode L1 = new Leetcode();
+              int res = L1.findMin(a);
+              System.out.println(res);
 
 //
 
