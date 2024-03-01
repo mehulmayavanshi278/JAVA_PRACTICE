@@ -3508,6 +3508,196 @@ public class Leetcode {
          return min;
        }
 
+
+
+
+       public static int[] reverseArray(int[] a  , int start , int end){
+         System.out.println("yes");
+         for(int i=start;i<start+(end-start+1)/2;i++){
+             int temp = a[i];
+             a[i] = a[end - (i-start)];
+             a[end -(i-start)] = temp;
+         }
+         return a;
+       }
+
+       int[] nextPermutation(int[] a){
+         int index=-1;
+         for(int i=a.length-2;i>=0;i--){
+             if(a[i]<a[i+1]){
+                 index=i;
+                 break;
+             }
+         }
+         if(index==-1){
+             reverseArray(a,0,a.length-1);
+             return a;
+         }else{
+             System.out.println("indx is" + index);
+             for(int i=a.length-1;i>=0;i--){
+                 if(a[i]>a[index]){
+                     int temp = a[index];
+                     a[index]=a[i];
+                     a[i]=temp;
+                     break;
+                 }
+             }
+             PrintArray(a);
+             reverseArray(a , index+1 , a.length-1);
+
+         }
+
+           return a;
+
+       }
+
+       int[] sortColors(int[] a){
+
+         int zeros=0,ones=0;
+         for(int i=0;i<a.length;i++){
+             if(a[i]==0){
+                 zeros++;
+             } else if (a[i]==1) {
+                 ones++;
+             }
+         }
+
+         int i=0;
+         int j=1;
+         while (j<=zeros){
+             a[i]=0;
+             i++;
+             j++;
+         }
+         j=1;
+         while (j<=ones){
+            a[i]=1;
+            i++;
+            j++;
+         }
+         while (i<a.length){
+             a[i]=2;
+             i++;
+         }
+
+         return a;
+       }
+
+
+       int maxProfit(int[] arr){
+           int maxPro = 0;
+           int minPrice = Integer.MAX_VALUE;
+           for (int i = 0; i < arr.length; i++) {
+               minPrice = Math.min(minPrice, arr[i]);
+               maxPro = Math.max(maxPro, arr[i] - minPrice);
+           }
+           return maxPro;
+       }
+
+
+       int[] repeatedAndMissing(int[] nums){
+         int[] a = new int[nums.length+1];
+         Arrays.fill(a,0);
+         for(int i=0;i<nums.length;i++){
+            a[nums[i]] = a[nums[i]]+1;
+         }
+         PrintArray(a);
+         int[] res = new int[2];
+         for(int i=1;i<a.length;i++){
+             if(a[i]==0){
+                 res[1]=i;
+             } else if (a[i]>1) {
+                  res[0]=i;
+             }
+         }
+//           PrintArray(nums);
+           return res;
+       }
+
+       int findFactorial (int n){
+         if(n==1){
+             return 1;
+         }
+         return n*findFactorial(n-1);
+       }
+//    public static long getInversions(long arr[], int n) {
+//
+//    }
+//       int countInverstion(int[] a){  // 8,7,1,9,10,4,5
+//         int count=0;
+//         for(int i=0;i<a.length-1;i++){
+//          for(int j=i+1;j<a.length;j++){
+//              if(a[j]<a[i]){
+//                  count+=1;
+//              }
+//          }
+//         }
+//
+//         return count;
+//       }
+
+
+    public static int mergeSortHelpercountInvertionMeerge(int[] a , int low , int mid , int high){
+         int count=0;
+         int[] res = new int[a.length];
+         int i=low;
+         int j=mid+1;
+         int k=low;
+         while (i<=mid && j<=high){
+             if(a[i]<a[j]){
+                 res[k]=a[i];
+                 i++;
+                 k++;
+             }else{
+                 count+=(mid-low)+1;
+                 System.out.println("yes");
+                 res[k]=a[j];
+                 j++;
+                 k++;
+             }
+         }
+
+         while (i<=mid){
+             res[k]=a[i];
+             k++;
+             i++;
+         }
+        while (j<=high){
+            res[k]=a[j];
+            k++;
+            j++;
+        }
+
+        for(int m=0;m<a.length;m++){
+            a[m]=res[m];
+        }
+
+        return count;
+
+    }
+
+
+
+      public static int mergeSortHelpercountInvertion(int[] a , int low , int high){
+         int count=0;
+         if(low<high){
+             int mid = (low+high)/2;
+             count+= mergeSortHelpercountInvertion(a , low , mid );
+             count+= mergeSortHelpercountInvertion(a , mid+1 , high);
+             count+= mergeSortHelpercountInvertionMeerge(a , low , mid , high);
+         }
+        return   count;
+     }
+       int countInverstion(int[] a){  // 8,7,1,9,10,4,5
+
+//         int count=0;
+
+        int count =  mergeSortHelpercountInvertion(a , 0 , a.length-1);
+        System.out.println(count);
+
+
+         return count;
+       }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -4536,10 +4726,43 @@ public class Leetcode {
 //            PrintArray(res);
 
 //        153. Find Minimum in Rotated Sorted Array
-              int[] a = {3,4,5,1,2};
-              Leetcode L1 = new Leetcode();
-              int res = L1.findMin(a);
-              System.out.println(res);
+//              int[] a = {3,4,5,1,2};
+//              Leetcode L1 = new Leetcode();
+//              int res = L1.findMin(a);
+//              System.out.println(res);
+
+//        31. Next Permutation
+//              int[] a = {1,2,3};
+//              int[] a = {2, 1,5,4,3,0,0};
+//              Leetcode L1 = new Leetcode();
+//              int[] res = L1.nextPermutation(a);
+//              PrintArray(res);
+
+//        75. Sort Colors
+//              int[] a = {2,0,2,1,1,0};
+//              Leetcode L1 = new Leetcode();
+//              int[] res = L1.sortColors(a);
+//              PrintArray(res);
+
+//        121. Best Time to Buy and Sell Stock
+//            int[] a = {7,1,5,3,6,4};
+//              int[] a = {7,6,4,3,1};
+//            Leetcode L1 = new Leetcode();
+//            int res = L1.maxProfit(a);
+//            System.out.println(res);
+
+//      interviewbit   Repeat and Missing Number Array
+//             int[] a = {3 ,1, 2, 5, 3};
+//             Leetcode L1 = new Leetcode();
+//             int[] res = L1.repeatedAndMissing(a);
+//             PrintArray(res);
+
+//       coading ninjas Count Inversions
+//            int[] a = {5,3,2,1,4};
+            int[] a = {2 ,5 ,1, 3, 4};
+            Leetcode L1 = new Leetcode();
+            int res=  L1.countInverstion(a);
+            System.out.println(res);
 
 //
 
