@@ -12,12 +12,10 @@ import java.util.*;
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.LinkedTransferQueue;
 
 
-
-
-
- class Listnode{
+class Listnode{
      int data;
      Listnode next;
      Listnode(int data){
@@ -3698,6 +3696,212 @@ public class Leetcode {
 
          return count;
        }
+
+       boolean searchMatrix(int[][] a , int target){
+         boolean res = false;
+         int index=-1;
+         for(int i=0;i<a.length;i++){
+             if(a[i][0]<=target && target<=a[i][a[i].length-1]){
+                 index=i;
+                 break;
+             }
+         }
+         if(index==-1){
+             return false;
+         }
+
+         for(int i=0;i<a[index].length;i++){
+             if(a[index][i]==target){
+                 res=true;
+             }
+         }
+         System.out.println(index);
+         return res;
+       }
+
+       double myPow(double x , int n){
+         if(n==1){
+             return x;
+         }
+         return x*myPow(x , n-1);
+       }
+
+       int majorityElement(int[] a){
+         int count=0;
+         int elm=a[0];
+         for(int i=0;i<a.length;i++){
+              if(a[i]==elm){
+                 count++;
+             }else{
+                 count--;
+             }
+             if(count==0){
+                 count=1;
+                 elm=a[i];
+             }
+         }
+         count++;
+         for(int i=0;i<a.length;i++){
+             if(a[i]==elm){
+                 count++;
+             }
+         }
+         if(count>a.length/2){
+             return elm;
+         }
+         return count;
+       }
+
+
+       int[][] dp62;
+
+    int uniquePathsHelper(int m , int n){
+
+        if(dp62[m][n]!=-1){
+            return dp62[m][n];
+        }
+        int count=0;
+        // if(m==1 && n!=1 || n==1 && m!=1){
+        //     return 0;
+        // }
+        if(m==1 && n==1){
+            return 1;
+        }
+        if(m!=1){
+            count+=uniquePathsHelper(m-1 , n);
+        }
+        if(n!=1){
+            count+=uniquePathsHelper(m , n-1);
+        }
+
+
+
+        dp62[m][n]=count;
+        return count;
+    }
+
+
+
+    public static int countPairs(int[] arr, int low, int mid, int high) {
+        int right = mid + 1;
+        int cnt = 0;
+        for (int i = low; i <= mid; i++) {
+            while (right <= high && arr[i] > 2 * arr[right]) right++;
+            cnt += (right - (mid + 1));
+        }
+        return cnt;
+    }
+    int[]  mergeArrHelper(int[] a , int low , int mid , int high){
+        int[] res = new int[a.length];
+
+        int i=low;
+        int j=mid+1;
+        int k=low;
+        while (i<=mid && j<=high){
+            if(a[i]<a[j]){
+                res[k]=a[i];
+                i++;
+            }else{
+
+                res[k]=a[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i<=mid){
+            res[k]=a[i];
+            i++;
+            k++;
+        }
+        while (j<=high){
+            res[k]=a[j];
+            j++;
+            k++;
+        }
+
+        for (int m = low; m <= high; m++) {
+            a[m] = res[m];
+        }
+
+        return a;
+    }
+
+
+    int mergeArr(int[] a, int low , int high){
+        int cnt=0;
+        if(low<high){
+
+            int mid=(low+high)/2;
+
+            mergeArr(a , low , mid);
+            mergeArr(a , mid+1 , high);
+            cnt += countPairs(a, low, mid, high);
+            mergeArrHelper(a , low , mid ,high);
+        }
+        return cnt;
+    }
+    int reversePairs(int[] a){
+        int count=0;
+        count = mergeArr(a , 0 , a.length-1);
+        PrintArray(a);
+        return count;
+    }
+
+       int uniquePaths(int m , int n){     //(3,7) (2,7) , (1,7) (1,6) , (1,5) , (1,4) , (1,3) , (1,2), (1,1)
+           dp62 = new int[m+1][n+1];
+           for(int i=0;i<dp62.length;i++){
+               for(int j=0;j<dp62[i].length;j++){
+                   dp62[i][j]=-1;
+               }
+           }
+           return uniquePathsHelper(m,n);
+       }
+
+    public List<List<Integer>> fourSum(int[] a, int target) {
+
+        List<List<Integer>> list = new ArrayList<>();
+        int i=0,j=i+1,k=j+1,l=a.length-1;
+
+         while (i<=a.length-4){
+             j=i+1;
+             while (j<=a.length-3){
+               k=j+1;
+               while (k<=a.length-2){
+
+
+//                       while (k<l && a[k]==a[k+1]){
+//                      System.out.println("same" + a[k]);
+//                           k++;
+//                       }
+                       System.out.println(i+"-"+j+"-"+k+"-"+l);
+                       if(a[i]+a[j]+a[k]+a[l]==target){
+                           System.out.println(a[i]+""+a[j]+""+a[k]+""+a[l] +"=0");
+                           List<Integer> l1 = new ArrayList<>();
+                           l1.add(a[i]);
+                           l1.add(a[j]);
+                           l1.add(a[k]);
+                           l1.add(a[l]);
+                           list.add(l1);
+                           l--;
+                       } else if (a[i]+a[j]+a[k]+a[l]<target) {
+                           k++;
+                       }else{
+                           k++;
+                           break;
+                       }
+
+
+//                   System.out.println(a[k]);
+               }
+               j++;
+             }
+             i++;
+         }
+        return list;
+
+
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -4758,14 +4962,57 @@ public class Leetcode {
 //             PrintArray(res);
 
 //       coading ninjas Count Inversions
-//            int[] a = {5,3,2,1,4};
-            int[] a = {2 ,5 ,1, 3, 4};
-            Leetcode L1 = new Leetcode();
-            int res=  L1.countInverstion(a);
-            System.out.println(res);
+////            int[] a = {5,3,2,1,4};
+//            int[] a = {2 ,5 ,1, 3, 4};
+//            Leetcode L1 = new Leetcode();
+//            int res=  L1.countInverstion(a);
+//            System.out.println(res);
 
-//
 
+//        74. Search a 2D Matrix
+//              int[][] a = {{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 60}};
+//              int target  = 3;
+//              Leetcode L1 = new Leetcode();
+//              boolean res=L1.searchMatrix(a ,target );
+//              System.out.println(res);
+
+
+//        50. Pow(x, n)
+//              double x = 2.00000;
+//              int n = 10;
+//              Leetcode L1 = new Leetcode();
+//              double res = L1.myPow(x,n);
+//              System.out.println(res);
+
+//        169. Majority Element
+//               int[] a = {6,5,5};
+//               Leetcode L1 = new Leetcode();
+//               int res = L1.majorityElement(a);
+//               System.out.println(res);
+
+
+
+//         62. Unique Paths
+//              int m = 3, n = 7;
+//              Leetcode L1 = new Leetcode();
+//              int res = L1.uniquePaths(m,n);
+//              System.out.println(res);
+
+
+
+//        493. Reverse Pairs
+//              int[] nums = {2,4,3,5,1};
+//              Leetcode L1 = new Leetcode();
+//              int res=  L1.reversePairs(nums);
+//              System.out.println(res);
+
+
+//         18 sum
+             int[] a = {1,0,-1,0,-2,2};
+             int target=0;
+             Leetcode L1 = new Leetcode();
+             List<List<Integer>> list = L1.fourSum(a,target);
+             PrintDoublyList(list);
 
 
 
