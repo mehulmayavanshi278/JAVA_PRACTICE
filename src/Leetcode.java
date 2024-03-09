@@ -1456,8 +1456,9 @@ public class Leetcode {
 
     public static void PrintIntList(List<Integer> list){
         for(int elm : list){
-            System.out.println(elm);
+            System.out.print(elm + " ");
         }
+        System.out.println("");
     }
     public static void PrintStringList(List<String> list){
         for(String elm : list){
@@ -1645,61 +1646,157 @@ public class Leetcode {
          count=g[index];
          return count;
     }
-//    public int lengthOfLongestSubstring(String s){ //abcabcbb
-//         int count=0;
-//         int temp=0;
-//         int k=0;
-//         outer :   for(int i=0;i<s.length()-1;i++){
-//             for(int j=i+1;j<s.length();j++){
-//                 if(s.charAt(i)==s.charAt(j)){
-//                     count = Math.max(k,count);
-//                     System.out.println("k is " + k);
+
+
+
+
+     List<List<Integer>> list = new ArrayList<>();
+     List<Integer> l1 = new ArrayList<>();
+
+//    List<List<Integer>> combinationSumHelper(int[] a , int target , int sum , int index , List<Integer> l2){
 //
-//                     System.out.println("i is " + i);
-//                     System.out.println("j is " + j);
-//                     k=1;
-//                     continue outer;
-//                 }
-//                 k++;
-//             }
-//             count = Math.max(k , count);
-//             k=0;
-//         }
-//         System.out.println(count);
 //
-//         return count;
+//        sum+=a[index];
+//        l2.add(a[index]);
+//        PrintIntList(l2);
+//        System.out.println("_");
+//        if(sum==target){
+//            System.out.println("enter in");
+//            list.add(l2);
+//            sum-=a[index];
+//            l2.remove(l2.size()-1);
+//            return list;
+//        } else if (sum>target) {
+//            System.out.println("enter in2");
+//            sum-=a[index];
+//            l2.remove(l2.size()-1);
+//            return list;
+//        }
+//        for(int i=index;i<a.length;i++){
+////           l2.clear();
+//
+//
+//
+//            for(int j=i;j<a.length;j++){
+//                if(sum<target){
+//                    combinationSumHelper(a , target , sum , j , l2);
+//                }
+//            }
+//
+//
+//        }
+//        return list;
 //    }
-    public int lengthOfLongestSubstring(String s){ //abcabcbb
-         int start=0;
-         int end=0;
-         int max=0;
-         Set<Character> hashset= new HashSet<>();
 
-        while (end<s.length()){
-            System.out.println("yes" + hashset);
-           char chr = s.charAt(end);
-           if(hashset.add(chr)){
 
-               max = Math.max(max , end-start+1);
-               end++;
-           }else{
-             while (s.charAt(start)!=chr){
-                 hashset.remove(s.charAt(start));
-                 start++;
-             }
-               hashset.remove(s.charAt(start));
-               start++;
+    List<List<Integer>> combinationSum2Helper(int[] a , int index ,  int target , List<Integer> l1 , List<List<Integer>> list){
 
-//             System.out.println(hashset);
-           }
 
+        if(index>=a.length){
+            return list;
+        }
+        System.out.println("elm is " + a[index]);
+        if(target==0){
+            System.out.println("found");
+            list.add(l1);
+            PrintIntList(l1);
+            return list;
         }
 
-        System.out.println(hashset);
+        if(target-a[index]>=0){
+            System.out.println("enteered");
+            l1.add(a[index]);
+            combinationSum2Helper(a , index+1 , target-a[index] , l1 , list);
+            l1.remove(l1.size()-1);
+        }
+        combinationSum2Helper(a , index+1 , target , l1 , list);
 
 
-         return max;
+
+        return list;
     }
+
+    List<List<Integer>> combinationSum2(int[] a , int target){
+
+        List<List<Integer>> list = new ArrayList<>();
+        List<Integer> l1 = new ArrayList<>();
+
+       list =  combinationSum2Helper(a , 0 , target , l1 , list);
+        PrintDoublyList(list);
+        return list;
+    }
+
+//    List<List<Integer>> combinationSum(int[] a , int target){
+//
+//        int sum=0;
+//        for(int i=0;i<a.length;i++){
+//            sum=0;
+//            List<Integer> l2 = new ArrayList<>();
+//            l2.clear();
+//
+//            combinationSumHelper(a , target , sum , i , l2);
+//        }
+//
+//        return list;
+//    }
+
+
+    public int lengthOfLongestSubstring(String s){ //abcabcbb
+
+
+         int max = 1;
+
+         String str = s.charAt(0)+"";
+         for(int i=1;i<s.length();i++){
+           if(str.contains(s.charAt(i)+"")){
+               System.out.println("i is " + i);
+               int index = str.indexOf(s.charAt(i));
+               System.out.println("index is " + index);
+               max=Math.max(max , str.length());
+               System.out.println("max is " + max);
+               System.out.println("elm is " + str);
+               int len = str.length();
+               str = str.substring(index+1 , len);
+
+           }
+           str+=s.charAt(i);
+
+         }
+         return max;
+
+
+    }
+//    public int lengthOfLongestSubstring(String s){ //abcabcbb
+//         int start=0;
+//         int end=0;
+//         int max=0;
+//         Set<Character> hashset= new HashSet<>();
+//
+//        while (end<s.length()){
+//            System.out.println("yes" + hashset);
+//           char chr = s.charAt(end);
+//           if(hashset.add(chr)){
+//
+//               max = Math.max(max , end-start+1);
+//               end++;
+//           }else{
+//             while (s.charAt(start)!=chr){
+//                 hashset.remove(s.charAt(start));
+//                 start++;
+//             }
+//               hashset.remove(s.charAt(start));
+//               start++;
+//
+////             System.out.println(hashset);
+//           }
+//
+//        }
+//
+//        System.out.println(hashset);
+//
+//
+//         return max;
+//    }
     public  boolean detectCapitalUse(String s){
          Character c = s.charAt(0)<=122 && s.charAt(0)>=97 ? 'a' : 'A';
          System.out.println(c);
@@ -2904,24 +3001,40 @@ public class Leetcode {
         return true;
     }
 
-    int longestConsecutive(int[] nums){
-        int st = 0;
-        int res = 0;
-        Arrays.sort(nums);
+    int longestConsecutive(int[] a){
+//        int st = 0;
+//        int res = 0;
+//        Arrays.sort(nums);
+//
+//        for (int i = 1; i < nums.length; i++) {
+//            if (nums[i] - nums[i - 1] == 0) {
+//                res = Math.max(res,1);
+//                st++;
+//            }
+//            else if (nums[i] - nums[i - 1] != 1) {
+//                st = i;
+//            }else {
+//                res = Math.max(res, i - st+1);
+//            }
+//        }
+//        if(nums.length==0) return 0;
+//        if(nums.length==1) return 1;
+//        return res;
 
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] - nums[i - 1] == 0) {
-                res = Math.max(res,1);
+        Arrays.sort(a);
+        int res=0;
+        int st=0;
+        for(int i=1;i<a.length;i++){   // 1 2 3 4 100 200
+            if(a[i]-a[i-1] ==1){
+               res =  Math.max(res , i-st+1);
+            } else if (a[i]-a[i-1]==0) {
                 st++;
-            }
-            else if (nums[i] - nums[i - 1] != 1) {
-                st = i;
             }else {
-                res = Math.max(res, i - st+1);
+                st=i;
+                res = Math.max(res , 1);
+                System.out.println("max" + res);
             }
         }
-        if(nums.length==0) return 0;
-        if(nums.length==1) return 1;
         return res;
     }
 
@@ -3860,48 +3973,210 @@ public class Leetcode {
 
     public List<List<Integer>> fourSum(int[] a, int target) {
 
+
         List<List<Integer>> list = new ArrayList<>();
-        int i=0,j=i+1,k=j+1,l=a.length-1;
+        Arrays.sort(a);
+        int k , l;
 
-         while (i<=a.length-4){
-             j=i+1;
-             while (j<=a.length-3){
-               k=j+1;
-               while (k<=a.length-2){
-
-
-//                       while (k<l && a[k]==a[k+1]){
-//                      System.out.println("same" + a[k]);
-//                           k++;
-//                       }
-                       System.out.println(i+"-"+j+"-"+k+"-"+l);
-                       if(a[i]+a[j]+a[k]+a[l]==target){
-                           System.out.println(a[i]+""+a[j]+""+a[k]+""+a[l] +"=0");
-                           List<Integer> l1 = new ArrayList<>();
-                           l1.add(a[i]);
-                           l1.add(a[j]);
-                           l1.add(a[k]);
-                           l1.add(a[l]);
-                           list.add(l1);
-                           l--;
-                       } else if (a[i]+a[j]+a[k]+a[l]<target) {
-                           k++;
-                       }else{
-                           k++;
-                           break;
-                       }
+        for(int i=0;i<a.length-3;i++){
+            if(i>0 && a[i]==a[i-1]){
+                continue;
+            }
+            for(int j=i+1;j<a.length-2;j++){
+                if(j>i+1 && a[j]==a[j-1]){
+//                    j++;
+                    continue;
+                }
+                k=j+1;
+                l=a.length-1;
+                while (k<l){
+                    int sum = a[i]+a[j]+a[k]+a[l];
+                    if(sum==target){
+                        List<Integer> l1 = new ArrayList<>();
+                        l1.add(a[i]);
+                        l1.add(a[j]);
+                        l1.add(a[k]);
+                        l1.add(a[l]);
 
 
-//                   System.out.println(a[k]);
-               }
-               j++;
-             }
-             i++;
-         }
+                        while (k<l && a[k]==a[k+1]){
+                            k++;
+                        }
+                        while (k<l && a[l]==a[l-1]){
+                            l--;
+                        }
+                        k++;
+                        l--;
+                    } else if (sum<target) {
+                        k++;
+                    }else {
+                        l--;
+                    }
+                }
+            }
+        }
+        if(list.size()==0){
+            list.add(new ArrayList<>());
+        }
+
         return list;
 
 
     }
+
+    int maxLen(int[] a){
+        int max=Integer.MIN_VALUE;
+        Arrays.sort(a);
+        int sum=0;
+        int st=0;
+        int i=0;
+        while (i<a.length){
+            sum+=a[i];
+            if(sum==0){
+                max = Math.max(max , i-st+1);
+                sum-=a[st];
+                st++;
+            } else if (sum>0) {
+                while (sum>0 && st<a.length){
+                    sum-=a[st];
+                    st++;
+                }
+                if(sum==0){
+                    max = Math.max(max , i-st+1);
+                }
+            }
+
+
+        }
+        return max;
+    }
+
+    int SubArrayWithXOR(int[] a , int b){
+        int count=0;
+        int exor=0;
+        for(int i=0;i<a.length;i++){
+            exor=0;
+//            if((exor^a[i])==b){
+//                count++;
+//            }
+            for(int j=i;j<a.length;j++){
+               exor^=a[j];
+               if(exor==b){
+                   count++;
+               }
+            }
+        }
+        return count;
+    }
+
+
+
+    int getCommon(int[] a , int[] b){
+        int result=-1;
+       Map<Integer , Integer> hashmap = new HashMap<>();
+       for(int i=0;i<a.length;i++){
+           hashmap.put(a[i] , 1);
+       }
+       for(int i=0;i<b.length;i++){
+           if(hashmap.get(b[i])!=null && hashmap.get(b[i])==1){
+               result=b[i];
+           }
+       }
+
+        return result;
+    }
+
+
+
+    int maxSubArray(int[] a){
+        int sum=a[0];
+        int max=a[0];
+
+
+        for(int i=1;i<a.length;i++){
+            sum+=a[i];
+            if(a[i]>sum){
+                sum=a[i];
+            }
+            max = Math.max(sum , max);
+        }
+
+
+        return max;
+    }
+
+
+
+    int[][] generateMatrix(int n){
+        int[][] rs = new int[n][n];
+        int i=0,j=n-1,k=n-1,l=0;
+        int x=1;
+        int p=0,q=0;
+        while (true){
+
+            while (q<=j){
+                rs[p][q]=x;
+                System.out.println(rs[p][q]);
+                x++;
+                q++;
+            }
+            if(k-i==0){
+                break;
+            }
+//            x--;
+            i++;
+            p=i;
+            q--;
+
+            while (p<=k){
+               rs[p][q]=x;
+                System.out.println(rs[p][q]);
+               x++;
+               p++;
+            }
+            if(j-l==0){
+                break;
+            }
+            j--;
+            p--;
+            q--;
+            while (q>=l){
+                rs[p][q]=x;
+                System.out.println(rs[p][q]);
+                x++;
+                q--;
+            }
+            if(k-i==0){
+                break;
+            }
+            k--;
+            p--;
+            q++;
+            while (p>=i){
+                rs[p][q]=x;
+                System.out.println(rs[p][q]);
+                x++;
+                p--;
+            }
+            if(j-l==0){
+                break;
+            }
+            l++;
+            q++;
+            p++;
+
+//            System.out.println((j-l)+"0" +   (k-i));
+
+
+        }
+        return rs;
+    }
+
+//    List<Integer> l1 = new ArrayList<>();
+
+
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -4781,7 +5056,7 @@ public class Leetcode {
 
 //        128. Longest Consecutive Sequence
 //              int[] a = {100,4,200,1,3,2};
-//              int[] a = {0,3,7,2,5,8,4,6,0,1};
+////              int[] a = {0,3,7,2,5,8,4,6,0,1};
 //              Leetcode L1 = new Leetcode();
 //              int result = L1.longestConsecutive(a);
 //              System.out.println(result);
@@ -5008,11 +5283,80 @@ public class Leetcode {
 
 
 //         18 sum
-             int[] a = {1,0,-1,0,-2,2};
-             int target=0;
-             Leetcode L1 = new Leetcode();
-             List<List<Integer>> list = L1.fourSum(a,target);
-             PrintDoublyList(list);
+//             int[] a = {1,0,-1,0,-2,2};
+//             int[] a = {1,0,-1,0,-2,2};
+//             int target=0;
+//             int[] a = {1000000000,1000000000,1000000000,1000000000};
+//             int target=-294967296;
+//             Leetcode L1 = new Leetcode();
+//             List<List<Integer>> list = L1.fourSum(a,target);
+//             PrintDoublyList(list);
+
+
+//        Largest subarray with 0 sum  gfg
+//            int[] a = {15,-2,2,-8,1,7,10,23};
+//            Leetcode L1 = new Leetcode();
+//            int res = L1.maxLen(a);
+//            System.out.println(res);
+
+
+
+
+//        Subarray with given XOR
+//             int[] a = {4,2,2,6,4};
+//             int b=6;
+//             Leetcode L1 = new Leetcode();
+//             int res = L1.SubArrayWithXOR(a,b);
+//             System.out.println(res);
+
+
+//        3. Longest Substring Without Repeating Characters
+//            String s = "bbbbb";
+////            String s = "abcabcbb";
+//            Leetcode L1 = new Leetcode();
+//            int result = L1.lengthOfLongestSubstring(s);
+//            System.out.println(result);
+
+//        39. Combination Sum
+//              int[] a = {2,3,5};
+//              int target = 8;
+//              Leetcode L1=new Leetcode();
+//              List<List<Integer>> res = L1.combinationSum(a,target);
+//              PrintDoublyList(res);
+
+//        40  combinationSum2
+//              int[] a = {10,1,2,7,6,1,5};
+//              int target = 8;
+//              Leetcode L1 = new Leetcode();
+//              List<List<Integer>> res = L1.combinationSum2(a , target);
+//              PrintDoublyList(res);
+
+//         2540. Minimum Common Value
+//               int[] a = {1,2,3};
+//               int[] b = {2,4};
+//                  int[] a = {1,2};
+//               int[] b = {2,4};
+//               Leetcode L1 = new Leetcode();
+//               int result = L1.getCommon(a,b);
+//               System.out.println(result);
+
+//           52 maxSubArray
+//               int[] a = {-2,1,-3,4,-1,2,1,-5,4};
+//                 int[] a = {5,4,-1,7,8};
+//               Leetcode L1 = new Leetcode();
+//               int result = L1.maxSubArray(a);
+//               System.out.println(result);
+
+
+//           59. Spiral Matrix II
+                int n=5;
+                Leetcode L1 = new Leetcode();
+                int[][] rs = L1.generateMatrix(n);
+                PrintDoubleArray(rs);
+
+
+
+
 
 
 
