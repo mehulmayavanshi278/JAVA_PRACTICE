@@ -92,23 +92,16 @@ public class Leetcode {
          }
      }
 
-     public  static Listnode reverseListNode(Listnode head){
-         Listnode current = head;
-         List<Listnode> listnodesArr = new ArrayList<>();
-         while (current!=null){
-             listnodesArr.add(current);
-             current=current.next;
-         }
-
-         Collections.reverse(listnodesArr);
-         Listnode head1=listnodesArr.get(0);
-         Listnode temp = head1;
-         for(int i=1;i<listnodesArr.toArray().length;i++){
-             head1.next = listnodesArr.get(i);
-             head1=head1.next;
-         }
-         head1.next=null;
-         return temp;
+     public  static Listnode reverseListNode(Listnode head){   // 1 2 3 4 5
+        Listnode prev = null;
+        Listnode curr = head;
+        while (curr!=null){
+            Listnode nextNode = curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr = nextNode;
+        }
+        return prev;
      }
 
      public static void PrintArray(int[] a){
@@ -2206,6 +2199,77 @@ public class Leetcode {
 
     }
 
+    public static boolean isPalindromeLinkedList(Listnode l1){
+        boolean isPal = true;
+
+
+        return isPal;
+    }
+
+
+
+    public  static  Listnode reverseKGroup(Listnode l1 , int k){  //  1 2 3  4 5 6  7 8 9
+                                                          //  3 2 1  6 5 4  9 8 7
+        int x=1;
+        int p=0;
+        Listnode dummy = new Listnode(-1);
+        Listnode ans = dummy;
+        Listnode start=l1;
+        Listnode origionalHead=null;
+        Listnode newend=null;
+        Listnode prv = null;
+       while (l1!=null){
+           while (l1!=null && x!=k){
+               l1=l1.next;
+               x++;
+           }
+           if(x==k && l1!=null){
+
+             Listnode nxt = l1==null ? null : l1.next;
+              newend = start;
+              if(l1!=null){
+                  l1.next=null;
+              }
+
+             dummy.next=reverseListNode(start);
+             start=nxt;
+             l1=start;
+             dummy=newend;
+             x=1;
+           }else {
+               dummy.next=start;
+           }
+
+       }
+//       PrintListnode(ans);
+       return ans.next;
+
+    }
+
+    public static Listnode detectCyclePoint(Listnode l1){
+        Listnode slow = l1;
+        Listnode fast = l1;
+        int ind=-1;
+        while (fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+            if(slow==fast){
+                 slow = l1;
+                 ind=0;
+                while (slow!=fast){
+                    slow=slow.next;
+                    fast=fast.next;
+                    ind++;
+                }
+            }
+        }
+
+        return new Listnode(ind);
+
+
+    }
+
+
     public int myAtoi(String s){
          int result=0;
          int i=0;
@@ -4172,7 +4236,104 @@ public class Leetcode {
         return rs;
     }
 
-//    List<Integer> l1 = new ArrayList<>();
+
+//    int[] intersection(int[] a , int[] b){
+//        int k=0;
+//        int i=0 , j=0;
+//        int[] res = new int[Math.min(a.length , b.length)];
+//        Set<Integer> hashset = new HashSet<>();
+//        for(int p=0;p<a.length;p++){
+//            hashset.add(a[p]);
+//        }
+//        for(int p=0;p<b.length;p++){
+//            if(hashset.contains(b[p])){
+//                res[k]=b[p];
+//                k++;
+//                System.out.println(b[p]);
+//                hashset.remove(b[p]);
+//            }
+//
+//        }
+//        System.arraycopy(a , 0 , a , 0 , k);
+//        return Arrays.copyOf(res , k);
+//    }
+
+
+    int[] intersection(int[] a , int[] b){
+        int k =0;
+        int i=0,j=0;
+        int[] res = new int[Math.min(a.length , b.length)];
+
+        return res;
+    }
+
+
+    public  static  Listnode middleNode(Listnode start){
+        Listnode slow=start;
+        Listnode fast=start;
+
+        while (fast.next!=null && fast!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+
+        return slow;
+    }
+
+    public static Listnode rotateLinkedList(Listnode head  , int k){
+        Listnode start = reverseListNode(head);
+        Listnode prev = null;
+        Listnode curr = start;
+
+        while (k!=0){
+         Listnode nextNode =  curr.next;
+         curr.next=prev;
+         prev=curr;
+         curr=nextNode;
+         k--;
+        }
+        start = reverseListNode(curr);
+        curr=prev;
+        while (curr.next!=null){
+            curr=curr.next;
+        }
+        curr.next=start;
+
+
+        return prev;
+
+    }
+
+
+    public static List<Integer> subsetSumsHlpr(int[] a ,int i ,  List<Integer> l1){
+        if(i==a.length-1){
+            l1.add(a[i]);
+            return l1;
+        }
+        int sum=a[i];
+        int sum2=a[i];
+        l1.add(sum);
+        for(int j=i+1;j<a.length;j++){
+            sum2 = sum2+a[j];
+            l1.add(sum2);
+            if(!l1.contains(sum+a[j])){
+                l1.add(sum+a[j]);
+            }
+
+        }
+
+        return subsetSumsHlpr(a , i+1 , l1);
+    }
+
+
+    List<Integer> subsetSums(int[] a){
+        List<Integer> list = new ArrayList<>();
+        list.add(0);
+        list = subsetSumsHlpr(a,0,list);
+        return list;
+    }
+
+
 
 
 
@@ -5349,10 +5510,83 @@ public class Leetcode {
 
 
 //           59. Spiral Matrix II
-                int n=5;
-                Leetcode L1 = new Leetcode();
-                int[][] rs = L1.generateMatrix(n);
-                PrintDoubleArray(rs);
+//                int n=5;
+//                Leetcode L1 = new Leetcode();
+//                int[][] rs = L1.generateMatrix(n);
+//                PrintDoubleArray(rs);
+
+//        349. Intersection of Two Arrays
+//            int[] a = {1,2,2,1};
+//            int[] b = {2,2};
+//            int[] a = {4,9,5};
+//            int[] b = {9,4,9,8,4};
+//            Leetcode L1 = new Leetcode();
+//            int[] res = L1.intersection(a , b);
+//            PrintArray(res);
+
+
+
+//        876  middleNode
+//              int[] a = {1,2,3,4,5,6};
+//              Listnode l1 = createListnode(a);
+//              Listnode rs = middleNode(l1);
+//              PrintListnode(rs);
+
+//        61. Rotate List
+//              int[] a = {1,2,3,4,5};
+//              int k=2;
+//              Listnode l1 = createListnode(a);
+//              Listnode res = rotateLinkedList(l1 , k);
+//              PrintListnode(res);
+
+//        19. Remove Nth Node From End of List
+//              int[] a = {1,2,3,4,5};
+//              int n=2;
+//              Listnode l1 = createListnode(a);
+//              Listnode res = removeNthFromEnd(l1,n);
+//              PrintListnode(res);
+
+
+//                237. Delete Node in a Linked List
+//                 int[] a = {4,5,1,9};
+//                 int n=5;
+//                 Listnode l1 = createListnode(a);
+//                 Listnode res =  deleteNode(l1 , 1);
+
+
+//        234. Palindrome Linked List
+//              int[] a = {1,1,2,1};
+//              Listnode l1 = createListnode(a);
+//              boolean isPalindrome = isPalindromeLinkedList(l1);
+//              System.out.println(isPalindrome);
+
+//        25. Reverse Nodes in k-Group
+//             int[] a = {1,2,3,4,5};
+//             int k=3;
+                int[] a = {1,2,3,4,5,6,7,8,9};
+                int k=3;
+             Listnode l1 = createListnode(a);
+             Listnode rs = reverseKGroup(l1 , k);
+             PrintListnode(rs);
+
+//          142 Linked List Cycle II
+
+//            int[] a = {1,2,3,4,5,6,7,8,9};
+//            Listnode l1 = createListnode(a);
+//            Listnode res = detectCyclePoint(l1);
+//            System.out.println(res.data);
+
+
+//          gfg subst sum
+//             int[] a ={5, 2, 1};
+//             Leetcode L1= new Leetcode();
+//             List<Integer> list = L1.subsetSums(a);
+//             PrintIntList(list);
+
+
+
+
+
 
 
 
