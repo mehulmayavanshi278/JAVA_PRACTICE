@@ -1323,13 +1323,13 @@ public class Leetcode {
       }
       return list;
     }
-    public int[] nextGreaterElement(int[] nums1 , int[] nums2){
-         int[] result = new int[nums1.length];
-         for(int i=0;i<nums1.length;i++){
-             result[i] = findNextGreter(nums2 , findIndex(nums2 , nums1[i]) ) ;
-         }
-         return result;
-    }
+//    public int[] nextGreaterElement(int[] nums1 , int[] nums2){
+//         int[] result = new int[nums1.length];
+//         for(int i=0;i<nums1.length;i++){
+//             result[i] = findNextGreter(nums2 , findIndex(nums2 , nums1[i]) ) ;
+//         }
+//         return result;
+//    }
     public int minOperations(String s){
          int count=0;
          int i=1;
@@ -1643,80 +1643,80 @@ public class Leetcode {
 
 
 
-     List<List<Integer>> list = new ArrayList<>();
-     List<Integer> l1 = new ArrayList<>();
+//     List<List<Integer>> list = new ArrayList<>();
+//     List<Integer> l1 = new ArrayList<>();
 
-//    List<List<Integer>> combinationSumHelper(int[] a , int target , int sum , int index , List<Integer> l2){
-//
-//
-//        sum+=a[index];
-//        l2.add(a[index]);
-//        PrintIntList(l2);
-//        System.out.println("_");
-//        if(sum==target){
-//            System.out.println("enter in");
-//            list.add(l2);
-//            sum-=a[index];
-//            l2.remove(l2.size()-1);
-//            return list;
-//        } else if (sum>target) {
-//            System.out.println("enter in2");
-//            sum-=a[index];
-//            l2.remove(l2.size()-1);
-//            return list;
-//        }
-//        for(int i=index;i<a.length;i++){
-////           l2.clear();
-//
-//
-//
-//            for(int j=i;j<a.length;j++){
-//                if(sum<target){
-//                    combinationSumHelper(a , target , sum , j , l2);
-//                }
-//            }
-//
-//
-//        }
-//        return list;
-//    }
+    public static void combinationSumHelper(int[] a , int index , int target , List<Integer> l1 , List<List<Integer>> list){
+
+         if(target==0){
+             list.add(new ArrayList<>(l1));
+             return;
+         }
+         if(target<0){
+             return;
+         }
+         for(int i=index;i<a.length;i++){
+             if(target<a[i]){
+                 break;
+             }
+             l1.add(a[i]);
+             combinationSumHelper(a , i , target-a[i] , l1 , list);
+             l1.remove(l1.size()-1);
+         }
+
+    }
+
+    List<List<Integer>> combinationSum(int[] a , int target){
+        List<List<Integer>> list = new ArrayList<>();
+        List<Integer> l1 = new ArrayList<>();
+        combinationSumHelper(a, 0 , target , l1 , list);
+        return list;
+    }
 
 
-    List<List<Integer>> combinationSum2Helper(int[] a , int index ,  int target , List<Integer> l1 , List<List<Integer>> list){
+    public  static   void  combinationSum2Helper(int[] a , int index ,  int target , List<Integer> l1 , List<List<Integer>> list){
 
-
-        if(index>=a.length){
-            return list;
+        if(index==a.length && target!=0){
+            return;
         }
-        System.out.println("elm is " + a[index]);
         if(target==0){
-            System.out.println("found");
-            list.add(l1);
-            PrintIntList(l1);
-            return list;
+            if(!list.contains(l1)){
+                list.add(new ArrayList<>(l1));
+            }
+            return;
+
+        }
+        if(target<0){
+            return;
         }
 
-        if(target-a[index]>=0){
-            System.out.println("enteered");
-            l1.add(a[index]);
-            combinationSum2Helper(a , index+1 , target-a[index] , l1 , list);
+
+        for(int i=index;i<a.length;i++){
+            if(i>index && a[i]==a[i-1]){
+                continue;
+            }
+            if(a[i]>target){
+                break;
+            }
+            l1.add(a[i]);
+
+            combinationSum2Helper(a , i+1 , target-a[i] , l1 , list);
             l1.remove(l1.size()-1);
         }
-        combinationSum2Helper(a , index+1 , target , l1 , list);
 
 
 
-        return list;
+
     }
 
     List<List<Integer>> combinationSum2(int[] a , int target){
 
+        Arrays.sort(a);
         List<List<Integer>> list = new ArrayList<>();
         List<Integer> l1 = new ArrayList<>();
-
-       list =  combinationSum2Helper(a , 0 , target , l1 , list);
-        PrintDoublyList(list);
+        combinationSum2Helper(a , 0  , target ,   l1 , list);
         return list;
+
     }
 
 //    List<List<Integer>> combinationSum(int[] a , int target){
@@ -4326,12 +4326,176 @@ public class Leetcode {
     }
 
 
-    List<Integer> subsetSums(int[] a){
-        List<Integer> list = new ArrayList<>();
-        list.add(0);
-        list = subsetSumsHlpr(a,0,list);
+//    List<Integer> subsetSums(int[] a){
+//        List<Integer> list = new ArrayList<>();
+//        return list;
+//    }
+
+
+//    List<List<Integer>> subsetsWithDupHlpr(int[] a , int i , List<List<Integer>> list , List<Integer> l1){
+//
+//    }
+//    List<List<Integer>> subsetsWithDup(int[] a){
+//
+//    }
+
+    public  static   void subsetsHelper(int[] a , int ind , List<List<Integer>> list ,   List<Integer> l1){
+
+     if(ind==a.length){
+         if(!list.contains(l1)){
+             list.add(new ArrayList<>(l1));
+         }
+
+         return ;
+     }
+
+
+     if(ind<a.length){
+         l1.add(a[ind]);
+
+         subsetsHelper(a , ind+1 , list , l1);
+         l1.remove(l1.size()-1);
+     }
+        subsetsHelper(a , ind+1 , list , l1);
+
+
+
+
+
+    }
+
+
+    List<List<Integer>> subsets(int[] a){
+        List<List<Integer>> list = new ArrayList<>();
+        List<Integer> l1 = new ArrayList<>();
+         subsetsHelper(a , 0 , list ,l1);
         return list;
     }
+
+
+//    private static void backtrackgetParmutation(int[] nums, List<Integer> tempList, List<List<Integer>> result) {
+//        if (tempList.size() == nums.length) {
+//            result.add(new ArrayList<>(tempList));
+//        } else {
+//            for (int i = 0; i < nums.length; i++) {
+//                if (tempList.contains(nums[i])) continue; // Skip already used elements
+//                tempList.add(nums[i]);
+//                backtrack(nums, tempList, result);
+//                tempList.remove(tempList.size() - 1);
+//            }
+//        }
+//    }
+
+
+//    List<String> getParmutation(int n , int k){
+//
+//    }
+
+
+    int singleNonDuplicateHelper(int[] a , int low , int high){    // 1,1,2,3,3,4,4,8,8
+                                                                   //  3,3,7,7,10,11,11
+        System.out.println(low + " " + high);
+
+        if(high-low!=2){
+
+            int mid = (low+high)/2;
+            if(a[mid]!=a[mid-1] && a[mid]!=a[mid+1]){
+                return a[mid];
+            }
+            if(mid%2==0){
+                if(a[mid]==a[mid-1]){
+                    high=mid;
+                }else {
+                    low=mid;
+                }
+            }else {
+               if(a[mid]==a[mid-1]){
+                    low =  mid+1;
+                }else {
+                    high=mid-1;
+                }
+            }
+
+            return singleNonDuplicateHelper(a , low , high);
+        }
+        if(a[low]==a[low+1]){
+            return a[high];
+        }else {
+            return a[low];
+        }
+
+
+
+    }
+
+    int findKthLargest(int[] a , int k){
+        PriorityQueue<Integer>pq= new PriorityQueue<>((s,t)->t-s);   // it returns the element in
+        for(int i=0;i<a.length;i++){
+            pq.add(a[i]);
+        }
+        int f=k-1;
+
+        while (f!=0){
+           pq.remove();
+           f--;
+        }
+        return pq.peek();
+    }
+
+      int singleNonDuplicate(int[] a){
+        return singleNonDuplicateHelper(a , 0 , a.length-1);
+      }
+
+      int[] nextGreaterElement(int[] a , int[] num){
+        Map<Integer , Integer> hashmap = new HashMap<>();
+        Stack<Integer> stack = new Stack<>();
+        int[] rs = new int[num.length];
+        for(int i=a.length-1;i>=0;i--){
+
+            while (!stack.isEmpty() && stack.peek()<a[i]){
+                stack.pop();
+            }
+            if(stack.isEmpty()){
+                hashmap.put(a[i] , -1);
+                stack.push(a[i]);
+                continue;
+            }
+
+                hashmap.put(a[i] , stack.peek());
+                 stack.push(a[i]);
+        }
+        for(int i=0;i<num.length;i++){
+            rs[i] = hashmap.get(num[i]);
+        }
+
+        return rs;
+      }
+
+      int[] nextSmallerElement(int[] a , int[] num){    // 34, 35, 27, 42, 5, 28, 39, 20, 28
+        int[] rs = new int[num.length];
+
+        Stack<Integer> stak = new Stack<>();
+        int k=0;
+        for(int i=0;i<a.length;i++){
+            while (!stak.isEmpty() && stak.peek()>=a[i]){
+                stak.pop();
+            }
+            if(stak.isEmpty()){
+                stak.push(a[i]);
+                rs[k] = -1;
+                k++;
+                 continue;
+            }
+            rs[k]=stak.peek();
+            k++;
+            stak.push(a[i]);
+
+        }
+//        for(int i=0;i<num.length;i++){
+//            rs[i] = hashmap.get(num[i]);
+//        }
+        return rs;
+      }
 
 
 
@@ -5563,11 +5727,11 @@ public class Leetcode {
 //        25. Reverse Nodes in k-Group
 //             int[] a = {1,2,3,4,5};
 //             int k=3;
-                int[] a = {1,2,3,4,5,6,7,8,9};
-                int k=3;
-             Listnode l1 = createListnode(a);
-             Listnode rs = reverseKGroup(l1 , k);
-             PrintListnode(rs);
+//                int[] a = {1,2,3,4,5,6,7,8,9};
+//                int k=3;
+//             Listnode l1 = createListnode(a);
+//             Listnode rs = reverseKGroup(l1 , k);
+//             PrintListnode(rs);
 
 //          142 Linked List Cycle II
 
@@ -5582,6 +5746,66 @@ public class Leetcode {
 //             Leetcode L1= new Leetcode();
 //             List<Integer> list = L1.subsetSums(a);
 //             PrintIntList(list);
+
+
+
+
+//        78  subset
+
+//           int[] a = {1,2,3};
+//           Leetcode L1 = new Leetcode();
+//           List<List<Integer>> list = L1.subsets(a);
+//           PrintDoublyList(list);
+
+//        90. Subsets II
+//            int[] a = {1,2,2};
+//            Leetcode L1 = new Leetcode();
+//            List<List<Integer>> rs = L1.subsetsWithDup(a);
+//            PrintDoublyList(rs);
+
+
+
+//             fin all prmutation
+
+//        540. Single Element in a Sorted Array
+//               int[] a = {1,1,2,3,3,4,4,8,8};
+//               int[] a  = {3,3,7,7,10,11,11};
+//               Leetcode L1 = new Leetcode();
+//               int res = L1.singleNonDuplicate(a);
+//               System.out.println(res);
+
+
+
+//         gfg  K-th element of two Arrays
+
+
+//        215. Kth Largest Element in an Array
+//            int[] a = {3,2,1,5,6,4};
+//            int k=2;
+//            Leetcode L1 = new Leetcode();
+//            int rs = L1.findKthLargest(a , k);
+//            System.out.println(rs);
+
+
+//        496. Next Greater Element I
+//               int[] a  = {1,3,4,2};
+//               int[] num = {4,1,2};
+////                int[] a  = {1,2 , 3 , 4};
+////                int[] num = {2,4};
+//               Leetcode L1 = new Leetcode();
+//               int[] rs = L1.nextGreaterElement(a , num);
+//               PrintArray(rs);
+
+//        496. Next smallr Element
+//                int[] a  = {1,3,4,2};
+//                int[] num = {4,1,2};
+//                        int[] a  = {34, 35, 27, 42, 5, 28, 39, 20, 28};
+//                        int[] num = {34, 35, 27, 42, 5, 28, 39, 20, 28};
+//                Leetcode L1 = new Leetcode();
+//                int[] rs = L1.nextSmallerElement(a , num);
+//                PrintArray(rs);
+
+
 
 
 
