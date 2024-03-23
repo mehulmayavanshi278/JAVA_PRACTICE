@@ -4446,7 +4446,7 @@ public class Leetcode {
         return singleNonDuplicateHelper(a , 0 , a.length-1);
       }
 
-      int[] nextGreaterElement(int[] a , int[] num){
+      int[] nextGreaterElement(int[] a , int[] num){  
         Map<Integer , Integer> hashmap = new HashMap<>();
         Stack<Integer> stack = new Stack<>();
         int[] rs = new int[num.length];
@@ -4495,6 +4495,28 @@ public class Leetcode {
 //            rs[i] = hashmap.get(num[i]);
 //        }
         return rs;
+      }
+
+      int repeatedStringMatch(String s1 , String s2){   // ced
+
+        if(s1.contains(s2)){
+            return 1;
+        }
+
+
+
+        int rs = 1;
+        String s = s1;
+
+          for(int i=0;i<s2.length();i++){
+              if(!s.contains(s2)){
+                  rs++;
+                  s = s+s1;
+              }else {
+                  break;
+              }
+          }
+        return s.contains(s2) ? rs : -1;
       }
 
 
@@ -5804,6 +5826,16 @@ public class Leetcode {
 //                Leetcode L1 = new Leetcode();
 //                int[] rs = L1.nextSmallerElement(a , num);
 //                PrintArray(rs);
+
+
+//        686. Repeated String Match
+//              String s1 = "abcd";
+//              String s2 = "cdabcdab";
+              String s1="aaaaaaaaaaaaaaaaaaaaaab";
+              String s2 = "ba";
+              Leetcode L1 = new Leetcode();
+              int rs = L1.repeatedStringMatch(s1 , s2);
+              System.out.println(rs);
 
 
 
