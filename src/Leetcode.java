@@ -977,6 +977,133 @@ public class Leetcode {
          return maxDiff;
     }
 
+
+    int minEatingSpeedHLPR(int[] a , int start , int end , int h){
+         int count=0;
+         int min = Integer.MAX_VALUE;
+         while (start<=end){
+             int mid = (start+end)/2;
+             for(int i=0;i<a.length;i++){
+               count+=Math.floor(a[i]/mid);
+             }
+             min = Math.min(min , count);
+
+         }
+         return 0;
+    }
+    int minEatingSpeed(int[] a , int h){
+         int sum=0;
+         for(int i=0;i<a.length;i++){
+             sum+=a[i];
+         }
+         int n=sum/h;
+         int ans = minEatingSpeedHLPR(a , n , n+n , h);
+         return ans;
+    }
+
+
+    int findHighestColumn(int[][] a) {      // {{0,0,0,0,1,1,1} , {0,0,0,1,1,1,1} , {0,0,1,1,1,1,1} , {0,0,0,1,1,1,1} , {0,0,0,0,0,0,0}};
+        if (a[0][0] == 1) {
+            return 0;
+        }
+        int low = 0;
+        int row = 0;
+        int ans=-1;
+        int high = a[0].length - 1;
+        while (row != a.length) {
+        low=0;
+        while (low <= high) {
+
+            if (a[row][0] == 1) {
+                return row;
+            }
+            int mid = (low + high) / 2;
+            if (a[row][mid] == 1 && a[row][mid - 1] == 0) {
+                high = mid;
+                ans=row;
+                break;
+            } else if (a[row][mid] == 1) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+
+            if(low>high){
+                System.out.println(low + "low" + high + " high");
+            }
+
+
+
+        }
+            System.out.println(high);
+            row++;
+    }
+
+         return ans;
+    }
+
+    boolean searchMatrix(int[][] a , int target){   // {{1,3,5,7},{10,11,16,20},{23,30,34,60}};
+      boolean isPresent=false;
+      int top=0;
+      int bot=a.length-1;
+      int low=0,high=a[0].length-1;
+      outLoop :  while (top<=bot){
+
+          int mid1 = (top+bot)/2;
+          if(target>=a[mid1][low] && target<=a[mid1][high]){
+
+              while (low<=high){
+                  int mid=(low+high)/2;
+                  if(a[mid1][mid]==target){
+                      isPresent=true;
+                      break;
+                  }else if(target<a[mid1][mid]){
+                      high=mid-1;
+                  }else {
+                      low=mid+1;
+                  }
+              }
+
+              break;
+
+          }
+          if(target<a[mid1][a[0].length]){
+              bot=mid1-1;
+          }else {
+              top=mid1+1;
+          }
+      }
+      return isPresent;
+    }
+
+    boolean searchMatrixIIHLPR(int[][] a , int target  , int i , int j , int k , int l){
+         boolean isPresent=false;
+         int mid1 = (i+j)/2;
+         int mid2 = (k+l)/2;
+         if(i<=j && k<=l){
+             if(a[mid1][mid2]==target){
+                return true;
+             }
+             else if(a[mid1][mid2]>target){
+                 return searchMatrixIIHLPR(a , target , i , mid1 , j , mid2) || searchMatrixIIHLPR(a , target , i , mid1 , mid2+1 , l) || searchMatrixIIHLPR(a , target , mid1+1 , j , k , mid2-1);
+             }else {
+                 return searchMatrixIIHLPR(a , target , i , mid1 , mid2+1 , l) || searchMatrixIIHLPR(a , target , mid1+1 , j , k , mid2) || searchMatrixIIHLPR(a , target , mid1+1 , j , mid2 , l);
+             }
+         }
+
+        return isPresent;
+    }
+
+    boolean searchMatrixII(int[][] a , int target){  //[ [1,  4, 7, 11,15]
+        boolean isPresent=false;                     //  [2,  5, 8, 12,19]
+        int top=0;                                   //  [3,  6, 9, 16,22]
+        int bot=a.length-1;                          //  [10, 13,14,17,24]
+        int low=0,high=a[0].length-1;                //  [18, 21,23,26,30] ]
+        int i=0 , j=a.length-1 , k=0 , l=a[0].length-1;
+        return searchMatrixIIHLPR(a , target , i , j , k , l);
+
+    }
+
     public int[][] imageSmoother(int[][] a){
 
             int[][] result = new int[a.length][a[0].length];
@@ -1168,6 +1295,7 @@ public class Leetcode {
     }
 
     public int islandPerimeter(int[][] a){
+
          int result=0;
          for(int i=0;i<a.length;i++){
              for(int j=0;j<a[i].length;j++){
@@ -3874,27 +4002,27 @@ public class Leetcode {
          return count;
        }
 
-       boolean searchMatrix(int[][] a , int target){
-         boolean res = false;
-         int index=-1;
-         for(int i=0;i<a.length;i++){
-             if(a[i][0]<=target && target<=a[i][a[i].length-1]){
-                 index=i;
-                 break;
-             }
-         }
-         if(index==-1){
-             return false;
-         }
-
-         for(int i=0;i<a[index].length;i++){
-             if(a[index][i]==target){
-                 res=true;
-             }
-         }
-         System.out.println(index);
-         return res;
-       }
+//       boolean searchMatrix(int[][] a , int target){
+//         boolean res = false;
+//         int index=-1;
+//         for(int i=0;i<a.length;i++){
+//             if(a[i][0]<=target && target<=a[i][a[i].length-1]){
+//                 index=i;
+//                 break;
+//             }
+//         }
+//         if(index==-1){
+//             return false;
+//         }
+//
+//         for(int i=0;i<a[index].length;i++){
+//             if(a[index][i]==target){
+//                 res=true;
+//             }
+//         }
+//         System.out.println(index);
+//         return res;
+//       }
 
        double myPow(double x , int n){
          if(n==1){
@@ -4508,7 +4636,7 @@ public class Leetcode {
         int rs = 1;
         String s = s1;
 
-          for(int i=0;i<s2.length();i++){
+          for(int i=0;i<s2.length()/s1.length()+2;i++){
               if(!s.contains(s2)){
                   rs++;
                   s = s+s1;
@@ -4520,10 +4648,161 @@ public class Leetcode {
       }
 
 
+      List<Integer> findDuplicates442(int[] a){
+
+        List<Integer> l1 = new ArrayList<>();
+        for(int i=0;i<a.length;i++){
+            int k = Math.abs(a[i])-1;
+            if(a[k]<0){
+                l1.add(k+1);
+            }
+            a[k]*=-1;
+        }
+        return l1;
+      }
+
+
+      int[] dNums(int[] a , int k){
+          if (k > a.length) {
+              return new int[]{};
+          }
+
+          int[] rs = new int[a.length - k + 1];
+          Map<Integer, Integer> counts = new HashMap<>();
+          int distinctCount = 0;
+
+          // Initialize counts for the first window
+          for (int i = 0; i < k; i++) {
+              counts.put(a[i], counts.getOrDefault(a[i], 0) + 1);
+              if (counts.get(a[i]) == 1) {
+                  distinctCount++;
+              }
+          }
+          rs[0] = distinctCount;
+
+          // Slide the window and update counts
+          for (int i = 1; i <= a.length - k; i++) {
+              int removeElement = a[i - 1];
+              int addElement = a[i + k - 1];
+
+              counts.put(removeElement, counts.get(removeElement) - 1);
+              if (counts.get(removeElement) == 0) {
+                  distinctCount--;
+              }
+
+              counts.put(addElement, counts.getOrDefault(addElement, 0) + 1);
+              if (counts.get(addElement) == 1) {
+                  distinctCount++;
+              }
+
+              rs[i] = distinctCount;
+          }
+
+          return rs;
+      }
 
 
 
+      public static void findAllPermutationsHLPR(int[] a , List<List<Integer>> rs , List<Integer> tmp , boolean[] used){
+        if(tmp.size()==a.length){
+            rs.add(new ArrayList<>(tmp));
+        }
 
+        for(int i=0;i<a.length;i++){
+            if(!used[i]){
+                used[i]=true;
+                tmp.add(a[i]);
+                findAllPermutationsHLPR(a , rs , tmp , used);
+                used[i]=false;
+                tmp.remove(tmp.size()-1);
+            }
+        }
+      }
+
+      public static List<List<Integer>>  findAllPermutations(int n){
+        int[] a = new int[n];
+        for(int i=1;i<=n;i++){
+          a[i-1]=i;
+        }
+          List<List<Integer>> rs = new ArrayList<>();
+          List<Integer> tmp = new ArrayList<>();
+          boolean[] used = new boolean[n];
+          findAllPermutationsHLPR(a , rs , tmp , used);
+          return rs;
+      }
+
+
+      int[] rearrangeArray(int[] a){
+        int[] pos = new int[a.length/2];
+        int[] nag = new int[a.length/2];
+        int j=0;
+        int k=0;
+        for(int i=0;i<a.length;i++){
+            if(a[i]>0){
+                pos[j]=a[i];
+                j++;
+            }else {
+                nag[k]=a[i];
+                k++;
+            }
+        }
+        int p=0;
+        j=0;
+        k=0;
+        for(int i=0;i<a.length;i++){
+            if(i%2==0){
+                a[p]=pos[j];
+                j++;
+            }else {
+                a[p]=nag[k];
+                k++;
+            }
+            p++;
+        }
+        return a;
+
+      }
+
+      int subarraySum(int[] a , int n){
+        int count=0;
+        int start=0;
+        int sum=0;
+        for(int i=0;i<a.length;i++){
+
+            sum+=a[i];
+            if(sum>n){
+
+                sum-=a[start];
+                start=i;
+            }
+            if(sum==n){
+                count++;
+                sum-=a[start];
+                start=i;
+            }
+            if(a[i]==n){
+                count++;
+                sum=0;
+                start++;
+            }
+        }
+        return count;
+      }
+
+
+      int maxProduct(int[] a){
+        int count=1;
+        int max=Integer.MIN_VALUE;
+        for(int i=0;i<a.length;i++){
+            count*=a[i];
+            if(count==0){
+                count=1;
+                continue;
+            }
+            max = Math.max(max , count);
+        }
+        return max;
+      }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -5831,11 +6110,189 @@ public class Leetcode {
 //        686. Repeated String Match
 //              String s1 = "abcd";
 //              String s2 = "cdabcdab";
-              String s1="aaaaaaaaaaaaaaaaaaaaaab";
-              String s2 = "ba";
-              Leetcode L1 = new Leetcode();
-              int rs = L1.repeatedStringMatch(s1 , s2);
-              System.out.println(rs);
+//              String s1="aaaaaaaaaaaaaaaaaaaaaab";
+//              String s2 = "ba";
+//              Leetcode L1 = new Leetcode();
+//              int rs = L1.repeatedStringMatch(s1 , s2);
+//              System.out.println(rs);
+
+//        442. Find All Duplicates in an Array
+//               int[] a = {4,3,2,7,8,2,3,1};
+//               Leetcode l1 = new Leetcode();
+//               List<Integer> list = l1.findDuplicates442(a);
+//               PrintIntList(list);
+
+
+//        Distinct Numbers in Window
+//              int[] a = {1, 2, 1, 3, 4, 3};
+//              int k=3;
+//              Leetcode L1 = new Leetcode();
+//              int[] rs = L1.dNums(a , k);
+//              PrintArray(rs);
+
+//        987. Vertical Order Traversal of a Binary Tree
+//            int k=3;
+//            List<List<Integer>> list = findAllPermutations(k);
+//            PrintDoublyList(list);
+
+
+
+
+//          patterns
+//                 *
+//               * * *
+//             * * * * *
+//            * * * * * * *
+//          * * * * * * * * *
+
+
+//        int row=6;
+//        int start=((row*2)-1)/2;
+//        int end = ((row*2)-1)/2;
+//
+//        while (start!=0){
+//            for(int i=0;i<row*2-1;i++){
+//                if(i<=end && i>=start)  System.out.print("*");
+//                else  System.out.print(" ");
+//            }
+//            start--;
+//            end++;
+//            System.out.println("");
+//        }
+
+
+
+
+//          1      1
+//          12    21
+//          123  321
+//          12344321
+
+//          int row=4;
+//          int col=row*2-1;
+//          int n=1;
+//          int start=0;
+//          int end=row*2-1;
+//
+//          while (row!=0){
+//              n=1;
+//              for(int i=0;i<=col;i++){
+//                if(i<=start){
+//                    System.out.print(n);
+//                    n++;
+//                    continue;
+//                }else if (i>=end){
+//                    System.out.print(--n);
+//                    continue;
+//                }else {
+//                    System.out.print(" ");
+//                }
+//
+//              }
+//              System.out.println("");
+//              start++;
+//              end--;
+//              row--;
+//          }
+
+
+//
+//        int num=4;
+//        int row=num*2-1;
+//        int col=num*2-1;
+//
+//        int start=-1;
+//        int end=col;
+//
+//
+//        while (row!=0){
+//            num=4;
+//            if(row>num){
+//                for(int i=0;i<col;i++){
+//                    if(i<=start){
+//                        System.out.print(num--);
+//                    }else if(i>=end){
+//                        System.out.print(++num);
+//                    }else {
+//                        System.out.print(num);
+//                    }
+//                }
+//                start++;
+//                end--;
+//            }else {
+//                for(int i=0;i<col;i++){
+//                    if(i<=start){
+//                        System.out.print(num--);
+//                    }else if(i>=end){
+//                        System.out.print(++num);
+//                    }else {
+//                        System.out.print(num);
+//                    }
+//                }
+//                start--;
+//                end++;
+//            }
+//
+//
+//            row--;
+//            System.out.println("");
+//        }
+
+
+
+
+//         2149. Rearrange Array Elements by Sign
+//             int[] a = {3,1,-2,-5,2,-4};
+//             Leetcode L1 = new Leetcode();
+//             int[] rs = L1.rearrangeArray(a);
+//             PrintArray(rs);
+
+
+//        560. Subarray Sum Equals K
+//              int[] a = {1,2,3};
+//              int[] a = {-1,-1,1};
+//              int sum=0;
+//              Leetcode L1 = new Leetcode();
+//              int rs =  L1.subarraySum(a , sum);
+//              System.out.println(rs);
+
+
+
+//        152. Maximum Product Subarray
+//              int[] a = {2,3,-2,4};
+//              Leetcode L1 = new Leetcode();
+//              int rs = L1.maxProduct(a);
+//              System.out.println(rs);
+
+
+//        875. Koko Eating Bananas
+//               int[] a = {30,11,23,4,20};
+//               int h=5;
+//               Leetcode L1 = new Leetcode();
+//               int rs = L1.minEatingSpeed(a,h);
+//               System.out.println(rs);
+
+//        int[][] a = {{0,0,0,0,1,1,1} , {0,0,0,0,1,1,1} , {0,0,1,1,1,1,1} , {0,1,1,1,1,1,1} , {0,0,0,0,0,0,0}};
+//        Leetcode L1 = new Leetcode();
+//        int rs = L1.findHighestColumn(a);
+//        System.out.println(rs);
+
+
+//        74. Search a 2D Matrix
+//             int[][] a = {{1,3,5,7},{10,11,16,20},{23,30,34,60}};
+//             Leetcode L1 = new Leetcode();
+//             int target=11;
+//             boolean ans = L1.searchMatrix(a , target);
+//             System.out.println(ans);
+
+//        240. Search a 2D Matrix II
+               int[][] a = {{1,4,7,11,15},{2,5,8,12,19},{3,6,9,16,22},{10,13,14,17,24},{18,21,23,26,30}};
+                 Leetcode L1 = new Leetcode();
+                 int target=5;
+                 boolean ans = L1.searchMatrixII(a , target);
+                 System.out.println(ans);
+
+
 
 
 
