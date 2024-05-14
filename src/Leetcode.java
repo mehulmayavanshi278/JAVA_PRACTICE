@@ -1458,6 +1458,7 @@ public class Leetcode {
 //         }
 //         return result;
 //    }
+
     public int minOperations(String s){
          int count=0;
          int i=1;
@@ -4574,30 +4575,30 @@ public class Leetcode {
         return singleNonDuplicateHelper(a , 0 , a.length-1);
       }
 
-      int[] nextGreaterElement(int[] a , int[] num){  
-        Map<Integer , Integer> hashmap = new HashMap<>();
-        Stack<Integer> stack = new Stack<>();
-        int[] rs = new int[num.length];
-        for(int i=a.length-1;i>=0;i--){
-
-            while (!stack.isEmpty() && stack.peek()<a[i]){
-                stack.pop();
-            }
-            if(stack.isEmpty()){
-                hashmap.put(a[i] , -1);
-                stack.push(a[i]);
-                continue;
-            }
-
-                hashmap.put(a[i] , stack.peek());
-                 stack.push(a[i]);
-        }
-        for(int i=0;i<num.length;i++){
-            rs[i] = hashmap.get(num[i]);
-        }
-
-        return rs;
-      }
+//      int[] nextGreaterElement(int[] a , int[] num){
+//        Map<Integer , Integer> hashmap = new HashMap<>();
+//        Stack<Integer> stack = new Stack<>();
+//        int[] rs = new int[num.length];
+//        for(int i=a.length-1;i>=0;i--){
+//
+//            while (!stack.isEmpty() && stack.peek()<a[i]){
+//                stack.pop();
+//            }
+//            if(stack.isEmpty()){
+//                hashmap.put(a[i] , -1);
+//                stack.push(a[i]);
+//                continue;
+//            }
+//
+//                hashmap.put(a[i] , stack.peek());
+//                 stack.push(a[i]);
+//        }
+//        for(int i=0;i<num.length;i++){
+//            rs[i] = hashmap.get(num[i]);
+//        }
+//
+//        return rs;
+//      }
 
       int[] nextSmallerElement(int[] a , int[] num){    // 34, 35, 27, 42, 5, 28, 39, 20, 28
         int[] rs = new int[num.length];
@@ -4803,6 +4804,294 @@ public class Leetcode {
         }
         return max;
       }
+
+      int maxDepthNestingOfString(String s1){
+        int max = Integer.MIN_VALUE;
+        int count=0;
+        for(int i=0;i<s1.length();i++){
+            if(s1.charAt(i)=='('){
+                count++;
+            } else if (s1.charAt(i)==')') {
+                count--;
+            }
+            max = Math.max(max , count);
+        }
+        return  max;
+      }
+
+      int beautySum(String s1){
+        int min=0;
+        int count=0;
+
+        return count;
+      }
+
+
+
+      public  static  int countGoodNumbersHLPR(long n , int index){
+        if(n==0){
+            return 1;
+        }
+        if(index%2==0){
+           System.out.println("0");
+           return countGoodNumbersHLPR(n-1 , index+1);
+        }else{
+           System.out.println("1");
+            return countGoodNumbersHLPR(n-1 , index+1);
+        }
+//         return 0;
+      }
+      int countGoodNumbers(long n){
+        return countGoodNumbersHLPR(n , 0);
+
+      }
+
+//      Stack<Integer> sortStack(Stack<Integer> STACK){
+//          Stack<Integer> s1 = new Stack<>();
+//          int tmp = STACK.pop();
+//          while (!STACK.isEmpty()){
+//              while ()
+//          }
+//      }
+
+    static void reverseStackHLPR(Stack<Integer> s , Stack<Integer> res){
+        if(s.isEmpty()){
+//            while(!res.isEmpty()){
+//                s.add(res.pop());
+//            }
+            return;
+        }
+        int num=s.pop();
+        reverseStackHLPR(s , res);
+        res.add(num);
+    }
+
+    boolean existPath79(String[][] arr , String path){
+        boolean isExist = false;
+
+        return isExist;
+    }
+
+    String infixToPostfix(String s1){
+        Map<Character , Integer> hashmap = new HashMap<>();
+        hashmap.put('+' , 1);
+        hashmap.put('-' , 1);
+        hashmap.put('*' , 2);
+        hashmap.put('/' , 2);
+        hashmap.put('^' , 3);
+//        hashmap.put('(' , 4);
+//        hashmap.put(')' , 4);
+        String res = "";
+        String oparadns="()+-*/^";
+        Stack<Character> STACK = new Stack<>();
+        for(int i=0;i<s1.length();i++){
+            char currChar=s1.charAt(i);
+            if(oparadns.contains(String.valueOf(currChar))){
+             if(STACK.isEmpty() || currChar=='('){
+                 STACK.add(currChar);
+             }else{
+                 if( currChar==')'){
+                     while (!STACK.isEmpty()  && STACK.peek()!='('){
+                         res+=STACK.pop();
+                     }
+                     STACK.pop();
+
+                 }else{
+                     while (!STACK.isEmpty() && hashmap.getOrDefault(STACK.peek(), 0) >= hashmap.get(currChar)) {
+                         res += STACK.pop();
+                     }
+                     STACK.push(currChar);
+                 }
+             }
+
+            }else{
+                res+=currChar;
+            }
+        }
+        while (!STACK.isEmpty()){
+            res+=STACK.pop();
+        }
+        return res;
+    }
+
+    String PrefixToInfix(String s1){    // revsre itaration (  + c1 + oparand + c2 + )
+        String res="";
+        Stack<String> stack = new Stack<>();
+        String oparands="+-*/^";
+        for(int i=s1.length()-1;i>=0;i--){
+            Character curr = s1.charAt(i);
+            if(oparands.contains(String.valueOf(curr))){
+
+              String c1 = stack.pop();
+              String c2 = stack.pop();
+              res="("+c1+curr+c2+")";
+              stack.push(res);
+            }else{
+                stack.push(String.valueOf(curr));
+            }
+        }
+        return res;
+    }
+
+    String PREFIXtOpOSTfIX(String s1){    //    reverse iteration  oparator1+opaeater2+oparand
+        String res="";
+        Stack<String> stack = new Stack<>();
+        String oparands = "+-*/^";
+        for(int i=s1.length()-1;i>=0;i--){
+            Character curr = s1.charAt(i);
+            if(oparands.contains(String.valueOf(curr))){
+                String c1 = stack.pop();
+                String c2 = stack.pop();
+                res=c1+c2+curr;
+                stack.push(res);
+            }else{
+                stack.push(String.valueOf(curr));
+            }
+
+        }
+        return res;
+    }
+
+    String PostFixtoPreFix(String s1){      // oparand+oparater2+oparater1
+        Stack<String> stack = new Stack<>();
+        String res="";
+        String oparands = "-*+/^";
+        for(int i=0;i<s1.length();i++){
+             Character curr = s1.charAt(i);
+            if(oparands.contains(String.valueOf(curr))){
+               String c1 = stack.pop();
+               String c2 = stack.pop();
+               res=curr+c2+c1;
+               stack.push(res);
+            }else{
+               stack.push(String.valueOf(curr));
+            }
+        }
+        return res;
+    }
+
+    int[] nextGreaterElement(int[] a , int[] b){
+        Map<Integer , Integer> hashmap = new HashMap<>();
+        int[] res = new int[a.length];
+        Arrays.fill(res , -1);
+        for(int i=0;i<b.length;i++){
+            hashmap.put(b[i] , i);
+        }
+        for(int i=0;i<a.length;i++){
+            for(int j=hashmap.get(a[i])+1;j<b.length;j++){
+                if(b[j]>a[i]){
+                    res[i]=b[j];
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+
+    int[] asteroidCollision(int[] a){
+        List<Integer> list =new ArrayList<>();
+        Stack<Integer> stack = new Stack<>();
+        int i=a.length-1;
+        while (i>=0){
+          if(a[i]<0){
+             int num=Math.abs(a[i]);
+             System.out.println("num is  " + num);
+             i--;
+             while (i>=0 && a[i]> -num && a[i]<num){
+                 if(a[i]==num){
+                     break;
+                 }
+                 i--;
+             }
+             if(i!=-1 && a[i]>num){
+                 stack.push(a[i]);
+             }else{
+                 stack.push(-num);
+             }
+          }else{
+              stack.push(a[i]);
+          }
+          i--;
+        }
+        System.out.println("stack" + stack);
+        int[] res = new int[a.length];
+        return res;
+    }
+
+    int subArrayRanges(int[] a){
+        int min=Integer.MAX_VALUE;
+        int max=Integer.MIN_VALUE;
+        int res=0;
+        for(int i=0;i<a.length-1;i++){
+            min=Math.min(min , a[i]);
+            max=Math.max(max , a[i]);
+            for(int j=i+1;j< a.length;j++){
+                min=Math.min(min , a[j]);
+                max=Math.max(max , a[j]);
+                System.out.println("min" + min);
+                System.out.println("max" + max);
+                int tmp = max-min;
+                res+=tmp;
+            }
+             min=Integer.MAX_VALUE;
+             max=Integer.MIN_VALUE;
+        }
+
+        return res;
+    }
+
+    int[] StockSpanner(int[] a){
+        int[] res = new int[a.length];
+        Stack<Integer> stack = new Stack<>();
+        for(int i=0;i<a.length;i++){
+
+            while (!stack.isEmpty() && a[stack.peek()]<a[i]){
+               stack.pop();
+            }
+            if(!stack.isEmpty()){
+                res[i] = i-stack.peek();
+            } else if (stack.isEmpty()) {
+                res[i]=1;
+            }
+            stack.push(i);
+        }
+        return res;
+    }
+
+    String removeKdigitsHLPR(String s1 , int k , int min , int index){
+      if(k==0){
+          return String.valueOf(min);
+      }
+      if(s1.length()==k){
+          return "0";
+      }
+      if(index==s1.length()){
+          return String.valueOf(min);
+      }
+      String newString = s1.substring(0,index) + s1.substring(index+1);
+
+      System.out.println("new string:" + newString);
+      int newMin = Math.min(min , Integer.parseInt(newString));
+
+       return    String.valueOf(Math.min(Integer.parseInt(removeKdigitsHLPR(newString , k-1 , newMin , 0)) , Integer.parseInt(removeKdigitsHLPR(s1 , k , min , index+1))));
+//      return "";
+    }
+    String removeKdigits(String s1 , int k){
+        int min = Math.min(Integer.MAX_VALUE , Integer.parseInt(s1));
+       return removeKdigitsHLPR(s1 , k , min , 0);
+    }
+    static void reverseStack(Stack<Integer> s)
+    {
+        // add your code here
+        Stack<Integer> res = new Stack<>();
+        reverseStackHLPR(s , res);
+//        s.clear();
+//        System.out.println(s);
+//        System.out.println(res);
+        while(!res.isEmpty()) {
+            s.push(res.pop());
+        }
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -6286,11 +6575,138 @@ public class Leetcode {
 //             System.out.println(ans);
 
 //        240. Search a 2D Matrix II
-               int[][] a = {{1,4,7,11,15},{2,5,8,12,19},{3,6,9,16,22},{10,13,14,17,24},{18,21,23,26,30}};
-                 Leetcode L1 = new Leetcode();
-                 int target=5;
-                 boolean ans = L1.searchMatrixII(a , target);
-                 System.out.println(ans);
+//               int[][] a = {{1,4,7,11,15},{2,5,8,12,19},{3,6,9,16,22},{10,13,14,17,24},{18,21,23,26,30}};
+//                 Leetcode L1 = new Leetcode();
+//                 int target=5;
+//                 boolean ans = L1.searchMatrixII(a , target);
+//                 System.out.println(ans);
+
+//        1614. Maximum Nesting Depth of the Parentheses
+//                String s1  = "(1)+((2))+(((3)))";
+//                Leetcode L1 = new Leetcode();
+//                int ans = L1.maxDepthNestingOfString(s1);
+//                System.out.println(ans);
+
+//        1781. Sum of Beauty of All Substrings
+//                String s1 = "aabcb";
+//                Leetcode L1 = new Leetcode();
+//                int res = L1.beautySum(s1);
+//                System.out.println(s1);
+
+
+//        1922. Count Good Numbers
+//              long n=4;
+//              Leetcode L1 = new Leetcode();
+//              int res = L1.countGoodNumbers(n);
+//              System.out.println(res);
+
+
+//        GFG  Sort a stack
+//               Stack<Integer> STACK = new Stack<>();
+//               STACK.push(11);
+//               STACK.push(2);
+//               STACK.push(32);
+//               STACK.push(3);
+//               STACK.push(41);
+//
+//               Leetcode L1  = new Leetcode();
+//               Stack<Integer> s1 = L1.sortStack(STACK);
+//               System.out.println(STACK);
+
+//        reverse a stack
+//        Stack<Integer> STACK = new Stack<>();
+//               STACK.push(1);
+//               STACK.push(2);
+//               STACK.push(3);
+//               STACK.push(4);
+//               STACK.push(5);
+
+//               STACK.push(8);
+//               STACK.push(6);
+//               STACK.push(8);
+//               STACK.push(9);
+//               STACK.push(3);
+//               STACK.push(1);
+//               STACK.push(3);
+//               STACK.push(9);
+//               STACK.push(6);
+//               STACK.push(8);
+//               Leetcode L1 = new Leetcode();
+//                reverseStack(STACK);
+//               System.out.println(STACK);
+
+//        79. Word Search
+//              String[][]  arr = {{"A" , "B" , "C" , "E"} , {"S" , "F" , "C" , "S"} , {"A" , "D" , "E" , "E"}};
+//              Leetcode L1 = new Leetcode();
+//              String path = "ABCCED";
+//              boolean res =  L1.existPath79(arr ,  path);
+//              System.out.println(res);
+
+//        infix to postfix
+
+//               String s1 ="a+b*(c^d-e)^(f+g*h)-i";
+//               Leetcode L1 = new Leetcode();
+//               String res = L1.infixToPostfix(s1);
+//               System.out.println(res);
+
+
+//        Prefix to Infix Conversion
+//               String s1 ="*-A/BC-/AKL";
+//               Leetcode L1 = new Leetcode();
+//               String res = L1.PrefixToInfix(s1);
+//               System.out.println(res);
+
+
+//         prefix to postfix
+//               String s1 ="*-A/BC-/AKL";
+//               Leetcode L1 = new Leetcode();
+//               String res = L1.PREFIXtOpOSTfIX(s1);
+//               System.out.println(res);
+
+//               String s1 ="ABC/-AK/L-*";
+//               Leetcode L1 = new Leetcode();
+//               String res = L1.PostFixtoPreFix(s1);
+//               System.out.println(res);
+
+
+//        496. Next Greater Element I
+//        int[] nums1 = {4,1,2};
+//        int[] nums2 = {1,3,4,2};
+//        Leetcode L1 = new Leetcode();
+//        int[] res =  L1.nextGreaterElement(nums1 , nums2);
+//        PrintArray(res);
+
+
+//        735. Asteroid Collision
+//               int[] a = {10,2,-5,4,-10,20,30,-40,40};
+//               Leetcode L1 = new Leetcode();
+//               int[] res = L1.asteroidCollision(a);
+//               PrintArray(res);
+
+
+//        2104. Sum of Subarray Ranges
+//                int[] a = {4,-2,-3,4,1};
+//                Leetcode L1 = new Leetcode();
+//                int res = L1.subArrayRanges(a);
+//                System.out.println(res);
+
+//        901. Online Stock Span
+//            int[] a = {100, 80, 60, 70, 60, 75, 85};
+//            Leetcode L1 = new Leetcode();
+//            int[] res = L1.StockSpanner(a);
+//            PrintArray(res);
+
+//        402. Remove K Digits
+//              String s1 = "1432219";
+              String s1 = "112";
+//              int k=3;
+//              int k=2;
+              int k=1;
+              Leetcode L1 = new Leetcode();
+              String res = L1.removeKdigits(s1 , k);
+              System.out.println(res);
+
+
 
 
 
